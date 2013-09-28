@@ -225,13 +225,12 @@ class OAuth
             $oauthParameters['oauth_token'] = $token->getKey();
         }
 
-        $oauthParameters['oauth_signature'] = $this->getSignature()->generate(
+        $request->setOAuthParameters($oauthParameters);
+        $request->setOAuthParameter('oauth_signature', $this->getSignature()->generate(
             $request,
             $this->getConsumer()->getSecret(),
             ($token !== null) ? $token->getSecret() : null
-        );
-
-        $request->setOAuthParameters($oauthParameters);
+        ));
     }
 
     /**

@@ -124,7 +124,7 @@ class Twitter
         $response = $this->sendRequest($request);
         $result = json_decode($response, true);
 
-        if ($result === false) {
+        if (($result === null) || (isset($result['errors']))) {
             throw new \RuntimeException(sprintf(
                 'The http response is not valid JSON. (%s)',
                 str_replace("\n", '', $response)
@@ -166,6 +166,6 @@ class Twitter
             );
         }
 
-        throw new \RuntimException(sprintf('The request method "%s" is not supported.', $request->getMethod()));
+        throw new \RuntimeException(sprintf('The request method "%s" is not supported.', $request->getMethod()));
     }
 }
