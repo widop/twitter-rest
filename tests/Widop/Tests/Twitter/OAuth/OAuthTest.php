@@ -151,8 +151,12 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
                 'oauth_version'          => '1.0',
                 'oauth_consumer_key'     => 'consumer_key',
                 'oauth_signature_method' => 'signature-name',
-                'oauth_signature'        => 'signature',
             )));
+
+        $request
+            ->expects($this->once())
+            ->method('setOAuthParameter')
+            ->with($this->equalTo('oauth_signature'), $this->equalTo('signature'));
 
         $this->oauth->signRequest($request);
     }
@@ -168,8 +172,12 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
                 'oauth_consumer_key'     => 'consumer_key',
                 'oauth_signature_method' => 'signature-name',
                 'oauth_token'            => 'token_key',
-                'oauth_signature'        => 'signature',
             )));
+
+        $request
+            ->expects($this->once())
+            ->method('setOAuthParameter')
+            ->with($this->equalTo('oauth_signature'), $this->equalTo('signature'));
 
         $token = $this->getMockBuilder('Widop\Twitter\OAuth\OAuthToken')
             ->disableOriginalConstructor()
