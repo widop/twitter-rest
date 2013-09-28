@@ -1,5 +1,7 @@
 # README
 
+[![Build Status](https://secure.travis-ci.org/widop/twitter.png)](http://travis-ci.org/widop/twitter)
+
 The Wid'op Twitter library is a modern API allowing you to send requests to twitter with PHP 5.3+.
 
 ## Sample
