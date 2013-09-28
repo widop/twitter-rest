@@ -51,7 +51,8 @@ If you want to complete the list, your're welcome :)
 
 ## Testing
 
-For now, there is no tests. Shame on me... Anyway, testing this library is not so easy... FIXME
+The library is fully unit tested by [PHPUnit](http://www.phpunit.de/) with a code coverage close to **100%**. To
+execute the test suite, check the travis [configuration](https://github.com/widop/twitter/blob/master/.travis.yml).
 
 ## Contribute
 
