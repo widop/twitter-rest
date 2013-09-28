@@ -180,11 +180,11 @@ class OAuth
     /**
      * Gets the autorize url.
      *
-     * @param \Widop\Twitter\OAuth\Token $token The request token.
+     * @param \Widop\Twitter\OAuth\OAuthToken $token The request token.
      *
      * @return string The autorize url.
      */
-    public function getAutorizeUrl(Token $token)
+    public function getAutorizeUrl(OAuthToken $token)
     {
         return sprintf('%s/authorize?oauth_token=%s', $this->getUrl(), $token->getKey());
     }
@@ -215,19 +215,23 @@ class OAuth
      */
     public function signRequest(OAuthRequest $request, OAuthToken $token = null)
     {
-        $request->setOAuthParameter('oauth_version', $this->getVersion());
-        $request->setOAuthParameter('oauth_consumer_key', $this->getConsumer()->getKey());
-        $request->setOAuthParameter('oauth_signature_method', $this->getSignature()->getName());
+        $oauthParameters = array(
+            'oauth_version'          => $this->getVersion(),
+            'oauth_consumer_key'     => $this->getConsumer()->getKey(),
+            'oauth_signature_method' => $this->getSignature()->getName(),
+        );
 
         if ($token !== null) {
-            $request->setOAuthParameter('oauth_token', $token->getKey());
+            $oauthParameters['oauth_token'] = $token->getKey();
         }
 
-        $request->setOAuthParameter('oauth_signature', $this->getSignature()->generate(
+        $oauthParameters['oauth_signature'] = $this->getSignature()->generate(
             $request,
             $this->getConsumer()->getSecret(),
             ($token !== null) ? $token->getSecret() : null
-        ));
+        );
+
+        $request->setOAuthParameters($oauthParameters);
     }
 
     /**
@@ -263,7 +267,7 @@ class OAuth
 
         if (!isset($datas['oauth_token']) || !isset($datas['oauth_token_secret'])) {
             throw new \RuntimeException(sprintf(
-                'A error occured when creating the OAuth token. (%s)',
+                'An error occured when creating the OAuth token. (%s)',
                 str_replace("\n", '', $response)
             ));
         }

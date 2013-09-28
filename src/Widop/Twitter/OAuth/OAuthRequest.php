@@ -97,10 +97,10 @@ class OAuthRequest
      */
     public function getUrl()
     {
-        $getParameters = $this->getGetParameters();
+        $url = $this->getBaseUrl().$this->getPath();
 
-        if (empty($getParameters)) {
-            return $this->getSignatureUrl();
+        if (!$this->hasGetParameters()) {
+            return $url;
         }
 
         $query = array();
@@ -108,17 +108,7 @@ class OAuthRequest
             $query[] = sprintf('%s=%s', $name, $value);
         }
 
-        return $this->getSignatureUrl().'?'.implode('&', $query);
-    }
-
-    /**
-     * Gets the request signature url (base + path).
-     *
-     * @return string The request signature url.
-     */
-    public function getSignatureUrl()
-    {
-        return $this->getBaseUrl().$this->getPath();
+        return $url.'?'.implode('&', $query);
     }
 
     /**
@@ -142,13 +132,23 @@ class OAuthRequest
     }
 
     /**
+     * Checks if the request has headers.
+     *
+     * @return boolean TRUE if the request has headers else FALSE.
+     */
+    public function hasHeaders()
+    {
+        return !empty($this->headers);
+    }
+
+    /**
      * Gets the request headers.
      *
      * @return array The request headers.
      */
     public function getHeaders()
     {
-        if (!isset($this->headers['Authorization'])) {
+        if (!$this->hasHeader('Authorization') && $this->hasOAuthParameters()) {
             $authorization = array();
 
             foreach ($this->getOAuthParameters() as $key => $value) {
@@ -182,9 +182,7 @@ class OAuthRequest
      */
     public function hasHeader($name)
     {
-        $headers = $this->getHeaders();
-
-        return isset($headers[$name]);
+        return isset($this->headers[$name]);
     }
 
     /**
@@ -217,17 +215,43 @@ class OAuthRequest
     }
 
     /**
+     * Removes a request header.
+     *
+     * @param string $name The request header name.
+     *
+     * @throws \InvalidArgumentException If the request header name does not exist.
+     */
+    public function removeHeader($name)
+    {
+        if (!$this->hasHeader($name)) {
+            throw new \InvalidArgumentException(sprintf('The request header "%s" does not exist.', $name));
+        }
+
+        unset($this->headers[$name]);
+    }
+
+    /**
+     * Checks if the request has OAuth parameters.
+     *
+     * @return boolean TRUE if the request has OAuth parameters else FALSE.
+     */
+    public function hasOAuthParameters()
+    {
+        return !empty($this->oauthParameters);
+    }
+
+    /**
      * Gets the request OAuth parameters.
      *
      * @return array The request OAuth parameters.
      */
     public function getOAuthParameters()
     {
-        if (!isset($this->oauthParameters['oauth_nonce'])) {
+        if (!$this->hasOAuthParameter('oauth_nonce')) {
             $this->setOAuthParameter('oauth_nonce', md5(uniqid('widop', true)));
         }
 
-        if (!isset($this->oauthParameters['oauth_timestamp'])) {
+        if (!$this->hasOAuthParameter('oauth_timestamp')) {
             $this->setOAuthParameter('oauth_timestamp', time());
         }
 
@@ -255,9 +279,7 @@ class OAuthRequest
      */
     public function hasOAuthParameter($name)
     {
-        $oauthParameters = $this->getOAuthParameters();
-
-        return isset($oauthParameters[rawurlencode($name)]);
+        return isset($this->oauthParameters[rawurlencode($name)]);
     }
 
     /**
@@ -287,6 +309,32 @@ class OAuthRequest
     public function setOAuthParameter($name, $value)
     {
         $this->oauthParameters[rawurlencode($name)] = rawurlencode($value);
+    }
+
+    /**
+     * Removes a request OAuth parameter.
+     *
+     * @param string $name The request OAuth parameter name.
+     *
+     * @throws \InvalidArgumentException If the request OAuth parameter name does not exist.
+     */
+    public function removeOAuthParameter($name)
+    {
+        if (!$this->hasOAuthParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The OAuth request parameter "%s" does not exist.', $name));
+        }
+
+        unset($this->oauthParameters[rawurlencode($name)]);
+    }
+
+    /**
+     * Checks if the request has GET parameters.
+     *
+     * @return boolean TRUE if the request has GET parameters else FALSE.
+     */
+    public function hasGetParameters()
+    {
+        return !empty($this->getParameters);
     }
 
     /**
@@ -353,6 +401,32 @@ class OAuthRequest
     }
 
     /**
+     * Removes a request GET parameter.
+     *
+     * @param string $name The request GET parameter.
+     *
+     * @throws \InvalidArgumentException If the GET parameter does not exist.
+     */
+    public function removeGetParameter($name)
+    {
+        if (!$this->hasGetParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The GET request parameter "%s" does not exist.', $name));
+        }
+
+        unset($this->getParameters[rawurlencode($name)]);
+    }
+
+    /**
+     * Checks if the request has POST parameters.
+     *
+     * @return boolean TRUE if the request has POST parameters else FALSE.
+     */
+    public function hasPostParameters()
+    {
+        return !empty($this->postParameters);
+    }
+
+    /**
      * Gets the POST request parameters.
      *
      * @return array The POST request parameters.
@@ -398,7 +472,7 @@ class OAuthRequest
     public function getPostParameter($name)
     {
         if (!$this->hasPostParameter($name)) {
-            throw new \InvalidArgumentException(sprintf('The POSt request parameter "%s" does not exist.', $name));
+            throw new \InvalidArgumentException(sprintf('The POST request parameter "%s" does not exist.', $name));
         }
 
         return $this->postParameters[rawurlencode($name)];
@@ -413,6 +487,22 @@ class OAuthRequest
     public function setPostParameter($name, $value)
     {
         $this->postParameters[rawurlencode($name)] = rawurlencode($value);
+    }
+
+    /**
+     * Removes a request POST parameter.
+     *
+     * @param string $name The request POST parameter name.
+     *
+     * @throws \InvalidArgumentException If the request POST parameter does not exist.
+     */
+    public function removePostParameter($name)
+    {
+        if (!$this->hasPostParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The POST request parameter "%s" does not exist.', $name));
+        }
+
+        unset($this->postParameters[rawurlencode($name)]);
     }
 
     /**
@@ -437,7 +527,7 @@ class OAuthRequest
 
         $signature = array(
             $this->getMethod(),
-            rawurlencode($this->getSignatureUrl()),
+            rawurlencode($this->getBaseUrl().$this->getPath()),
             rawurlencode(implode('&', $stringSignature)),
         );
 

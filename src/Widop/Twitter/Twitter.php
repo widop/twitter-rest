@@ -119,7 +119,7 @@ class Twitter
     public function send(AbstractRequest $request)
     {
         $request->setBaseUrl($this->getUrl());
-        $this->oauth->signRequest($request, $this->getOAuthToken());
+        $this->getOAuth()->signRequest($request, $this->getOAuthToken());
 
         $response = $this->sendRequest($request);
         $result = json_decode($response, true);
