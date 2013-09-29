@@ -23,7 +23,7 @@ $oauth = new OAuth(
 );
 
 // Second, instantiate an OAuth access token.
-$oautToken = new OAuthToken('oauth_key', 'oauth_secret');
+$oauthToken = new OAuthToken('oauth_key', 'oauth_secret');
 
 // Third, instantiate a Twitter client with your OAuth client and your access token.
 $twitter = new Twitter($oauth, $oauthToken);
@@ -45,6 +45,7 @@ For now, the supported requests are:
 
  * Tweets
   * [`/statuses/show/:id`](https://github.com/widop/twitter/tree/master/doc/statuses/show.md): Returns a single Tweet, specified by the id parameter.
+  * [`/statuses/destroy/:id`](https://github.com/widop/twitter/tree/master/doc/statuses/destroy.md): Destroys the status specified by the required ID parameter.
   * [`/statuses/update`](https://github.com/widop/twitter/tree/master/doc/statuses/update.md): Updates the authenticating user's current status, also known as tweeting.
 
 If you want to complete the list, your're welcome :)
