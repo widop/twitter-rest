@@ -43,7 +43,7 @@ class StatusesShowRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/statuses/show.json');
+        $this->setPath('/statuses/show/:id.json');
         $this->setMethod('GET');
 
         $this->setId($id);
@@ -132,10 +132,18 @@ class StatusesShowRequest extends AbstractRequest
     /**
      * {@inheritdoc}
      */
+    public function getSignatureUrl()
+    {
+        $this->setPathParameter(':id', $this->getId());
+
+        return parent::getSignatureUrl();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getGetParameters()
     {
-        $this->setGetParameter('id', $this->getId());
-
         if ($this->getTrimUser() !== null) {
             $this->setGetParameter('trim_user', $this->getTrimUser());
         }

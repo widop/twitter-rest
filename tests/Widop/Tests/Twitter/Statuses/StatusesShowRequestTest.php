@@ -42,7 +42,7 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/statuses/show.json', $this->request->getPath());
+        $this->assertSame('/statuses/show/:id.json', $this->request->getPath());
         $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertSame('123', $this->request->getId());
@@ -79,19 +79,25 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testGetGetParametersWithMinimalInformations()
+    public function testSignatureUrl()
     {
-        $this->assertSame(array('id' => '123'), $this->request->getGetParameters());
+        $this->request->setBaseUrl('https://api.twitter.com/oauth');
+
+        $this->assertSame('https://api.twitter.com/oauth/statuses/show/123.json', $this->request->getSignatureUrl());
     }
 
-    public function testGetGetParametersWithFullInformations()
+    public function testGetGetParametersWithoutParameters()
+    {
+        $this->assertEmpty($this->request->getGetParameters());
+    }
+
+    public function testGetGetParametersWithParameters()
     {
         $this->request->setTrimUser(true);
         $this->request->setIncludeMyRetweet(true);
         $this->request->setIncludeEntities(true);
 
         $expected = array(
-            'id'                 => '123', 
             'trim_user'          => '1',
             'include_my_retweet' => '1',
             'include_entities'   => '1',

@@ -34,6 +34,9 @@ class OAuthRequest
     private $oauthParameters;
 
     /** @var array */
+    private $pathParameters;
+
+    /** @var array */
     private $getParameters;
 
     /** @var array */
@@ -46,6 +49,7 @@ class OAuthRequest
     {
         $this->headers = array();
         $this->oauthParameters = array();
+        $this->pathParameters = array();
         $this->getParameters = array();
         $this->postParameters = array();
     }
@@ -91,13 +95,13 @@ class OAuthRequest
     }
 
     /**
-     * Gets the request url (base + path + GET parameters).
+     * Gets the request url (signature url + GET parameters).
      *
      * @return string The request url.
      */
     public function getUrl()
     {
-        $url = $this->getBaseUrl().$this->getPath();
+        $url = $this->getSignatureUrl();
 
         if (!$this->hasGetParameters()) {
             return $url;
@@ -109,6 +113,20 @@ class OAuthRequest
         }
 
         return $url.'?'.implode('&', $query);
+    }
+
+    /**
+     * Gets the request signature url (base url + path + path parameters).
+     *
+     * @return string The request signature url.
+     */
+    public function getSignatureUrl()
+    {
+        return $this->getBaseUrl().str_replace(
+            array_keys($this->getPathParameters()),
+            array_values($this->getPathParameters()),
+            $this->getPath()
+        );
     }
 
     /**
@@ -328,6 +346,95 @@ class OAuthRequest
     }
 
     /**
+     * Checks if the request has path parameters.
+     *
+     * @return boolean TRUE if the request has path parameters.
+     */
+    public function hasPathParameters()
+    {
+        return !empty($this->pathParameters);
+    }
+
+    /**
+     * Gets the request path parameters.
+     *
+     * @return array The request path parameters.
+     */
+    public function getPathParameters()
+    {
+        return $this->pathParameters;
+    }
+
+    /**
+     * Sets the request path parameters.
+     *
+     * @param array $pathParameters The request path parameters.
+     */
+    public function setPathParameters(array $pathParameters)
+    {
+        foreach ($pathParameters as $name => $value) {
+            $this->setPathParameter($name, $value);
+        }
+    }
+
+    /**
+     * Checks if the request has a specific path parameter.
+     *
+     * @param string $name The request path parameter name.
+     *
+     * @return boolean TRUE if the request has the specific path parameter else FALSE.
+     */
+    public function hasPathParameter($name)
+    {
+        return isset($this->pathParameters[$name]);
+    }
+
+    /**
+     * Gets a specific request path parameter.
+     *
+     * @param string $name The request path parameter name.
+     *
+     * @throws \InvalidArgumentException If the request path parameter name does not exist.
+     *
+     * @return string The request path parameter value.
+     */
+    public function getPathParameter($name)
+    {
+        if (!$this->hasPathParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The path request parameter "%s" does not exist.', $name));
+        }
+
+        return $this->pathParameters[$name];
+    }
+
+    /**
+     * Sets a request path parameter.
+     *
+     * @param string $name  The request path parameter name.
+     * @param string $value The request path parameter value.
+     */
+    public function setPathParameter($name, $value)
+    {
+        $this->pathParameters[$name] = $value;
+    }
+
+    /**
+     * Removes a specific request path parameter.
+     *
+     * @param string $name The request path parameter name.
+     *
+     * @throws \InvalidArgumentException If the request path parameter name does not exist.
+     */
+    public function removePathParameter($name)
+    {
+        if (!$this->hasPathParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The path request parameter "%s" does not exist.', $name));
+        }
+
+        unset($this->pathParameters[$name]);
+    }
+
+    /**
      * Checks if the request has GET parameters.
      *
      * @return boolean TRUE if the request has GET parameters else FALSE.
@@ -527,7 +634,7 @@ class OAuthRequest
 
         $signature = array(
             $this->getMethod(),
-            rawurlencode($this->getBaseUrl().$this->getPath()),
+            rawurlencode($this->getSignatureUrl()),
             rawurlencode(implode('&', $stringSignature)),
         );
 

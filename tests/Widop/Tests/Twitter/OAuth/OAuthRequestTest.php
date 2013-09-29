@@ -192,6 +192,57 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->removeHeader('foo');
     }
 
+    public function testGetPathParameters()
+    {
+        $this->assertFalse($this->request->hasPathParameters());
+        $this->assertEmpty($this->request->getPathParameters());
+    }
+
+    public function testSetPathParameters()
+    {
+        $pathParameters = array(':id' => '123');
+        $this->request->setPathParameters($pathParameters);
+
+        $this->assertTrue($this->request->hasPathParameters());
+        $this->assertSame($pathParameters, $this->request->getPathParameters());
+    }
+
+    public function testGetPathParameter()
+    {
+        $this->request->setPathParameter(':id', '123');
+
+        $this->assertSame('123', $this->request->getPathParameter(':id'));
+    }
+
+    public function testRemovePathParameter()
+    {
+        $this->request->setPathParameter(':id', '123');
+
+        $this->assertTrue($this->request->hasPathParameter(':id'));
+
+        $this->request->removePathParameter(':id');
+
+        $this->assertFalse($this->request->hasPathParameter(':id'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path request parameter "foo" does not exist.
+     */
+    public function testGetPathParameterWithInvalidName()
+    {
+        $this->request->getPathParameter('foo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The path request parameter "foo" does not exist.
+     */
+    public function testRemovePathParameterWithInvalidName()
+    {
+        $this->request->removePathParameter('foo');
+    }
+
     public function testGetGetParameters()
     {
         $this->assertFalse($this->request->hasGetParameters());
@@ -294,12 +345,38 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->removePostParameter('foo');
     }
 
-    public function testUrlWithoutGetParameters()
+    public function testSignatureUrlWithoutPathParameters()
+    {
+        $this->request->setBaseUrl('https://api.twitter.com/oauth');
+        $this->request->setPath('/statuses/show.json');
+
+        $this->assertSame('https://api.twitter.com/oauth/statuses/show.json', $this->request->getSignatureUrl());
+    }
+
+    public function testSignatureUrlWithPathParameters()
+    {
+        $this->request->setBaseUrl('https://api.twitter.com/oauth');
+        $this->request->setPath('/statuses/show/:id.json');
+        $this->request->setPathParameter(':id', '123');
+
+        $this->assertSame('https://api.twitter.com/oauth/statuses/show/123.json', $this->request->getSignatureUrl());
+    }
+
+    public function testUrlWithoutParameters()
     {
         $this->request->setBaseUrl('https://api.twitter.com/oauth');
         $this->request->setPath('/statuses/show.json');
 
         $this->assertSame('https://api.twitter.com/oauth/statuses/show.json', $this->request->getUrl());
+    }
+
+    public function testUrlWithPathParameters()
+    {
+        $this->request->setBaseUrl('https://api.twitter.com/oauth');
+        $this->request->setPath('/statuses/show/:id.json');
+        $this->request->setPathParameter(':id', '123');
+
+        $this->assertSame('https://api.twitter.com/oauth/statuses/show/123.json', $this->request->getUrl());
     }
 
     public function testUrlWithGetParameters()
@@ -313,6 +390,19 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(
             'https://api.twitter.com/oauth/statuses/show.json?id=123&trim_user=1',
+            $this->request->getUrl()
+        );
+    }
+
+    public function testUrlWithParameters()
+    {
+        $this->request->setBaseUrl('https://api.twitter.com/oauth');
+        $this->request->setPath('/statuses/show/:id.json');
+        $this->request->setPathParameter(':id', '123');
+        $this->request->setGetParameter('trim_user', true);
+
+        $this->assertSame(
+            'https://api.twitter.com/oauth/statuses/show/123.json?trim_user=1',
             $this->request->getUrl()
         );
     }
