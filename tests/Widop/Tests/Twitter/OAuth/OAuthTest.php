@@ -284,7 +284,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
                     try {
                         \PHPUnit_Framework_Assert::assertArrayHasKey('Authorization', $headers);
                         \PHPUnit_Framework_Assert::assertRegExp(
-                            '#OAuth oauth_verifier="oauth_verifier", oauth_version="1.0", oauth_consumer_key="consumer_key", oauth_signature_method="signature-name", oauth_signature="signature", oauth_nonce="(.*)", oauth_timestamp="(.*)"#',
+                            '#OAuth oauth_verifier="oauth_verifier", oauth_version="1.0", oauth_consumer_key="consumer_key", oauth_signature_method="signature-name", oauth_token="token_key", oauth_signature="signature", oauth_nonce="(.*)", oauth_timestamp="(.*)"#',
                             $headers['Authorization']
                         );
 
@@ -296,11 +296,25 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue('oauth_token=token_key&oauth_token_secret=token_secret'));
 
-        $token = $this->oauth->getAccessToken('oauth_verifier');
+        $requestToken = $this->getMockBuilder('Widop\Twitter\OAuth\OAuthToken')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->assertInstanceOf('Widop\Twitter\OAuth\OAuthToken', $token);
-        $this->assertSame('token_key', $token->getKey());
-        $this->assertSame('token_secret', $token->getSecret());
+        $requestToken
+            ->expects($this->once())
+            ->method('getKey')
+            ->will($this->returnValue('token_key'));
+
+        $requestToken
+            ->expects($this->once())
+            ->method('getKey')
+            ->will($this->returnValue('token_secret'));
+
+        $accessToken = $this->oauth->getAccessToken($requestToken, 'oauth_verifier');
+
+        $this->assertInstanceOf('Widop\Twitter\OAuth\OAuthToken', $accessToken);
+        $this->assertSame('token_key', $accessToken->getKey());
+        $this->assertSame('token_secret', $accessToken->getSecret());
     }
 
     /**

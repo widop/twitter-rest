@@ -180,27 +180,28 @@ class OAuth
     /**
      * Gets the autorize url.
      *
-     * @param \Widop\Twitter\OAuth\OAuthToken $token The request token.
+     * @param \Widop\Twitter\OAuth\OAuthToken $requestToken The request token.
      *
      * @return string The autorize url.
      */
-    public function getAutorizeUrl(OAuthToken $token)
+    public function getAutorizeUrl(OAuthToken $requestToken)
     {
-        return sprintf('%s/authorize?oauth_token=%s', $this->getUrl(), $token->getKey());
+        return sprintf('%s/authorize?oauth_token=%s', $this->getUrl(), $requestToken->getKey());
     }
 
     /**
      * Gets an access token.
      *
-     * @param string $verifier The OAuth verifier.
+     * @param \Widop\Twitter\OAuth\OAuthToken $requestToken The request token.
+     * @param string                          $verifier     The OAuth verifier.
      *
      * @return \Widop\Twitter\OAuth\OAuthToken The access token.
      */
-    public function getAccessToken($verifier)
+    public function getAccessToken(OAuthToken $requestToken, $verifier)
     {
         $request = $this->createRequest('/access_token', 'POST');
         $request->setOAuthParameter('oauth_verifier', $verifier);
-        $this->signRequest($request);
+        $this->signRequest($request, $requestToken);
 
         $response = $this->getHttpAdapter()->postContent($request->getUrl(), $request->getHeaders());
 
