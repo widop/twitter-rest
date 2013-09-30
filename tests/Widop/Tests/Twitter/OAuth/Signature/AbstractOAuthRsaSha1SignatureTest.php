@@ -16,7 +16,7 @@ namespace Widop\Tests\Twitter\OAuth\Signature;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class AbstractOAuthRsaSha1Signature extends \PHPUnit_Framework_TestCase
+class AbstractOAuthRsaSha1SignatureTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Widop\Twitter\OAuth\Signature\OAuthPlaintextSignature */
     private $signature;
