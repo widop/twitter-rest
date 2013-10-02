@@ -269,7 +269,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(
             'https://api.twitter.com/oauth/authorize?oauth_token=token_key',
-            $this->oauth->getAutorizeUrl($token)
+            $this->oauth->getAuthorizeUrl($token)
         );
     }
 

@@ -178,13 +178,13 @@ class OAuth
     }
 
     /**
-     * Gets the autorize url.
+     * Gets the authorize url.
      *
      * @param \Widop\Twitter\OAuth\OAuthToken $requestToken The request token.
      *
-     * @return string The autorize url.
+     * @return string The authorize url.
      */
-    public function getAutorizeUrl(OAuthToken $requestToken)
+    public function getAuthorizeUrl(OAuthToken $requestToken)
     {
         return sprintf('%s/authorize?oauth_token=%s', $this->getUrl(), $requestToken->getKey());
     }
