@@ -21,7 +21,7 @@ Create a ``composer.json`` file at the root directory of your project and simply
 ```
 {
     "require": {
-        "widop/twitter": "*"
+        "widop/twitter": "*@dev"
     }
 }
 ```
