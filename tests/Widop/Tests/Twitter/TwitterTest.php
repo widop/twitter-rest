@@ -189,6 +189,11 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
 
         $request
             ->expects($this->once())
+            ->method('getFileParameters')
+            ->will($this->returnValue(array()));
+
+        $request
+            ->expects($this->once())
             ->method('getHeaders')
             ->will($this->returnValue(array('headers')));
 

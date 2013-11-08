@@ -42,6 +42,9 @@ class OAuthRequest
     /** @var array */
     private $postParameters;
 
+    /** @var array */
+    private $fileParameters;
+
     /**
      * Creates an OAuth request.
      */
@@ -52,6 +55,7 @@ class OAuthRequest
         $this->pathParameters = array();
         $this->getParameters = array();
         $this->postParameters = array();
+        $this->fileParameters = array();
     }
 
     /**
@@ -613,17 +617,110 @@ class OAuthRequest
     }
 
     /**
+     * Checks if the request has file parameters.
+     *
+     * @return boolean TRUE if the request has file parameters else FALSE.
+     */
+    public function hasFileParameters()
+    {
+        return !empty($this->fileParameters);
+    }
+
+    /**
+     * Gets the file request parameters.
+     *
+     * @return array The file request parameters.
+     */
+    public function getFileParameters()
+    {
+        return $this->fileParameters;
+    }
+
+    /**
+     * Sets the file request parameters.
+     *
+     * @param array $fileParameters The file request parameters.
+     */
+    public function setFileParameters(array $fileParameters)
+    {
+        foreach ($fileParameters as $name => $value) {
+            $this->setFileParameter($name, $value);
+        }
+    }
+
+    /**
+     * Checks if the request has a specific file parameter.
+     *
+     * @param string $name The request file parameter name.
+     *
+     * @return boolean TRUE if the request has the file parameter else FALSE.
+     */
+    public function hasFileParameter($name)
+    {
+        return isset($this->fileParameters[$name]);
+    }
+
+    /**
+     * Gets a request file parameter.
+     *
+     * @param string $name The request file parameter name.
+     *
+     * @throws \InvalidArgumentException If the request file parameter does not exist.
+     *
+     * @return string The request file parameter.
+     */
+    public function getFileParameter($name)
+    {
+        if (!$this->hasFileParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The file request parameter "%s" does not exist.', $name));
+        }
+
+        return $this->fileParameters[$name];
+    }
+
+    /**
+     * Sets a request file parameter.
+     *
+     * @param string $name  The request file parameter name.
+     * @param string $value The request file parameter value.
+     */
+    public function setFileParameter($name, $value)
+    {
+        $this->fileParameters[$name] = $value;
+    }
+
+    /**
+     * Removes a request file parameter.
+     *
+     * @param string $name The request file parameter name.
+     *
+     * @throws \InvalidArgumentException If the request file parameter does not exist.
+     */
+    public function removeFileParameter($name)
+    {
+        if (!$this->hasFileParameter($name)) {
+            throw new \InvalidArgumentException(sprintf('The file request parameter "%s" does not exist.', $name));
+        }
+
+        unset($this->fileParameters[$name]);
+    }
+
+    /**
      * Gets the request signature.
      *
      * @return string The request signature.
      */
     public function getSignature()
     {
-        $elements = array_merge(
-            $this->getOAuthParameters(),
-            $this->getGetParameters(),
-            $this->getPostParameters()
-        );
+        if ($this->hasFileParameters()) {
+            $elements = $this->getOAuthParameters();
+        } else {
+            $elements = array_merge(
+                $this->getOAuthParameters(),
+                $this->getGetParameters(),
+                $this->getPostParameters()
+            );
+        }
 
         ksort($elements);
 

@@ -162,7 +162,8 @@ class Twitter
             return $this->getOAuth()->getHttpAdapter()->postContent(
                 $request->getUrl(),
                 $request->getHeaders(),
-                $postParameters
+                $postParameters,
+                $request->getFileParameters()
             );
         }
 

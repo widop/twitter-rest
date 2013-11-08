@@ -265,7 +265,7 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('123', $this->request->getGetParameter('id'));
     }
 
-    public function testRemoveGetGetParameter()
+    public function testRemoveGetParameter()
     {
         $this->request->setGetParameter('id', '123');
 
@@ -316,7 +316,7 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('123', $this->request->getPostParameter('id'));
     }
 
-    public function testRemoveGetPostParameter()
+    public function testRemovePostParameter()
     {
         $this->request->setPostParameter('id', '123');
 
@@ -343,6 +343,57 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
     public function testRemovePostParameterWithInvalidName()
     {
         $this->request->removePostParameter('foo');
+    }
+
+    public function testGetFileParameters()
+    {
+        $this->assertFalse($this->request->hasFileParameters());
+        $this->assertEmpty($this->request->getFileParameters());
+    }
+
+    public function testSetFileParameters()
+    {
+        $postParameters = array('file' => __FILE__);
+        $this->request->setFileParameters($postParameters);
+
+        $this->assertTrue($this->request->hasFileParameters());
+        $this->assertSame($postParameters, $this->request->getFileParameters());
+    }
+
+    public function testGetFileParameter()
+    {
+        $this->request->setFileParameter('file', __FILE__);
+
+        $this->assertSame(__FILE__, $this->request->getFileParameter('file'));
+    }
+
+    public function testRemoveFileParameter()
+    {
+        $this->request->setFileParameter('file', __FILE__);
+
+        $this->assertTrue($this->request->hasFileParameter('file'));
+
+        $this->request->removeFileParameter('file');
+
+        $this->assertFalse($this->request->hasFileParameter('file'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The file request parameter "foo" does not exist.
+     */
+    public function testGetFileParameterWithInvalidName()
+    {
+        $this->request->getFileParameter('foo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The file request parameter "foo" does not exist.
+     */
+    public function testRemoveFileParameterWithInvalidName()
+    {
+        $this->request->removeFileParameter('foo');
     }
 
     public function testSignatureUrlWithoutPathParameters()
@@ -407,7 +458,7 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testSignature()
+    public function testSignatureWithoutFileParameters()
     {
         $this->request->setBaseUrl('https://api.twitter.com/oauth');
         $this->request->setPath('/statuses/show.json');
@@ -429,6 +480,25 @@ class OAuthRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(
             'POST&https%3A%2F%2Fapi.twitter.com%2Foauth%2Fstatuses%2Fshow.json&bar1%3D%26bar2%3D1%26foo1%3D123%26foo2%3D321%26oauth_nonce%3Dabcde%26oauth_timestamp%3D1380373886%26oauth_token%3Doauth_token%26oauth_version%3D1.0',
+            $this->request->getSignature()
+        );
+    }
+
+    public function testSignatureWithFileParameters()
+    {
+        $this->request->setBaseUrl('https://api.twitter.com/oauth');
+        $this->request->setPath('/statuses/show.json');
+        $this->request->setMethod('POST');
+        $this->request->setOAuthParameters(array(
+            'oauth_nonce'     => 'abcde',
+            'oauth_timestamp' => '1380373886',
+            'oauth_version'   => '1.0',
+            'oauth_token'     => 'oauth_token',
+        ));
+        $this->request->setFileParameter('file', __FILE__);
+
+        $this->assertSame(
+            'POST&https%3A%2F%2Fapi.twitter.com%2Foauth%2Fstatuses%2Fshow.json&oauth_nonce%3Dabcde%26oauth_timestamp%3D1380373886%26oauth_token%3Doauth_token%26oauth_version%3D1.0',
             $this->request->getSignature()
         );
     }

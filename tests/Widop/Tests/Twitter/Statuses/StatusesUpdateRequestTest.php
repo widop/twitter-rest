@@ -21,7 +21,7 @@ use Widop\Twitter\Statuses\StatusesUpdateRequest;
 class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Widop\Twitter\Statuses\StatusesUpdateRequest */
-    private $request;
+    protected $request;
 
     /**
      * {@inheritdoc}

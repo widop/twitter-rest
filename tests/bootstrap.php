@@ -10,4 +10,7 @@
  */
 
 // Autoloads library.
-require __DIR__.'/../vendor/autoload.php';
+$loader = require __DIR__.'/../vendor/autoload.php';
+
+// Autoloads tests.
+$loader->add('Widop\\Tests\\Twitter', __DIR__);
