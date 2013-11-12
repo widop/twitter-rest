@@ -2,7 +2,7 @@
 
 Returns the tweets of a user's timeline, specified by a user id or a screen name.
 
-If no count is provided, the `send` method will return up to 200 tweets.
+If no count is provided, the request will return 20 tweets.
 You MUST also provide either a user id or a screen name. If both screen name and user id parameters are provided, the
 user id is prefered and used.
 

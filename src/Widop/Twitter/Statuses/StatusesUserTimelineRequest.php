@@ -11,8 +11,6 @@
 
 namespace Widop\Twitter\Statuses;
 
-use Widop\Twitter\AbstractRequest;
-
 /**
  * Statuses user timeline request.
  *
@@ -20,33 +18,21 @@ use Widop\Twitter\AbstractRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class StatusesUserTimelineRequest extends AbstractRequest
+class StatusesUserTimelineRequest extends AbstractTimelineRequest
 {
-    /**@var string */
+    /** @var string */
     private $userId;
 
-    /**@var string */
+    /** @var string */
     private $screenName;
 
-    /**@var string */
-    private $sinceId;
-
-    /**@var integer */
-    private $count;
-
-    /**@var string */
-    private $maxId;
-
-    /**@var boolean */
-    private $trimUser;
-
-    /**@var boolean */
+    /** @var boolean */
     private $excludeReplies;
 
-    /**@var boolean */
+    /** @var boolean */
     private $contributorDetails;
 
-    /**@var boolean */
+    /** @var boolean */
     private $includeRts;
 
     /**
@@ -56,7 +42,6 @@ class StatusesUserTimelineRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setMethod('GET');
         $this->setPath('/statuses/user_timeline.json');
     }
 
@@ -98,86 +83,6 @@ class StatusesUserTimelineRequest extends AbstractRequest
     public function setScreenName($screenName)
     {
         $this->screenName = $screenName;
-    }
-
-    /**
-     * Gets the since id.
-     *
-     * @return string The since id.
-     */
-    public function getSinceId()
-    {
-        return $this->sinceId;
-    }
-
-    /**
-     * Sets the since id.
-     *
-     * @param string $sinceId The since id.
-     */
-    public function setSinceId($sinceId)
-    {
-        $this->sinceId = $sinceId;
-    }
-
-    /**
-     * Gets the number of tweets to try and retrieve.
-     *
-     * @return integer The number of tweets to try and retrieve.
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * Sets the number of tweets to try and retrieve.
-     *
-     * @param integer $count The number of tweets to try and retrieve.
-     */
-    public function setCount($count)
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * Gets the max id.
-     *
-     * @return string The max id.
-     */
-    public function getMaxId()
-    {
-        return $this->maxId;
-    }
-
-    /**
-     * Sets the max id.
-     *
-     * @param string $maxId The max id.
-     */
-    public function setMaxId($maxId)
-    {
-        $this->maxId = $maxId;
-    }
-
-    /**
-     * Checks if the request trim user.
-     *
-     * @return boolean TRUE if the request trim user else FALSE.
-     */
-    public function getTrimUser()
-    {
-        return $this->trimUser;
-    }
-
-    /**
-     * Sets if the request trim user.
-     *
-     * @param boolean $trimUser TRUE if the request trim user else FALSE.
-     */
-    public function setTrimUser($trimUser)
-    {
-        $this->trimUser = $trimUser;
     }
 
     /**
@@ -251,22 +156,6 @@ class StatusesUserTimelineRequest extends AbstractRequest
             $this->setGetParameter('screen_name', $this->getScreenName());
         } else {
             throw new \RuntimeException('You must specify a user id or a screen name.');
-        }
-
-        if ($this->getSinceId() !== null) {
-            $this->setGetParameter('since_id', $this->getSinceId());
-        }
-
-        if ($this->getCount() !== null) {
-            $this->setGetParameter('count', $this->getCount());
-        }
-
-        if ($this->getMaxId() !== null) {
-            $this->setGetParameter('max_id', $this->getMaxId());
-        }
-
-        if ($this->getTrimUser() !== null) {
-            $this->setGetParameter('trim_user', $this->getTrimUser());
         }
 
         if ($this->getExcludeReplies() !== null) {

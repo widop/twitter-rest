@@ -11,16 +11,16 @@
 
 namespace Widop\Tests\Twitter\Statuses;
 
-use Widop\Twitter\Statuses\StatusesUserTimelineRequest;
+use Widop\Twitter\Statuses\StatusesHomeTimelineRequest;
 
 /**
- * Statuses user timeline request test.
+ * Statuses home timeline request test.
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
+class StatusesHomeTimelineRequestTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \Widop\Twitter\Statuses\StatusesUserTimelineRequest */
+    /** @var \Widop\Twitter\Statuses\StatusesHomeTimelineRequest */
     private $request;
 
     /**
@@ -28,7 +28,7 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->request = new StatusesUserTimelineRequest();
+        $this->request = new StatusesHomeTimelineRequest();
     }
 
     /**
@@ -42,32 +42,16 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\Statuses\AbstractTimelineRequest', $this->request);
-        $this->assertSame('/statuses/user_timeline.json', $this->request->getPath());
+        $this->assertSame('/statuses/home_timeline.json', $this->request->getPath());
         $this->assertSame('GET', $this->request->getMethod());
 
-        $this->assertNull($this->request->getUserId());
-        $this->assertNull($this->request->getScreenName());
-        $this->assertNull($this->request->getSinceId());
         $this->assertNull($this->request->getCount());
+        $this->assertNull($this->request->getSinceId());
         $this->assertNull($this->request->getMaxId());
         $this->assertNull($this->request->getTrimUser());
         $this->assertNull($this->request->getExcludeReplies());
         $this->assertNull($this->request->getContributorDetails());
-        $this->assertNull($this->request->getIncludeRts());
-    }
-
-    public function testUserId()
-    {
-        $this->request->setUserId('0123456789');
-
-        $this->assertSame('0123456789', $this->request->getUserId());
-    }
-
-    public function testScreenName()
-    {
-        $this->request->setScreenName('0123456789');
-
-        $this->assertSame('0123456789', $this->request->getScreenName());
+        $this->assertNull($this->request->getIncludeEntities());
     }
 
     public function testSinceId()
@@ -112,44 +96,34 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getContributorDetails());
     }
 
-    public function testIncludeRts()
+    public function testIncludeEntities()
     {
-        $this->request->setIncludeRts(true);
+        $this->request->setIncludeEntities(true);
 
-        $this->assertTrue($this->request->getIncludeRts());
+        $this->assertTrue($this->request->getIncludeEntities());
     }
 
     public function testSignatureUrl()
     {
         $this->request->setBaseUrl('https://api.twitter.com/1.1');
 
-        $this->assertSame('https://api.twitter.com/1.1/statuses/user_timeline.json', $this->request->getSignatureUrl());
+        $this->assertSame('https://api.twitter.com/1.1/statuses/home_timeline.json', $this->request->getSignatureUrl());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetGetParametersWithoutUserIdAndScreenName()
+    public function testGetGetParameters()
     {
-        $this->request->getGetParameters();
-    }
-
-    public function testGetGetParametersWithParameters()
-    {
-        $this->request->setScreenName('foo');
         $this->request->setSinceId('0123456789');
         $this->request->setCount(50);
         $this->request->setMaxId('9876543210');
         $this->request->setTrimUser(true);
         $this->request->setExcludeReplies(true);
         $this->request->setContributorDetails(true);
-        $this->request->setIncludeRts(true);
+        $this->request->setIncludeEntities(true);
 
         $expected = array(
-            'screen_name'         => 'foo',
             'exclude_replies'     => '1',
             'contributor_details' => '1',
-            'include_rts'         => '1',
+            'include_entities'    => '1',
             'count'               => '50',
             'since_id'            => '0123456789',
             'max_id'              => '9876543210',
@@ -157,20 +131,5 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertSame($expected, $this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithUserId()
-    {
-        $this->request->setUserId('0123456789');
-
-        $this->assertSame(array('user_id' => '0123456789'), $this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithUserIdAndScreenName()
-    {
-        $this->request->setUserId('0123456789');
-        $this->request->setScreenName('foo');
-
-        $this->assertSame(array('user_id' => '0123456789'), $this->request->getGetParameters());
     }
 }
