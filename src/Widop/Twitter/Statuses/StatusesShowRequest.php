@@ -25,7 +25,7 @@ class StatusesShowRequest extends AbstractRequest
     /** @var string */
     private $id;
 
-    /** @var string */
+    /** @var boolean */
     private $trimUser;
 
     /** @var boolean */
