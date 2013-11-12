@@ -14,11 +14,11 @@ namespace Widop\Tests\Twitter\Statuses;
 use Widop\Twitter\Statuses\StatusesDestroyRequest;
 
 /**
- * Statuses destory request test.
+ * Statuses destroy request test.
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class StatusesDestoryRequestTest extends \PHPUnit_Framework_TestCase
+class StatusesDestroyRequestTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Widop\Twitter\Statuses\StatusesDestroyRequest */
     private $request;

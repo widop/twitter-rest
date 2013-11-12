@@ -47,10 +47,13 @@ $twitter->send($request);
 
 For now, the build-in requests are:
 
+ * Timeline
+  * [`/statuses/user_timeline`](statuses/user_timeline.md): Returns the tweets of a user's timeline.
+
  * Tweets
-  * [`/statuses/show/:id`](doc/statuses/show.md): Returns a single Tweet, specified by the id parameter.
-  * [`/statuses/destroy/:id`](doc/statuses/destroy.md): Destroys the status specified by the required id parameter.
-  * [`/statuses/update`](doc/statuses/update.md): Updates the authenticating user's current status, also known as tweeting.
-  * [`/statuses/update_with_media`](doc/statuses/update_with_media.md): Updates the authenticating user's current status, also known as tweeting with a media.
+  * [`/statuses/show/:id`](statuses/show.md): Returns a single Tweet, specified by the id parameter.
+  * [`/statuses/destroy/:id`](statuses/destroy.md): Destroys the status specified by the required id parameter.
+  * [`/statuses/update`](statuses/update.md): Updates the authenticating user's current status, also known as tweeting.
+  * [`/statuses/update_with_media`](statuses/update_with_media.md): Updates the authenticating user's current status, also known as tweeting with a media.
 
 Obviously, if you want to complete the list, your're welcome :)
