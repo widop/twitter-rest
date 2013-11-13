@@ -66,4 +66,11 @@ For now, the build-in requests are:
  * Search
   * [`/search/tweets`](search/tweets.md): Returns a collection of relevant Tweets matching a specified query.
 
+ * Direct Messages
+  * [`/direct_messages`](direct_messages.md): Returns the 20 most recent direct messages sent to the authenticating user.
+  * [`/direct_messages/sent`](direct_messages/sent.md): Returns the 20 most recent direct messages sent to the authenticating user.
+  * [`/direct_messages/show`](direct_messages/show.md): Returns a single direct message, specified by an id parameter.
+  * [`/direct_messages/destroy`](direct_messages/destroy.md): Destroys the direct message specified in the required ID parameter.
+  * [`/direct_messages/new`](direct_messages/new.md): Sends a new direct message to the specified user from the authenticating user.
+
 Obviously, if you want to complete the list, your're welcome :)
