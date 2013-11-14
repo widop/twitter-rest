@@ -56,7 +56,11 @@ For now, the build-in requests are:
  * Tweets
   * [`/statuses/show/:id`](statuses/show.md): Returns a single Tweet, specified by the id parameter.
   * [`/statuses/destroy/:id`](statuses/destroy.md): Destroys the status specified by the required id parameter.
+  * [`/statuses/oembed`](statuses/oembed.md): Returns information allowing the creation of an embedded representation of a Tweet on third party sites.
   * [`/statuses/update`](statuses/update.md): Updates the authenticating user's current status, also known as tweeting.
   * [`/statuses/update_with_media`](statuses/update_with_media.md): Updates the authenticating user's current status, also known as tweeting with a media.
+  * [`/statuses/retweet/:id`](statuses/retweet.md): Retweets a tweet. Returns the original tweet with retweet details embedded.
+  * [`/statuses/retweets/:id`](statuses/retweets.md): Returns a collection of the 100 most recent retweets of the tweet specified by the id parameter.
+  * [`/statuses/retweeters/ids`](statuses/retweeters_ids.md): Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet.
 
 Obviously, if you want to complete the list, you're welcome :)
