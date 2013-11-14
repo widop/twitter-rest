@@ -63,4 +63,7 @@ For now, the build-in requests are:
   * [`/statuses/retweets/:id`](statuses/retweets.md): Returns a collection of the 100 most recent retweets of the tweet specified by the id parameter.
   * [`/statuses/retweeters/ids`](statuses/retweeters_ids.md): Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet.
 
-Obviously, if you want to complete the list, you're welcome :)
+ * Search
+  * [`/search/tweets`](search/tweets.md): Returns a collection of relevant Tweets matching a specified query.
+
+Obviously, if you want to complete the list, your're welcome :)
