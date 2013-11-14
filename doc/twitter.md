@@ -48,6 +48,9 @@ $twitter->send($request);
 For now, the build-in requests are:
 
  * Timeline
+  * [`/statuses/home_timeline`](statuses/home_timeline.md): Returns the authenticated user's tweets and retweets.
+  * [`/statuses/mentions_timeline`](statuses/mentions_timeline.md): Returns the tweets mentioning the authenticated user.
+  * [`/statuses/retweets_of_me`](statuses/retweets_of_me.md): Returns the most recent tweets authored by the authenticating user that have been retweeted by others.
   * [`/statuses/user_timeline`](statuses/user_timeline.md): Returns the tweets of a user's timeline.
 
  * Tweets
@@ -56,4 +59,4 @@ For now, the build-in requests are:
   * [`/statuses/update`](statuses/update.md): Updates the authenticating user's current status, also known as tweeting.
   * [`/statuses/update_with_media`](statuses/update_with_media.md): Updates the authenticating user's current status, also known as tweeting with a media.
 
-Obviously, if you want to complete the list, your're welcome :)
+Obviously, if you want to complete the list, you're welcome :)
