@@ -73,4 +73,9 @@ For now, the build-in requests are:
   * [`/direct_messages/destroy`](direct_messages/destroy.md): Destroys the direct message specified in the required ID parameter.
   * [`/direct_messages/new`](direct_messages/new.md): Sends a new direct message to the specified user from the authenticating user.
 
+ * Favorites
+  * [`/favorites/list`](favorites/list.md): Returns the 20 most recent Tweets favorited by the authenticating or specified user.
+  * [`/favorites/destroy`](favorites/destroy.md): Un-favorites the status specified in the ID parameter as the authenticating user.
+  * [`/favorites/create`](favorites/create.md): Favorites the status specified in the ID parameter as the authenticating user.
+
 Obviously, if you want to complete the list, your're welcome :)
