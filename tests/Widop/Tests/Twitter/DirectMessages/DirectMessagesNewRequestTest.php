@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Widop\Tests\Twitter\Statuses;
+namespace Widop\Tests\Twitter\DirectMessages;
 
 use Widop\Twitter\DirectMessages\DirectMessagesNewRequest;
 

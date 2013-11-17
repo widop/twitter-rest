@@ -58,6 +58,7 @@ class OptionFactory
             'page'                  => 'Widop\Twitter\Options\PageOption',
             'place_id'              => 'Widop\Twitter\Options\PlaceIdOption',
             'q'                     => 'Widop\Twitter\Options\QOption',
+            'query'                 => 'Widop\Twitter\Options\QueryOption',
             'related'               => 'Widop\Twitter\Options\RelatedOption',
             'result_type'           => 'Widop\Twitter\Options\ResultTypeOption',
             'retweets'              => 'Widop\Twitter\Options\RetweetsOption',
