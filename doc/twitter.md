@@ -103,4 +103,7 @@ For now, the build-in requests are:
   * [`/trends/closest`](trends/closest.md): Returns the locations that Twitter has trending topic information for, closest to a specified location.
   * [`/trends/place`](trends/place.md): Returns the top 10 trending topics for a specific WOEID, if trending information is available for it.
 
+ * Spam Reporting
+  * [`/users/spam_report`](users/spam_report.md): Report the specified user as a spam account to Twitter.
+
 Obviously, if you want to complete the list, you're welcome :)
