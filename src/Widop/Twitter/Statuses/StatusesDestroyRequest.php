@@ -1,24 +1,34 @@
 <?php
 
+/*
+ * This file is part of the Wid'op package.
+ *
+ * (c) Wid'op <contact@widop.com>
+ *
+ * For the full copyright and license information, please read the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Widop\Twitter\Statuses;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Statuses destroy request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/%3Aid
  *
+ * @method string       getId()                        Gets the tweet ID to delete.
+ * @method null         setId(string $id)              Sets the tweet ID to delete.
+ * @method boolean|null getTrimUser()                  Checks if the user should be trimmed.
+ * @method null         setTrimUser(boolean $trimUser) Sets if the user should be trimmed.
+ *
  * @author GeLo <geloen.eric@gmail.com>
  */
 class StatusesDestroyRequest extends AbstractRequest
 {
-    /** @var string */
-    private $id;
-
-    /** @var boolean */
-    private $trimUser;
-
     /**
      * Creates a statuses destroy request.
      *
@@ -28,71 +38,42 @@ class StatusesDestroyRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/statuses/destroy/:id.json');
-        $this->setMethod('POST');
-
         $this->setId($id);
     }
 
     /**
-     * Gets the tweet identifier.
-     *
-     * @return string The tweet identifier.
+     * {@inheritdoc}
      */
-    public function getId()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        return $this->id;
-    }
-
-    /**
-     * Sets the tweet identifier.
-     *
-     * @param string $id The tweet identifier.
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Checks if the request trim user.
-     *
-     * @return boolean TRUE if the request trim user else FALSE.
-     */
-    public function getTrimUser()
-    {
-        return $this->trimUser;
-    }
-
-    /**
-     * Sets if the request trim user.
-     *
-     * @param boolean $trimUser TRUE if the request trim user else FALSE.
-     */
-    public function setTrimUser($trimUser)
-    {
-        $this->trimUser = $trimUser;
+        $optionBag
+            ->register('id', OptionInterface::TYPE_PATH)
+            ->register('trim_user', OptionInterface::TYPE_POST);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getSignatureUrl()
+    protected function validateOptionBag(OptionBag $optionBag)
     {
-        $this->setPathParameter(':id', $this->getId());
-
-        return parent::getSignatureUrl();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPostParameters()
-    {
-        if ($this->getTrimUser() !== null) {
-            $this->setPostParameter('trim_user', $this->getTrimUser());
+        if (!isset($optionBag['id'])) {
+            throw new \RuntimeException('You must specify an id.');
         }
+    }
 
-        return parent::getPostParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/statuses/destroy/:id.json';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMethod()
+    {
+        return 'POST';
     }
 }

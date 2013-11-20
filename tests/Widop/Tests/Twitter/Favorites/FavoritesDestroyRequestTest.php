@@ -42,8 +42,7 @@ class FavoritesDestroyRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/favorites/destroy.json', $this->request->getPath());
-        $this->assertSame('POST', $this->request->getMethod());
+
         $this->assertSame('123', $this->request->getId());
         $this->assertNull($this->request->getIncludeEntities());
     }
@@ -62,25 +61,31 @@ class FavoritesDestroyRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testGetPostParametersWithParameters()
+    public function testOAuthRequest()
     {
         $this->request->setId('123456789');
         $this->request->setIncludeEntities(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'id'               => '123456789',
             'include_entities' => '1'
         );
 
-        $this->assertSame($expected, $this->request->getPostParameters());
+        $this->assertSame('/favorites/destroy.json', $oauthRequest->getPath());
+        $this->assertSame('POST', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getPostParameters());
     }
 
     /**
      * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify an id.
      */
-    public function testGetPostParametersWithoutId()
+    public function testOAuthRequestWithoutId()
     {
         $this->request->setId(null);
-        $this->request->getPostParameters();
+
+        $this->request->createOAuthRequest();
     }
 }

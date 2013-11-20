@@ -42,8 +42,6 @@ class StatusesRetweetersIdsRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/statuses/retweeters/ids.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertSame('123', $this->request->getId());
         $this->assertNull($this->request->getCursor());
@@ -71,22 +69,12 @@ class StatusesRetweetersIdsRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getStringifyIds());
     }
 
-    public function testSignatureUrl()
-    {
-        $this->request->setBaseUrl('https://api.twitter.com/oauth');
-
-        $this->assertSame('https://api.twitter.com/oauth/statuses/retweeters/ids.json', $this->request->getSignatureUrl());
-    }
-
-    public function testGetGetParametersWithoutParameters()
-    {
-        $this->assertSame(array('id' => '123'), $this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithParameters()
+    public function testOAuthRequest()
     {
         $this->request->setCursor('123456789');
         $this->request->setStringifyIds(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'id'            => '123',
@@ -94,16 +82,19 @@ class StatusesRetweetersIdsRequestTest extends \PHPUnit_Framework_TestCase
             'stringify_ids' => '1'
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/statuses/retweeters/ids.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
     }
 
     /**
      * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify an id.
      */
-    public function testGetGetParametersWithoutId()
+    public function testOAuthRequestWithoutId()
     {
         $this->request->setId(null);
 
-        $this->request->getGetParameters();
+        $this->request->createOAuthRequest();
     }
 }

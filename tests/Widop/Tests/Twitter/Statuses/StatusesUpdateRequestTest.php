@@ -42,13 +42,11 @@ class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/statuses/update.json', $this->request->getPath());
-        $this->assertSame('POST', $this->request->getMethod());
 
         $this->assertSame('My New Status!', $this->request->getStatus());
         $this->assertNull($this->request->getInReplyToStatusId());
-        $this->assertNull($this->request->getLatitude());
-        $this->assertNull($this->request->getLongitude());
+        $this->assertNull($this->request->getLat());
+        $this->assertNull($this->request->getLong());
         $this->assertNull($this->request->getPlaceId());
         $this->assertNull($this->request->getDisplayCoordinates());
         $this->assertNull($this->request->getTrimUser());
@@ -68,18 +66,18 @@ class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('123', $this->request->getInReplyToStatusId());
     }
 
-    public function testLatitude()
+    public function testLat()
     {
-        $this->request->setLatitude('37.7821120598956');
+        $this->request->setLat('37.7821120598956');
 
-        $this->assertSame('37.7821120598956', $this->request->getLatitude());
+        $this->assertSame('37.7821120598956', $this->request->getLat());
     }
 
-    public function testLongitude()
+    public function testLong()
     {
-        $this->request->setLongitude('-122.400612831116');
+        $this->request->setLong('-122.400612831116');
 
-        $this->assertSame('-122.400612831116', $this->request->getLongitude());
+        $this->assertSame('-122.400612831116', $this->request->getLong());
     }
 
     public function testPlaceId()
@@ -103,19 +101,16 @@ class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getTrimUser());
     }
 
-    public function testGetPostParametersWithMinimalInformations()
-    {
-        $this->assertSame(array('status' => 'My%20New%20Status%21'), $this->request->getPostParameters());
-    }
-
-    public function testGetPostParametersWithFullInformations()
+    public function testOAuthRequest()
     {
         $this->request->setInReplyToStatusId('123');
-        $this->request->setLatitude('37.7821120598956');
-        $this->request->setLongitude('-122.400612831116');
+        $this->request->setLat('37.7821120598956');
+        $this->request->setLong('-122.400612831116');
         $this->request->setPlaceId('df51dec6f4ee2b2c');
         $this->request->setDisplayCoordinates(true);
         $this->request->setTrimUser(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'status'                => 'My%20New%20Status%21',
@@ -127,6 +122,19 @@ class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
             'trim_user'             => '1',
         );
 
-        $this->assertSame($expected, $this->request->getPostParameters());
+        $this->assertSame('/statuses/update.json', $oauthRequest->getPath());
+        $this->assertSame('POST', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getPostParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify a status.
+     */
+    public function testOAuthRequestWithoutStatus()
+    {
+        $this->request->setStatus(null);
+
+        $this->request->createOAuthRequest();
     }
 }

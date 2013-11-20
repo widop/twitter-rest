@@ -11,8 +11,14 @@
 
 namespace Widop\Twitter\Statuses;
 
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
+
 /**
  * Statuses update with media request.
+ *
+ * @method string|null getMedia()              Gets the tweet media.
+ * @method null        setMedia(string $media) Sets the tweet media.
  *
  * @link https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
  *
@@ -20,9 +26,6 @@ namespace Widop\Twitter\Statuses;
  */
 class StatusesUpdateWithMediaRequest extends StatusesUpdateRequest
 {
-    /** @var string */
-    private $media;
-
     /**
      * Creates a statuses update with media request.
      *
@@ -33,49 +36,36 @@ class StatusesUpdateWithMediaRequest extends StatusesUpdateRequest
     {
         parent::__construct($status);
 
-        $this->setPath('/statuses/update_with_media.json');
         $this->setMedia($media);
     }
 
     /**
-     * Gets the request media path.
-     *
-     * @return string The request media path.
+     * {@inheritdoc}
      */
-    public function getMedia()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        return $this->media;
+        parent::configureOptionBag($optionBag);
+
+        $optionBag->register('media', OptionInterface::TYPE_FILE);
     }
 
     /**
-     * Sets the request media path.
-     *
-     * @param string $media The request media path.
+     * {@inheritdoc}
      */
-    public function setMedia($media)
+    protected function validateOptionBag(OptionBag $optionBag)
     {
-        if (!file_exists($media)) {
-            throw new \InvalidArgumentException(sprintf('The media "%s" does not exist.', $media));
+        parent::validateOptionBag($optionBag);
+
+        if (!isset($optionBag['media'])) {
+            throw new \RuntimeException('You must specify a media.');
         }
-
-        $this->media = $media;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function hasFileParameters()
+    protected function getPath()
     {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFileParameters()
-    {
-        $this->setFileParameter('media[]', $this->getMedia());
-
-        return parent::getFileParameters();
+        return '/statuses/update_with_media.json';
     }
 }

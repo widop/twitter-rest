@@ -42,8 +42,6 @@ class StatusesRetweetsRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/statuses/retweets/:id.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertSame('123', $this->request->getId());
         $this->assertNull($this->request->getTrimUser());
@@ -71,28 +69,33 @@ class StatusesRetweetsRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getTrimUser());
     }
 
-    public function testSignatureUrl()
-    {
-        $this->request->setBaseUrl('https://api.twitter.com/oauth');
-
-        $this->assertSame('https://api.twitter.com/oauth/statuses/retweets/123.json', $this->request->getSignatureUrl());
-    }
-
-    public function testGetGetParametersWithoutParameters()
-    {
-        $this->assertEmpty($this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithParameters()
+    public function testOAuthRequest()
     {
         $this->request->setCount(50);
         $this->request->setTrimUser(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
+        $oauthRequest->setBaseUrl('https://api.twitter.com/oauth');
 
         $expected = array(
             'count'     => '50',
             'trim_user' => '1'
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/statuses/retweets/:id.json', $oauthRequest->getPath());
+        $this->assertSame('https://api.twitter.com/oauth/statuses/retweets/123.json', $oauthRequest->getSignatureUrl());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify an id.
+     */
+    public function testOAuthRequestWithoutId()
+    {
+        $this->request->setId(null);
+
+        $this->request->createOAuthRequest();
     }
 }

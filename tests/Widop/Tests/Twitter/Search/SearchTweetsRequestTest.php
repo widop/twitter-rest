@@ -42,10 +42,8 @@ class SearchTweetsRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/search/tweets.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
-        $this->assertSame('@noradio', $this->request->getQuery());
+        $this->assertSame('@noradio', $this->request->getQ());
         $this->assertNull($this->request->getGeocode());
         $this->assertNull($this->request->getLang());
         $this->assertNull($this->request->getLocale());
@@ -58,11 +56,11 @@ class SearchTweetsRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->request->getCallback());
     }
 
-    public function testQuery()
+    public function testQ()
     {
-        $this->request->setQuery('321');
+        $this->request->setQ('321');
 
-        $this->assertSame('321', $this->request->getQuery());
+        $this->assertSame('321', $this->request->getQ());
     }
 
     public function testGeocode()
@@ -138,32 +136,20 @@ class SearchTweetsRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('processTweets', $this->request->getMaxId());
     }
 
-    public function testSignatureUrl()
+    public function testOAuthRequest()
     {
-        $this->request->setBaseUrl('https://api.twitter.com/oauth');
-
-        $this->assertSame('https://api.twitter.com/oauth/search/tweets.json', $this->request->getSignatureUrl());
-    }
-
-    public function testGetGetParametersWithoutParameters()
-    {
-        $this->assertSame(array('q' => '%40noradio'), $this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithParameters()
-    {
-        $until = new \DateTime('2013-11-09');
-
         $this->request->setGeocode('37.781157,-122.398720,1mi');
         $this->request->setLang('fr');
         $this->request->setLocale('ja');
         $this->request->setResultType('mixed');
         $this->request->setCount(200);
-        $this->request->setUntil($until);
+        $this->request->setUntil('2013-11-09');
         $this->request->setSinceId('123456789');
         $this->request->setMaxId('123456789');
         $this->request->setIncludeEntities(true);
         $this->request->setCallback('processTweets');
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'q'                => '%40noradio',
@@ -179,15 +165,19 @@ class SearchTweetsRequestTest extends \PHPUnit_Framework_TestCase
             'callback'         => 'processTweets',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/search/tweets.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertSame($expected, $oauthRequest->getGetParameters());
     }
 
     /**
      * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify a query.
      */
-    public function testGetGetParametersWithoutQuery()
+    public function testOAuthRequestWithoutQuery()
     {
-        $this->request->setQuery(null);
-        $this->request->getGetParameters();
+        $this->request->setQ(null);
+
+        $this->request->createOAuthRequest();
     }
 }

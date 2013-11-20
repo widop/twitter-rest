@@ -12,49 +12,40 @@
 namespace Widop\Twitter\Search;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Statuses show request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/search/tweets
  *
+ * @method string       getQ()                                       Gets the search query.
+ * @method null         setQ(string $query)                          Sets the search query.
+ * @method string|null  getGeocode()                                 Gets the geocode area.
+ * @method null         setGeocode(string $geocode)                  Sets the geocode area.
+ * @method string|null  getLang()                                    Gets the language.
+ * @method null         setLang(string $lang)                        Sets the language.
+ * @method string|null  getLocale()                                  Gets the locale.
+ * @method null         setLocale(string $locale)                    Sets the locale.
+ * @method string|null  getResultType()                              Gets the result type.
+ * @method null         setResultType(string $resultType)            Sets the result type.
+ * @method integer|null getCount()                                   Gets the number of tweets to return.
+ * @method null         setCount(integer $count)                     Sets the number of tweets to return.
+ * @method string|null  getUntil()                                   Gets the lower tweet date.
+ * @method null         setUntil(string $until)                      Sets the lower tweet date.
+ * @method string|null  getSinceId()                                 Gets the lower tweet ID.
+ * @method null         setSinceId(string $sinceId)                  Sets the lower tweet ID.
+ * @method string|null  getMaxId()                                   Gets the higher tweet ID.
+ * @method null         setMaxId(string $maxId)                      Sets the higher tweet ID.
+ * @method boolean|null getIncludeEntities()                         Checks if the entities node should be included.
+ * @method null         setIncludeEntities(boolean $includeEntities) Sets if the entities node should be included.
+ * @method string|null  getCallback()                                Gets the JSONP callback name.
+ * @method null         setCallback(string $callback)                Sets the JSONP callback name.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class SearchTweetsRequest extends AbstractRequest
 {
-    /** @var string */
-    private $query;
-
-    /** @var string */
-    private $geocode;
-
-    /** @var string */
-    private $lang;
-
-    /** @var string */
-    private $locale;
-
-    /** @var string */
-    private $resultType;
-
-    /** @var integer */
-    private $count;
-
-    /** @var \DateTime */
-    private $until;
-
-    /** @var string */
-    private $sinceId;
-
-    /** @var string */
-    private $maxId;
-
-    /** @var boolean */
-    private $includeEntities;
-
-    /** @var string */
-    private $callback;
-
     /**
      * Creates a search tweets request.
      *
@@ -64,283 +55,43 @@ class SearchTweetsRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/search/tweets.json');
-        $this->setMethod('GET');
-
-        $this->setQuery($query);
-    }
-
-    /**
-     * Gets the query.
-     *
-     * @return string The search query.
-     */
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    /**
-     * Sets the query.
-     *
-     * @param string $query The search query.
-     */
-    public function setQuery($query)
-    {
-        $this->query = $query;
-    }
-
-    /**
-     * Gets the geocode information (format: "latitude,longitude,radius").
-     *
-     * @return string The geocode information.
-     */
-    public function getGeocode()
-    {
-        return $this->geocode;
-    }
-
-    /**
-     * Sets the geocode information.
-     *
-     * @param string $geocode The geocode information (format: "latitude,longitude,radius").
-     */
-    public function setGeocode($geocode)
-    {
-        $this->geocode = $geocode;
-    }
-
-    /**
-     * Gets the lang.
-     *
-     * @return string The lang.
-     */
-    public function getLang()
-    {
-        return $this->lang;
-    }
-
-    /**
-     * Sets the lang.
-     *
-     * @param string $lang The lang.
-     */
-    public function setLang($lang)
-    {
-        $this->lang = $lang;
-    }
-
-    /**
-     * Gets the locale.
-     *
-     * @return string The locale.
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    /**
-     * Sets the locale.
-     *
-     * @param string $locale The locale.
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * Gets the type of search (mixed, recent or popular).
-     *
-     * @return string The type of search.
-     */
-    public function getResultType()
-    {
-        return $this->resultType;
-    }
-
-    /**
-     * Sets the result type.
-     *
-     * @param string $resultType The result type (mixed, recent or popular).
-     */
-    public function setResultType($resultType)
-    {
-        $this->resultType = $resultType;
-    }
-
-    /**
-     * Gets the count.
-     *
-     * @return integer The count.
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * Sets the count.
-     *
-     * @param integer $count The count.
-     */
-    public function setCount($count)
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * Gets the "until" date.
-     *
-     * @return \DateTime The "until" date.
-     */
-    public function getUntil()
-    {
-        return $this->until;
-    }
-
-    /**
-     * Sets the untile date.
-     *
-     * @param \DateTime $until The until date.
-     */
-    public function setUntil(\DateTime $until)
-    {
-        $this->until = $until;
-    }
-
-    /**
-     * Gets the since id.
-     *
-     * @return string The since id.
-     */
-    public function getSinceId()
-    {
-        return $this->sinceId;
-    }
-
-    /**
-     * Sets the since id.
-     *
-     * @param string $sinceId The since id.
-     */
-    public function setSinceId($sinceId)
-    {
-        $this->sinceId = $sinceId;
-    }
-
-    /**
-     * Gets the max id.
-     *
-     * @return string The max id.
-     */
-    public function getMaxId()
-    {
-        return $this->maxId;
-    }
-
-    /**
-     * Sets the max id.
-     *
-     * @param string $maxId The max id.
-     */
-    public function setMaxId($maxId)
-    {
-        $this->maxId = $maxId;
-    }
-
-    /**
-     * Checks if "entities" node will be included.
-     *
-     * @return boolean TRUE if "entities" node will be included else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets if "entities" node will be included.
-     *
-     * @param boolean $includeEntities TRUE if "entities" node will be included else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
-    }
-
-    /**
-     * Gets the callback.
-     *
-     * @return string The callback.
-     */
-    public function getCallback()
-    {
-        return $this->callback;
-    }
-
-    /**
-     * Sets the callback.
-     *
-     * @param string $callback The callback.
-     */
-    public function setCallback($callback)
-    {
-        $this->callback = $callback;
+        $this->setQ($query);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        if ($this->getQuery() === null) {
-            throw new \RuntimeException('You must provide a query.');
+        $optionBag
+            ->register('q')
+            ->register('geocode')
+            ->register('lang')
+            ->register('locale')
+            ->register('result_type')
+            ->register('count')
+            ->register('until')
+            ->register('since_id')
+            ->register('max_id')
+            ->register('include_entities')
+            ->register('callback');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function validateOptionBag(OptionBag $optionBag)
+    {
+        if (!isset($optionBag['q'])) {
+            throw new \RuntimeException('You must specify a query.');
         }
+    }
 
-        $this->setGetParameter('q', $this->getQuery());
-
-        if ($this->getGeocode() !== null) {
-            $this->setGetParameter('geocode', $this->getGeocode());
-        }
-
-        if ($this->getLang() !== null) {
-            $this->setGetParameter('lang', $this->getLang());
-        }
-
-        if ($this->getLocale() !== null) {
-            $this->setGetParameter('locale', $this->getLocale());
-        }
-
-        if ($this->getResultType() !== null) {
-            $this->setGetParameter('result_type', $this->getResultType());
-        }
-
-        if ($this->getCount() !== null) {
-            $this->setGetParameter('count', $this->getCount());
-        }
-
-        if ($this->getUntil() !== null) {
-            $this->setGetParameter('until', $this->getUntil()->format('Y-m-d'));
-        }
-
-        if ($this->getSinceId() !== null) {
-            $this->setGetParameter('since_id', $this->getSinceId());
-        }
-
-        if ($this->getMaxId() !== null) {
-            $this->setGetParameter('max_id', $this->getMaxId());
-        }
-
-        if ($this->getIncludeEntities() !== null) {
-            $this->setGetParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        if ($this->getCallback() !== null) {
-            $this->setGetParameter('callback', $this->getCallback());
-        }
-
-        return parent::getGetParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/search/tweets.json';
     }
 }

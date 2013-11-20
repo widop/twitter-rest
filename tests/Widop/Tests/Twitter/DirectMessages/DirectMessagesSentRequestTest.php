@@ -20,7 +20,7 @@ use Widop\Twitter\DirectMessages\DirectMessagesSentRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class DirectMessagesRequestTest extends \PHPUnit_Framework_TestCase
+class DirectMessagesSentRequestTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Widop\Twitter\DirectMessages\DirectMessagesSentRequest */
     private $request;
@@ -44,8 +44,6 @@ class DirectMessagesRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/direct_messages/sent.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertNull($this->request->getSinceId());
         $this->assertNull($this->request->getMaxId());
@@ -89,18 +87,15 @@ class DirectMessagesRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testGetGetParametersWithoutParameters()
-    {
-        $this->assertEmpty($this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithParameters()
+    public function testOAuthRequest()
     {
         $this->request->setSinceId('0123456789');
         $this->request->setMaxId('9876543210');
         $this->request->setCount(50);
         $this->request->setPage(1);
         $this->request->setIncludeEntities(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'since_id'         => '0123456789',
@@ -110,6 +105,8 @@ class DirectMessagesRequestTest extends \PHPUnit_Framework_TestCase
             'include_entities' => '1',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/direct_messages/sent.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertSame($expected, $oauthRequest->getGetParameters());
     }
 }

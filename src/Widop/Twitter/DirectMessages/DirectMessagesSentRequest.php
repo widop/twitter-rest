@@ -12,165 +12,46 @@
 namespace Widop\Twitter\DirectMessages;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Direct messages sent request.
+ *
+ * @link https://dev.twitter.com/docs/api/1.1/get/direct_messages/sent
+ *
+ * @method string|null  getSinceId()                                 Gets the lower direct message sent ID.
+ * @method null         setSinceId(string $sinceId)                  Sets the lower direct message sent ID.
+ * @method string|null  getMaxId()                                   Gets the higher direct message sent ID.
+ * @method null         setMaxId(string $maxId)                      Sets the higher direct message sent ID.
+ * @method integer|null getCount()                                   Gets the number of direct messages to retrieve.
+ * @method null         setCount(integer $count)                     Sets the number of direct messages to retrieve.
+ * @method integer|null getPage()                                    Gets the page of results to retrieve.
+ * @method null         setPage(integer $page)                       Sets the page of results to retrieve.
+ * @method boolean|null getIncludeEntities()                         Checks if the entities node should be included.
+ * @method null         setIncludeEntities(boolean $includeEntities) Sets if the entities node should be included.
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class DirectMessagesSentRequest extends AbstractRequest
 {
-    /** @var string */
-    private $sinceId;
-
-    /** @var string */
-    private $maxId;
-
-    /** @var integer */
-    private $count;
-
-    /** @var integer */
-    private $page;
-
-    /** @var boolean */
-    private $includeEntities;
-
     /**
-     * Creates a direct messages sent request.
+     * {@inheritdoc}
      */
-    public function __construct()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        parent::__construct();
-
-        $this->setPath('/direct_messages/sent.json');
-        $this->setMethod('GET');
-    }
-
-    /**
-     * Gets the since id.
-     *
-     * @return string The since id.
-     */
-    public function getSinceId()
-    {
-        return $this->sinceId;
-    }
-
-    /**
-     * Sets the since id.
-     *
-     * @param string $sinceId The since id.
-     */
-    public function setSinceId($sinceId)
-    {
-        $this->sinceId = $sinceId;
-    }
-
-    /**
-     * Gets the max id.
-     *
-     * @return string The max id.
-     */
-    public function getMaxId()
-    {
-        return $this->maxId;
-    }
-
-    /**
-     * Sets the max id.
-     *
-     * @param string $maxId The max id.
-     */
-    public function setMaxId($maxId)
-    {
-        $this->maxId = $maxId;
-    }
-
-    /**
-     * Gets the number of tweets to try and retrieve.
-     *
-     * @return integer The number of tweets to try and retrieve.
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * Sets the number of tweets to try and retrieve.
-     *
-     * @param integer $count The number of tweets to try and retrieve.
-     */
-    public function setCount($count)
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * Gets the page.
-     *
-     * @return integer The page.
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-
-    /**
-     * Sets the page.
-     *
-     * @param integer $page The page.
-     */
-    public function setPage($page)
-    {
-        $this->page = $page;
-    }
-
-    /**
-     * Checks if the request includes entities.
-     *
-     * @return boolean TRUE if the request includes entities else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets the if the request includes entities.
-     *
-     * @param boolean $includeEntities TRUE if the request includes entities else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
+        $optionBag
+            ->register('since_id')
+            ->register('max_id')
+            ->register('count')
+            ->register('page')
+            ->register('include_entities');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function getPath()
     {
-        if ($this->getSinceId() !== null) {
-            $this->setGetParameter('since_id', $this->getSinceId());
-        }
-
-        if ($this->getMaxId() !== null) {
-            $this->setGetParameter('max_id', $this->getMaxId());
-        }
-
-        if ($this->getCount() !== null) {
-            $this->setGetParameter('count', $this->getCount());
-        }
-
-        if ($this->getPage() !== null) {
-            $this->setGetParameter('page', $this->getPage());
-        }
-
-        if ($this->getIncludeEntities() !== null) {
-            $this->setGetParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        return parent::getGetParameters();
+        return '/direct_messages/sent.json';
     }
 }

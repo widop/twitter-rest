@@ -42,8 +42,6 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/statuses/show/:id.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertSame('123', $this->request->getId());
         $this->assertNull($this->request->getTrimUser());
@@ -79,23 +77,14 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testSignatureUrl()
-    {
-        $this->request->setBaseUrl('https://api.twitter.com/oauth');
-
-        $this->assertSame('https://api.twitter.com/oauth/statuses/show/123.json', $this->request->getSignatureUrl());
-    }
-
-    public function testGetGetParametersWithoutParameters()
-    {
-        $this->assertEmpty($this->request->getGetParameters());
-    }
-
     public function testGetGetParametersWithParameters()
     {
         $this->request->setTrimUser(true);
         $this->request->setIncludeMyRetweet(true);
         $this->request->setIncludeEntities(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
+        $oauthRequest->setBaseUrl('https://api.twitter.com/oauth');
 
         $expected = array(
             'trim_user'          => '1',
@@ -103,6 +92,20 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
             'include_entities'   => '1',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/statuses/show/:id.json', $oauthRequest->getPath());
+        $this->assertSame('https://api.twitter.com/oauth/statuses/show/123.json', $oauthRequest->getSignatureUrl());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify an id.
+     */
+    public function testOAuthRequestWithoutId()
+    {
+        $this->request->setId(null);
+
+        $this->request->createOAuthRequest();
     }
 }

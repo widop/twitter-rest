@@ -12,137 +12,33 @@
 namespace Widop\Twitter\Statuses;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Twitter timeline request.
+ *
+ * @method integer|null getCount()                     Gets the number of tweets to retrieve.
+ * @method null         setCount(integer $count)       Sets the number of tweets to retrieve.
+ * @method string|null  getSinceId()                   Gets the lower tweet ID.
+ * @method null         setSinceId(string $sinceId)    Sets the lower tweet ID.
+ * @method string|null  getMaxId()                     Gets the higher tweet ID.
+ * @method null         setMaxId(string $maxId)        Sets the higher tweet ID.
+ * @method boolean|null getTrimUser()                  Checks if the user should be trimmed.
+ * @method null         setTrimUser(boolean $trimUser) Sets if the user should be trimmed.
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 abstract class AbstractTimelineRequest extends AbstractRequest
 {
-    /** @var integer */
-    private $count;
-
-    /** @var string */
-    private $sinceId;
-
-    /** @var string */
-    private $maxId;
-
-    /** @var boolean */
-    private $trimUser;
-
-    /**
-     * Creates a timeline request.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setMethod('GET');
-    }
-
-    /**
-     * Gets the number of tweets to try and retrieve.
-     *
-     * @return integer The number of tweets to try and retrieve.
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * Sets the number of tweets to try and retrieve.
-     *
-     * @param integer $count The number of tweets to try and retrieve.
-     */
-    public function setCount($count)
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * Gets the since id.
-     *
-     * @return string The since id.
-     */
-    public function getSinceId()
-    {
-        return $this->sinceId;
-    }
-
-    /**
-     * Sets the since id.
-     *
-     * @param string $sinceId The since id.
-     */
-    public function setSinceId($sinceId)
-    {
-        $this->sinceId = $sinceId;
-    }
-
-    /**
-     * Gets the max id.
-     *
-     * @return string The max id.
-     */
-    public function getMaxId()
-    {
-        return $this->maxId;
-    }
-
-    /**
-     * Sets the max id.
-     *
-     * @param string $maxId The max id.
-     */
-    public function setMaxId($maxId)
-    {
-        $this->maxId = $maxId;
-    }
-
-    /**
-     * Checks if the request trim user.
-     *
-     * @return boolean TRUE if the request trim user else FALSE.
-     */
-    public function getTrimUser()
-    {
-        return $this->trimUser;
-    }
-
-    /**
-     * Sets if the request trim user.
-     *
-     * @param boolean $trimUser TRUE if the request trim user else FALSE.
-     */
-    public function setTrimUser($trimUser)
-    {
-        $this->trimUser = $trimUser;
-    }
-
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        if ($this->getCount() !== null) {
-            $this->setGetParameter('count', $this->getCount());
-        }
-
-        if ($this->getSinceId() !== null) {
-            $this->setGetParameter('since_id', $this->getSinceId());
-        }
-
-        if ($this->getMaxId() !== null) {
-            $this->setGetParameter('max_id', $this->getMaxId());
-        }
-
-        if ($this->getTrimUser() !== null) {
-            $this->setGetParameter('trim_user', $this->getTrimUser());
-        }
-
-        return parent::getGetParameters();
+        $optionBag
+            ->register('count')
+            ->register('since_id')
+            ->register('max_id')
+            ->register('trim_user');
     }
 }

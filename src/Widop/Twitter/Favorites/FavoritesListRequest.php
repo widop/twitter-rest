@@ -12,192 +12,63 @@
 namespace Widop\Twitter\Favorites;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Favorites list request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/favorites/list
  *
+ * @method string|null  getUserId()                                  Gets the user ID to return results for.
+ * @method null         setUserId(string $userId)                    Sets the user ID to return results for.
+ * @method string|null  getScreenName()                              Gets the user screen name to return results for.
+ * @method null         setScreenName(string $screenName)            Sets the user screen name to return results for.
+ * @method integer|null getCount()                                   Gets the number of records to retrieve
+ * @method null         setCount(integer $count)                     Sets the number of records to retrieve
+ * @method string|null  getSinceId()                                 Gets the lower tweet ID.
+ * @method null         setSinceId(string $sinceId)                  Sets the lower tweet ID.
+ * @method string|null  getMaxId()                                   Gets the higher tweet ID.
+ * @method null         setMaxId(string $maxId)                      Sets the higher tweet ID.
+ * @method boolean|null getIncludeEntities()                         Checks if the entities node should be included.
+ * @method null         setIncludeEntities(boolean $includeEntities) Sets if the entities node should be included.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class FavoritesListRequest extends AbstractRequest
 {
-    /**@var string */
-    private $userId;
-
-    /**@var string */
-    private $screenName;
-
-    /**@var integer */
-    private $count;
-
-    /**@var string */
-    private $sinceId;
-
-    /**@var string */
-    private $maxId;
-
-    /**@var boolean */
-    private $includeEntities;
-
     /**
-     * Creates a favorites list request.
+     * {@inheritdoc}
      */
-    public function __construct()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        parent::__construct();
-
-        $this->setMethod('GET');
-        $this->setPath('/favorites/list.json');
-    }
-
-    /**
-     * Gets the ID of the user for whom to return results for.
-     *
-     * @return string The ID of the user for whom to return results for.
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Sets the ID of the user for whom to return results for.
-     *
-     * @param string $userId The ID of the user for whom to return results for.
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    }
-
-    /**
-     * Gets the screen name of the user for whom to return results for.
-     *
-     * @return string The screen name of the user for whom to return results for.
-     */
-    public function getScreenName()
-    {
-        return $this->screenName;
-    }
-
-    /**
-     * Sets the screen name of the user for whom to return results for.
-     *
-     * @param string $screenName The screen name of the user for whom to return results for.
-     */
-    public function setScreenName($screenName)
-    {
-        $this->screenName = $screenName;
-    }
-
-    /**
-     * Gets the number of tweets to try and retrieve.
-     *
-     * @return integer The number of tweets to try and retrieve.
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * Sets the number of tweets to try and retrieve.
-     *
-     * @param integer $count The number of tweets to try and retrieve.
-     */
-    public function setCount($count)
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * Gets the since id.
-     *
-     * @return string The since id.
-     */
-    public function getSinceId()
-    {
-        return $this->sinceId;
-    }
-
-    /**
-     * Sets the since id.
-     *
-     * @param string $sinceId The since id.
-     */
-    public function setSinceId($sinceId)
-    {
-        $this->sinceId = $sinceId;
-    }
-
-    /**
-     * Gets the max id.
-     *
-     * @return string The max id.
-     */
-    public function getMaxId()
-    {
-        return $this->maxId;
-    }
-
-    /**
-     * Sets the max id.
-     *
-     * @param string $maxId The max id.
-     */
-    public function setMaxId($maxId)
-    {
-        $this->maxId = $maxId;
-    }
-
-    /**
-     * Checks if the request includes entities.
-     *
-     * @return boolean TRUE if the request includes entities else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets the if the request includes entities.
-     *
-     * @param boolean $includeEntities TRUE if the request includes entities else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
+        $optionBag
+            ->register('user_id')
+            ->register('screen_name')
+            ->register('count')
+            ->register('since_id')
+            ->register('max_id')
+            ->register('include_entities');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function validateOptionBag(OptionBag $optionBag)
     {
-        if ($this->getUserId() !== null) {
-            $this->setGetParameter('user_id', $this->getUserId());
-        } elseif ($this->getScreenName() !== null) {
-            $this->setGetParameter('screen_name', $this->getScreenName());
+        if (!isset($optionBag['user_id']) && !isset($optionBag['screen_name'])) {
+            throw new \RuntimeException('You must specify a user id or a screen name.');
         }
 
-        if ($this->getCount() !== null) {
-            $this->setGetParameter('count', $this->getCount());
+        if (isset($optionBag['user_id'])) {
+            unset($optionBag['screen_name']);
         }
+    }
 
-        if ($this->getSinceId() !== null) {
-            $this->setGetParameter('since_id', $this->getSinceId());
-        }
-
-        if ($this->getMaxId() !== null) {
-            $this->setGetParameter('max_id', $this->getMaxId());
-        }
-
-        if ($this->getIncludeEntities() !== null) {
-            $this->setGetParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        return parent::getGetParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/favorites/list.json';
     }
 }
