@@ -11,84 +11,42 @@
 
 namespace Widop\Twitter\Statuses;
 
+use Widop\Twitter\Options\OptionBag;
+
 /**
  * Statuses mentions timeline request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
  *
+ * @method boolean|null getContributorDetails()                            Checks if the contributor details should be
+ *                                                                         included.
+ * @method null         setContributorDetails(boolean $contributorDetails) Sets if the contributor details should be
+ *                                                                         included.
+ * @method boolean|null getIncludeEntities()                               Checks if the entities node should be
+ *                                                                         included.
+ * @method null         setIncludeEntities(boolean $includeEntities)       Sets if the entities node should be included.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class StatusesMentionsTimelineRequest extends AbstractTimelineRequest
 {
-    /** @var boolean */
-    private $contributorDetails;
-
-    /** @var boolean */
-    private $includeEntities;
-
     /**
-     * Creates a statuses mentions timeline request.
+     * {@inheritdoc}
      */
-    public function __construct()
+    public function configureOptionBag(OptionBag $optionBag)
     {
-        parent::__construct();
+        parent::configureOptionBag($optionBag);
 
-        $this->setPath('/statuses/mentions_timeline.json');
-    }
-
-    /**
-     * Checks if the request will include contributor screen name.
-     *
-     * @return boolean TRUE if the request will include contributor screen name else FALSE.
-     */
-    public function getContributorDetails()
-    {
-        return $this->contributorDetails;
-    }
-
-    /**
-     * Sets if the request will include contributor screen name.
-     *
-     * @param boolean $contributorDetails TRUE if the request will include contributor screen name else FALSE.
-     */
-    public function setContributorDetails($contributorDetails)
-    {
-        $this->contributorDetails = $contributorDetails;
-    }
-
-    /**
-     * Checks if the timeline will include the 'entities' node.
-     *
-     * @return boolean TRUE if the timeline will include the 'entities' node else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets if the timeline will include the 'entities' node.
-     *
-     * @param boolean $includeEntities TRUE if the timeline will include the 'entities' node else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
+        $optionBag
+            ->register('contributor_details')
+            ->register('include_entities');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function getPath()
     {
-        if ($this->getContributorDetails() !== null) {
-            $this->setGetParameter('contributor_details', $this->getContributorDetails());
-        }
-
-        if ($this->getIncludeEntities() !== null) {
-            $this->setGetParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        return parent::getGetParameters();
+        return '/statuses/mentions_timeline.json';
     }
 }

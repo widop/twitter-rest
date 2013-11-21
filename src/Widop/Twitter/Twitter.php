@@ -12,6 +12,7 @@
 namespace Widop\Twitter;
 
 use Widop\Twitter\OAuth\OAuth;
+use Widop\Twitter\OAuth\OAuthRequest;
 use Widop\Twitter\OAuth\OAuthToken;
 
 /**
@@ -118,7 +119,9 @@ class Twitter
      */
     public function send(AbstractRequest $request)
     {
+        $request = $request->createOAuthRequest();
         $request->setBaseUrl($this->getUrl());
+
         $this->getOAuth()->signRequest($request, $this->getOAuthToken());
 
         $response = $this->sendRequest($request);
@@ -137,13 +140,13 @@ class Twitter
     /**
      * Sends the request over http.
      *
-     * @param \Widop\Twitter\AbstractRequest $request The request.
+     * @param \Widop\Twitter\OAuth\OAuthRequest $request The OAuth request.
      *
      * @throws \RuntimException If the http method is not supported.
      *
      * @return string The http response.
      */
-    private function sendRequest(AbstractRequest $request)
+    private function sendRequest(OAuthRequest $request)
     {
         if ($request->getMethod() === 'GET') {
             return $this->getOAuth()->getHttpAdapter()->getContent(

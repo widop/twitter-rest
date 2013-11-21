@@ -40,7 +40,6 @@ class AbstractTimelineRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertNull($this->request->getCount());
         $this->assertNull($this->request->getSinceId());
@@ -76,12 +75,14 @@ class AbstractTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getTrimUser());
     }
 
-    public function testGetGetParametersWithParameters()
+    public function testOAuthRequest()
     {
         $this->request->setCount(50);
         $this->request->setSinceId('0123456789');
         $this->request->setMaxId('9876543210');
         $this->request->setTrimUser(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'count'     => '50',
@@ -90,6 +91,7 @@ class AbstractTimelineRequestTest extends \PHPUnit_Framework_TestCase
             'trim_user' => '1',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
     }
 }

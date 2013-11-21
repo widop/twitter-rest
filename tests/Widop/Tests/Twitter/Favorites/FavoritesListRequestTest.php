@@ -42,8 +42,6 @@ class FavoritesListRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/favorites/list.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertNull($this->request->getUserId());
         $this->assertNull($this->request->getScreenName());
@@ -95,42 +93,57 @@ class FavoritesListRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testGetGetParametersWithoutParameters()
+    public function testOAuthRequestWithUserId()
     {
-        $this->assertEmpty($this->request->getGetParameters());
-    }
-
-    public function testGetGetParametersWithParameters()
-    {
-        $this->request->setScreenName('foo');
+        $this->request->setUserId('123');
         $this->request->setSinceId('0123456789');
         $this->request->setCount(50);
         $this->request->setMaxId('9876543210');
         $this->request->setIncludeEntities(true);
 
+        $oauthRequest = $this->request->createOAuthRequest();
+
         $expected = array(
-            'screen_name'      => 'foo',
+            'user_id'          => '123',
             'count'            => '50',
             'since_id'         => '0123456789',
             'max_id'           => '9876543210',
             'include_entities' => '1',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/favorites/list.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertSame($expected, $oauthRequest->getGetParameters());
     }
 
-    public function testGetGetParametersWithUserId()
+    public function testOAuthRequestWithScreenName()
     {
-        $this->request->setUserId('0123456789');
+        $this->request->setScreenName('foo');
 
-        $this->assertSame(array('user_id' => '0123456789'), $this->request->getGetParameters());
+        $expected = array('screen_name' => 'foo');
+
+        $this->assertSame($expected, $this->request->createOAuthRequest()->getGetParameters());
     }
 
-    public function testGetGetParametersWithUserIdAndScreenName()
+    public function testOAuthRequestWithUserIdAndScreenName()
     {
         $this->request->setUserId('0123456789');
         $this->request->setScreenName('foo');
 
-        $this->assertSame(array('user_id' => '0123456789'), $this->request->getGetParameters());
+        $expected = array('user_id' => '0123456789');
+
+        $this->assertSame($expected, $this->request->createOAuthRequest()->getGetParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify a user id or a screen name.
+     */
+    public function testOAuthRequestWithoutUserIdAndScreenName()
+    {
+        $this->request->setUserId(null);
+        $this->request->setScreenName(null);
+
+        $this->request->createOAuthRequest();
     }
 }

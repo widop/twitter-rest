@@ -12,22 +12,23 @@
 namespace Widop\Twitter\DirectMessages;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Direct messages destroy request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/post/direct_messages/destroy
  *
+ * @method string       getId()                                      Gets the direct message ID to delete.
+ * @method null         setId(string $id)                            Sets the direct message ID to delete.
+ * @method boolean|null getIncludeEntities()                         Checks if the entities node should be included.
+ * @method null         setIncludeEntities(boolean $includeEntities) Sets if the entities node should be included.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class DirectMessagesDestroyRequest extends AbstractRequest
 {
-    /** @var string */
-    private $id;
-
-    /** @var boolean */
-    private $includeEntities;
-
     /**
      * Creates a direct messages destroy request.
      *
@@ -37,67 +38,42 @@ class DirectMessagesDestroyRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/direct_messages/destroy.json');
-        $this->setMethod('POST');
-
         $this->setId($id);
-    }
-
-    /**
-     * Gets the direct message identifier.
-     *
-     * @return string The direct message identifier.
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Sets the direct message identifier.
-     *
-     * @param string $id The direct message identifier.
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Checks if the request includes entities.
-     *
-     * @return boolean TRUE if the request includes entities else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets the if the request includes entities.
-     *
-     * @param boolean $includeEntities TRUE if the request includes entities else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getPostParameters()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        if ($this->getId() === null) {
+        $optionBag
+            ->register('id', OptionInterface::TYPE_POST)
+            ->register('include_entities', OptionInterface::TYPE_POST);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function validateOptionBag(OptionBag $optionBag)
+    {
+        if (!isset($optionBag['id'])) {
             throw new \RuntimeException('You must specify an id.');
         }
+    }
 
-        $this->setPostParameter('id', $this->getId());
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/direct_messages/destroy.json';
+    }
 
-        if ($this->getIncludeEntities() !== null) {
-            $this->setPostParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        return parent::getPostParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMethod()
+    {
+        return 'POST';
     }
 }

@@ -42,12 +42,10 @@ class StatusesOembedRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/statuses/oembed.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertSame('123', $this->request->getId());
         $this->assertSame('foo.com', $this->request->getUrl());
-        $this->assertNull($this->request->getMaxWidth());
+        $this->assertNull($this->request->getMaxwidth());
         $this->assertNull($this->request->getHideMedia());
         $this->assertNull($this->request->getHideThread());
         $this->assertNull($this->request->getOmitScript());
@@ -70,11 +68,11 @@ class StatusesOembedRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('foo.fr', $this->request->getUrl());
     }
 
-    public function testMaxWidth()
+    public function testMaxwidth()
     {
-        $this->request->setMaxWidth(200);
+        $this->request->setMaxwidth(200);
 
-        $this->assertSame(200, $this->request->getMaxWidth());
+        $this->assertSame(200, $this->request->getMaxwidth());
     }
 
     public function testHideMedia()
@@ -119,42 +117,17 @@ class StatusesOembedRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fr', $this->request->getLang());
     }
 
-    public function testSignatureUrl()
+    public function testOAuthRequest()
     {
-        $this->request->setBaseUrl('https://api.twitter.com/oauth');
-
-        $this->assertSame('https://api.twitter.com/oauth/statuses/oembed.json', $this->request->getSignatureUrl());
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetGetParametersWithoutId()
-    {
-        $this->request->setId(null);
-
-        $this->request->getGetParameters();
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetGetParametersWithoutUrl()
-    {
-        $this->request->setUrl(null);
-
-        $this->request->getGetParameters();
-    }
-
-    public function testGetGetParametersWithParameters()
-    {
-        $this->request->setMaxWidth(200);
+        $this->request->setMaxwidth(200);
         $this->request->setHideMedia(true);
         $this->request->setHideThread(true);
         $this->request->setOmitScript(true);
         $this->request->setAlign('center');
         $this->request->setRelated('foo');
         $this->request->setLang('fr');
+
+        $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
             'id'          => '123',
@@ -168,6 +141,30 @@ class StatusesOembedRequestTest extends \PHPUnit_Framework_TestCase
             'lang'        => 'fr',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/statuses/oembed.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify an id.
+     */
+    public function testOAuthRequestWithoutId()
+    {
+        $this->request->setId(null);
+
+        $this->request->createOAuthRequest();
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify an url.
+     */
+    public function testOAuthRequestWithoutUrl()
+    {
+        $this->request->setUrl(null);
+
+        $this->request->createOAuthRequest();
     }
 }

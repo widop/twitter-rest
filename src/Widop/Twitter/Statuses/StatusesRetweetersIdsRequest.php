@@ -12,25 +12,24 @@
 namespace Widop\Twitter\Statuses;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Statuses retweeters ids request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids
  *
+ * @method string       getId()                                Gets the tweet ID from whom to find retweeters ids.
+ * @method null         setId(string $id)                      Sets the tweet ID from whom to find retweeters ids.
+ * @method string|null  getCursor()                            Gets the cursor.
+ * @method null         setCursor(string $curos)               Sets the cursor.
+ * @method boolean|null getStringifyIds()                      Checks if the ids should be stringified.
+ * @method null         setStringifyIds(boolean $stringifyIds) Sets if the ids should be stringified.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class StatusesRetweetersIdsRequest extends AbstractRequest
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $cursor;
-
-    /** @var boolean */
-    private $stringifyIds;
-
     /**
      * Creates a statuses retweeters ids request.
      *
@@ -40,91 +39,35 @@ class StatusesRetweetersIdsRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/statuses/retweeters/ids.json');
-        $this->setMethod('GET');
-
         $this->setId($id);
-    }
-
-    /**
-     * Gets the tweet identifier.
-     *
-     * @return string The tweet identifier.
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Sets the tweet identifier.
-     *
-     * @param string $id The tweet identifier.
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Gets the cursor.
-     *
-     * @return string The cursor.
-     */
-    public function getCursor()
-    {
-        return $this->cursor;
-    }
-
-    /**
-     * Sets the cursor.
-     *
-     * @param string $cursor The cursor.
-     */
-    public function setCursor($cursor)
-    {
-        $this->cursor = $cursor;
-    }
-
-    /**
-     * Checks if the ids will be "stringified".
-     *
-     * @return boolean TRUE if they will be "stringified" else FALSE.
-     */
-    public function getStringifyIds()
-    {
-        return $this->stringifyIds;
-    }
-
-    /**
-     * Sets if the ids will be "stringified".
-     *
-     * @param boolean $stringifyIds TRUE if they will be "stringified" else FALSE.
-     */
-    public function setStringifyIds($stringifyIds)
-    {
-        $this->stringifyIds = $stringifyIds;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        if ($this->getId() === null) {
-            throw new \RuntimeException('You must provide a user id.');
+        $optionBag
+            ->register('id')
+            ->register('cursor')
+            ->register('stringify_ids');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function validateOptionBag(OptionBag $optionBag)
+    {
+        if (!isset($optionBag['id'])) {
+            throw new \RuntimeException('You must specify an id.');
         }
+    }
 
-        $this->setGetParameter('id', $this->getId());
-
-        if ($this->getCursor() !== null) {
-            $this->setGetParameter('cursor', $this->getCursor());
-        }
-
-        if ($this->getStringifyIds() !== null) {
-            $this->setGetParameter('stringify_ids', $this->getStringifyIds());
-        }
-
-        return parent::getGetParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/statuses/retweeters/ids.json';
     }
 }

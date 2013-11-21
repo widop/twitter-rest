@@ -11,84 +11,43 @@
 
 namespace Widop\Twitter\Statuses;
 
+use Widop\Twitter\Options\OptionBag;
+
 /**
  * Statuses retweets of me request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
  *
+ * @method boolean|null getIncludeEntities()                                 Checks if the entities node should be
+ *                                                                           included.
+ * @method null         setIncludeEntities(boolean $includeEntities)         Sets if the entities node should be
+ *                                                                           included.
+ * @method boolean|null getIncludeUserEntities()                             Checks if the user entities node should be
+ *                                                                           included.
+ * @method null         setIncludeUserEntities(boolean $includeUserEntities) Sets if the user entities node should be
+ *                                                                           included.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class StatusesRetweetsOfMeRequest extends AbstractTimelineRequest
 {
-    /** @var boolean */
-    private $includeEntities;
-
-    /** @var boolean */
-    private $includeUserEntities;
-
     /**
-     * Creates a statuses retweets of me request.
+     * {@inheritdoc}
      */
-    public function __construct()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        parent::__construct();
+        parent::configureOptionBag($optionBag);
 
-        $this->setPath('/statuses/retweets_of_me.json');
-    }
-
-    /**
-     * Checks if the timeline will include the 'entities' node.
-     *
-     * @return boolean TRUE if the timeline will include the 'entities' node else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets if the timeline will include the 'entities' node.
-     *
-     * @param boolean $includeEntities TRUE if the timeline will include the 'entities' node else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
-    }
-
-    /**
-     * Checks if the timeline will include the user 'entities' node.
-     *
-     * @return boolean TRUE if the timeline will include the use 'entities' node else FALSE.
-     */
-    public function getIncludeUserEntities()
-    {
-        return $this->includeUserEntities;
-    }
-
-    /**
-     * Sets if the timeline will include the user 'entities' node.
-     *
-     * @param boolean $includeUserEntities TRUE if the timeline will include the user 'entities' node else FALSE.
-     */
-    public function setIncludeUserEntities($includeUserEntities)
-    {
-        $this->includeUserEntities = $includeUserEntities;
+        $optionBag
+            ->register('include_entities')
+            ->register('include_user_entities');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function getPath()
     {
-        if ($this->getIncludeEntities() !== null) {
-            $this->setGetParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        if ($this->getIncludeUserEntities() !== null) {
-            $this->setGetParameter('include_user_entities', $this->getIncludeUserEntities());
-        }
-
-        return parent::getGetParameters();
+        return '/statuses/retweets_of_me.json';
     }
 }

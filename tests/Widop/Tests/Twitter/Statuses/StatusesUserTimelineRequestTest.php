@@ -42,8 +42,6 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\Statuses\AbstractTimelineRequest', $this->request);
-        $this->assertSame('/statuses/user_timeline.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertNull($this->request->getUserId());
         $this->assertNull($this->request->getScreenName());
@@ -119,24 +117,9 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeRts());
     }
 
-    public function testSignatureUrl()
+    public function testOAuthRequestWithUserId()
     {
-        $this->request->setBaseUrl('https://api.twitter.com/1.1');
-
-        $this->assertSame('https://api.twitter.com/1.1/statuses/user_timeline.json', $this->request->getSignatureUrl());
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetGetParametersWithoutUserIdAndScreenName()
-    {
-        $this->request->getGetParameters();
-    }
-
-    public function testGetGetParametersWithParameters()
-    {
-        $this->request->setScreenName('foo');
+        $this->request->setUserId('123');
         $this->request->setSinceId('0123456789');
         $this->request->setCount(50);
         $this->request->setMaxId('9876543210');
@@ -145,8 +128,10 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->setContributorDetails(true);
         $this->request->setIncludeRts(true);
 
+        $oauthRequest = $this->request->createOAuthRequest();
+
         $expected = array(
-            'screen_name'         => 'foo',
+            'user_id'             => '123',
             'exclude_replies'     => '1',
             'contributor_details' => '1',
             'include_rts'         => '1',
@@ -156,21 +141,36 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
             'trim_user'           => '1',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/statuses/user_timeline.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
     }
 
-    public function testGetGetParametersWithUserId()
+    public function testOAuthRequestWithScreeName()
     {
         $this->request->setUserId('0123456789');
 
-        $this->assertSame(array('user_id' => '0123456789'), $this->request->getGetParameters());
+        $expected = array('user_id' => '0123456789');
+
+        $this->assertEquals($expected, $this->request->createOAuthRequest()->getGetParameters());
     }
 
-    public function testGetGetParametersWithUserIdAndScreenName()
+    public function testOAuthRequestWithUserIdAndScreenName()
     {
         $this->request->setUserId('0123456789');
         $this->request->setScreenName('foo');
 
-        $this->assertSame(array('user_id' => '0123456789'), $this->request->getGetParameters());
+        $expected = array('user_id' => '0123456789');
+
+        $this->assertEquals($expected, $this->request->createOAuthRequest()->getGetParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify a user id or a screen name.
+     */
+    public function testOAuthRequestWithoutUserIdAndScreenName()
+    {
+        $this->request->createOAuthRequest();
     }
 }

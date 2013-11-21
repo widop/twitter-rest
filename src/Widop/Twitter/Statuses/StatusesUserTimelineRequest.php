@@ -11,165 +11,66 @@
 
 namespace Widop\Twitter\Statuses;
 
+use Widop\Twitter\Options\OptionBag;
+
 /**
  * Statuses user timeline request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
  *
+ * @method string|null  getUserId()                                        Gets the user ID for whom to return results.
+ * @method null         setUserId(string $userId)                          Sets the user ID for whom to return results.
+ * @method string|null  getScreenName()                                    Gets the user screen name for whom to return
+ *                                                                         results for.
+ * @method null         setScreenName(string $screenName)                  Sets the user screen name for whom to return
+ *                                                                         results for.
+ * @method boolean|null getExcludeReplies()                                Checks if the replies should be excluded.
+ * @method null         setExcludeReplies(boolean $excludeReplies)         Sets if the replies should be excluded.
+ * @method boolean|null getContributorDetails()                            Checks if the contributor details should be
+ *                                                                         included.
+ * @method null         setContributorDetails(boolean $contributorDetails) Sets if the contributor details should be
+ *                                                                         included.
+ * @method boolean|null getIncludeRts()                                    Checks if the relative retweets is included.
+ * @method null         setIncludeRts(boolean $includeRts)                 Sets if the relative retweets is included.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class StatusesUserTimelineRequest extends AbstractTimelineRequest
 {
-    /** @var string */
-    private $userId;
-
-    /** @var string */
-    private $screenName;
-
-    /** @var boolean */
-    private $excludeReplies;
-
-    /** @var boolean */
-    private $contributorDetails;
-
-    /** @var boolean */
-    private $includeRts;
-
     /**
-     * Creates a statuses user timeline request.
+     * {@inheritdoc}
      */
-    public function __construct()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        parent::__construct();
+        parent::configureOptionBag($optionBag);
 
-        $this->setPath('/statuses/user_timeline.json');
-    }
-
-    /**
-     * Gets the ID of the user for whom to return results for.
-     *
-     * @return string The ID of the user for whom to return results for.
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Sets the ID of the user for whom to return results for.
-     *
-     * @param string $userId The ID of the user for whom to return results for.
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    }
-
-    /**
-     * Gets the screen name of the user for whom to return results for.
-     *
-     * @return string The screen name of the user for whom to return results for.
-     */
-    public function getScreenName()
-    {
-        return $this->screenName;
-    }
-
-    /**
-     * Sets the screen name of the user for whom to return results for.
-     *
-     * @param string $screenName The screen name of the user for whom to return results for.
-     */
-    public function setScreenName($screenName)
-    {
-        $this->screenName = $screenName;
-    }
-
-    /**
-     * Checks if the request will prevent replies from appearing in the returned timeline.
-     *
-     * @return boolean TRUE if the request will prevent replies from appearing in the returned timeline else FALSE.
-     */
-    public function getExcludeReplies()
-    {
-        return $this->excludeReplies;
-    }
-
-    /**
-     * Sets if the request will prevent replies from appearing in the returned timeline.
-     *
-     * @param boolean $excludeReplies TRUE if the request will prevent replies from appearing in the returned timeline else FALSE.
-     */
-    public function setExcludeReplies($excludeReplies)
-    {
-        $this->excludeReplies = $excludeReplies;
-    }
-
-    /**
-     * Checks if the request will include contributor screen name.
-     *
-     * @return boolean TRUE if the request will include contributor screen name else FALSE.
-     */
-    public function getContributorDetails()
-    {
-        return $this->contributorDetails;
-    }
-
-    /**
-     * Sets if the request will include contributor screen name.
-     *
-     * @param boolean $contributorDetails TRUE if the request will include contributor screen name else FALSE.
-     */
-    public function setContributorDetails($contributorDetails)
-    {
-        $this->contributorDetails = $contributorDetails;
-    }
-
-    /**
-     * Checks if the timeline will strip any native retweets.
-     *
-     * @return boolean FALSE if the timeline will strip any native retweets else TRUE.
-     */
-    public function getIncludeRts()
-    {
-        return $this->includeRts;
-    }
-
-    /**
-     * Sets if the timeline will strip any native retweets.
-     *
-     * @param boolean $includeRts FALSE if the timeline will strip any native retweets else TRUE.
-     */
-    public function setIncludeRts($includeRts)
-    {
-        $this->includeRts = $includeRts;
+        $optionBag
+            ->register('user_id')
+            ->register('screen_name')
+            ->register('exclude_replies')
+            ->register('contributor_details')
+            ->register('include_rts');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function validateOptionBag(OptionBag $optionBag)
     {
-        if ($this->getUserId() !== null) {
-            $this->setGetParameter('user_id', $this->getUserId());
-        } elseif ($this->getScreenName() !== null) {
-            $this->setGetParameter('screen_name', $this->getScreenName());
-        } else {
+        if (!isset($optionBag['user_id']) && !isset($optionBag['screen_name'])) {
             throw new \RuntimeException('You must specify a user id or a screen name.');
         }
 
-        if ($this->getExcludeReplies() !== null) {
-            $this->setGetParameter('exclude_replies', $this->getExcludeReplies());
+        if (isset($optionBag['user_id'])) {
+            unset($optionBag['screen_name']);
         }
+    }
 
-        if ($this->getContributorDetails() !== null) {
-            $this->setGetParameter('contributor_details', $this->getContributorDetails());
-        }
-
-        if ($this->getIncludeRts() !== null) {
-            $this->setGetParameter('include_rts', $this->getIncludeRts());
-        }
-
-        return parent::getGetParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/statuses/user_timeline.json';
     }
 }

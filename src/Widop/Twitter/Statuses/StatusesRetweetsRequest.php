@@ -12,25 +12,25 @@
 namespace Widop\Twitter\Statuses;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Statuses retweets request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/post/statuses/retweets/%3Aid
  *
+ * @method string       getId()                        Gets the tweet ID from whom to find retweets.
+ * @method null         setId(string $id)              Sets the tweet ID from whom to find retweets.
+ * @method integer|null getCount()                     Gets the number of tweets to retrieve.
+ * @method null         setCount(integer $count)       Sets the number of tweets to retrieve.
+ * @method boolean|null getTrimUser()                  Checks if the user should be trimmed.
+ * @method null         setTrimUser(boolean $trimUser) Sets if the user should be trimmed.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class StatusesRetweetsRequest extends AbstractRequest
 {
-    /** @var string */
-    private $id;
-
-    /** @var integer */
-    private $count;
-
-    /** @var boolean */
-    private $trimUser;
-
     /**
      * Creates a statuses retweets request.
      *
@@ -40,95 +40,35 @@ class StatusesRetweetsRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/statuses/retweets/:id.json');
-        $this->setMethod('GET');
-
         $this->setId($id);
     }
 
     /**
-     * Gets the tweet identifier.
-     *
-     * @return string The tweet identifier.
+     * {@inheritdoc}
      */
-    public function getId()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        return $this->id;
-    }
-
-    /**
-     * Sets the tweet identifier.
-     *
-     * @param string $id The tweet identifier.
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Gets the count.
-     *
-     * @return integer The count.
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * Sets the count.
-     *
-     * @param integer $count The count.
-     */
-    public function setCount($count)
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * Checks if the request trim user.
-     *
-     * @return boolean TRUE if the request trim user else FALSE.
-     */
-    public function getTrimUser()
-    {
-        return $this->trimUser;
-    }
-
-    /**
-     * Sets if the request trim user.
-     *
-     * @param boolean $trimUser TRUE if the request trim user else FALSE.
-     */
-    public function setTrimUser($trimUser)
-    {
-        $this->trimUser = $trimUser;
+        $optionBag
+            ->register('id', OptionInterface::TYPE_PATH)
+            ->register('count')
+            ->register('trim_user');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getSignatureUrl()
+    protected function validateOptionBag(OptionBag $optionBag)
     {
-        $this->setPathParameter(':id', $this->getId());
-
-        return parent::getSignatureUrl();
+        if (!isset($optionBag['id'])) {
+            throw new \RuntimeException('You must specify an id.');
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function getPath()
     {
-        if ($this->getCount() !== null) {
-            $this->setGetParameter('count', $this->getCount());
-        }
-
-        if ($this->getTrimUser() !== null) {
-            $this->setGetParameter('trim_user', $this->getTrimUser());
-        }
-
-        return parent::getGetParameters();
+        return '/statuses/retweets/:id.json';
     }
 }

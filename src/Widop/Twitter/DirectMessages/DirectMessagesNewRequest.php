@@ -12,25 +12,25 @@
 namespace Widop\Twitter\DirectMessages;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Direct messages new request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/post/direct_messages/new
  *
+ * @method string|null getUserId()                       Gets the user ID who will receive the direct message.
+ * @method null        setUserId(string $userId)         Sets the user ID who will receive the direct message.
+ * @method string|null getScreenName()                   Gets the user screen name who will receive the direct message.
+ * @method null        setScreenName(string $screenName) Sets the user screen name who will receive the direct message.
+ * @method string      getText()                         Gets the text of the direct message.
+ * @method null        setText(string $text)             Sets the text of the direct message.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class DirectMessagesNewRequest extends AbstractRequest
 {
-    /** @var string */
-    private $userId;
-
-    /** @var string */
-    private $screenName;
-
-    /** @var string */
-    private $text;
-
     /**
      * Creates a direct messages new request.
      *
@@ -40,88 +40,51 @@ class DirectMessagesNewRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/direct_messages/new.json');
-        $this->setMethod('POST');
         $this->setText($text);
-    }
-
-    /**
-     * Gets the ID of the user for whom to return results for.
-     *
-     * @return string The ID of the user for whom to return results for.
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Sets the ID of the user for whom to return results for.
-     *
-     * @param string $userId The ID of the user for whom to return results for.
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    }
-
-    /**
-     * Gets the screen name of the user for whom to return results for.
-     *
-     * @return string The screen name of the user for whom to return results for.
-     */
-    public function getScreenName()
-    {
-        return $this->screenName;
-    }
-
-    /**
-     * Sets the screen name of the user for whom to return results for.
-     *
-     * @param string $screenName The screen name of the user for whom to return results for.
-     */
-    public function setScreenName($screenName)
-    {
-        $this->screenName = $screenName;
-    }
-
-    /**
-     * Gets the text of the direct message.
-     *
-     * @return string The text of the direct message.
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
-     * Sets the text of the direct message.
-     *
-     * @param string $text The text of the direct message.
-     */
-    public function setText($text)
-    {
-        $this->text = $text;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getPostParameters()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        if ($this->getUserId() !== null) {
-            $this->setPostParameter('user_id', $this->getUserId());
-        } elseif ($this->getScreenName() !== null) {
-            $this->setPostParameter('screen_name', $this->getScreenName());
-        } else {
+        $optionBag
+            ->register('user_id', OptionInterface::TYPE_POST)
+            ->register('screen_name', OptionInterface::TYPE_POST)
+            ->register('text', OptionInterface::TYPE_POST);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function validateOptionBag(OptionBag $optionBag)
+    {
+        if (!isset($optionBag['user_id']) && !isset($optionBag['screen_name'])) {
             throw new \RuntimeException('You must specify a user id or a screen name.');
         }
 
-        if ($this->getText() !== null) {
-            $this->setPostParameter('text', $this->getText());
+        if (!isset($optionBag['text'])) {
+            throw new \RuntimeException('You must specify a text.');
         }
 
-        return parent::getPostParameters();
+        if (isset($optionBag['user_id'])) {
+            unset($optionBag['screen_name']);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/direct_messages/new.json';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMethod()
+    {
+        return 'POST';
     }
 }

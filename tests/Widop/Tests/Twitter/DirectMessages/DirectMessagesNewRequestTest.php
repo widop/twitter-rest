@@ -42,8 +42,6 @@ class DirectMessagesNewRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-        $this->assertSame('/direct_messages/new.json', $this->request->getPath());
-        $this->assertSame('POST', $this->request->getMethod());
 
         $this->assertNull($this->request->getUserId());
         $this->assertNull($this->request->getScreenName());
@@ -71,25 +69,24 @@ class DirectMessagesNewRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('mouchacho', $this->request->getText());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetPostParametersWithoutUserIdAndScreenName()
+    public function testOAuthRequestWithUserId()
     {
-        $this->request->getPostParameters();
+        $this->request->setUserId('123456789');
+        $this->request->setText('bar');
+
+        $oauthRequest = $this->request->createOAuthRequest();
+
+        $expected = array(
+            'user_id' => '123456789',
+            'text'    => 'bar',
+        );
+
+        $this->assertSame('/direct_messages/new.json', $oauthRequest->getPath());
+        $this->assertSame('POST', $oauthRequest->getMethod());
+        $this->assertSame($expected, $oauthRequest->getPostParameters());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testGetPostParametersWithoutText()
-    {
-        $this->request->setText(null);
-
-        $this->request->getPostParameters();
-    }
-
-    public function testGetPostParametersWithScreenName()
+    public function testOAuthRequestWithScreenName()
     {
         $this->request->setScreenName('foo');
         $this->request->setText('bar');
@@ -99,12 +96,13 @@ class DirectMessagesNewRequestTest extends \PHPUnit_Framework_TestCase
             'text'        => 'bar',
         );
 
-        $this->assertSame($expected, $this->request->getPostParameters());
+        $this->assertSame($expected, $this->request->createOAuthRequest()->getPostParameters());
     }
 
-    public function testGetPostParametersWithUserId()
+    public function testOAuthRequestWithUserIdAndScreenName()
     {
         $this->request->setUserId('123456789');
+        $this->request->setScreenName('foo');
         $this->request->setText('bar');
 
         $expected = array(
@@ -112,6 +110,30 @@ class DirectMessagesNewRequestTest extends \PHPUnit_Framework_TestCase
             'text'    => 'bar',
         );
 
-        $this->assertSame($expected, $this->request->getPostParameters());
+        $this->assertEquals($expected, $this->request->createOAuthRequest()->getPostParameters());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify a user id or a screen name.
+     */
+    public function testOAuthRequestWithoutUserIdAndScreenName()
+    {
+        $this->request->setUserId(null);
+        $this->request->setScreenName(null);
+
+        $this->request->createOAuthRequest();
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must specify a text.
+     */
+    public function testOAuthRequestWithoutText()
+    {
+        $this->request->setUserId('123');
+        $this->request->setText(null);
+
+        $this->request->createOAuthRequest();
     }
 }

@@ -11,6 +11,8 @@
 
 namespace Widop\Tests\Twitter;
 
+use Widop\Twitter\Statuses\StatusesShowRequest;
+
 /**
  * Abstract request test.
  *
@@ -37,8 +39,22 @@ class AbstractRequestTest extends \PHPUnit_Framework_TestCase
         unset($this->request);
     }
 
-    public function testInheritance()
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage The method "foo" does not exist.
+     */
+    public function testInvalidMethodPrefix()
     {
-        $this->assertInstanceOf('Widop\Twitter\OAuth\OAuthRequest', $this->request);
+        $this->request->foo();
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage You must specify an argument to the method "setId".
+     */
+    public function testInvalidOption()
+    {
+        $this->request = new StatusesShowRequest('123');
+        $this->request->setId();
     }
 }

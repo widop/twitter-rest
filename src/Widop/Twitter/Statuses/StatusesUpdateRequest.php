@@ -12,37 +12,33 @@
 namespace Widop\Twitter\Statuses;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Statuses update request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/post/statuses/update
  *
+ * @method string       getStatus()                                        Gets the tweet status.
+ * @method null         setStatus(string $status)                          Sets the tweet status.
+ * @method string|null  getInReplyToStatusId()                             Gets the reply tweet ID.
+ * @method null         setInReplyToStatusId(string $inReplyToStatusId)    Sets the reply tweet ID.
+ * @method string|null  getLat()                                           Gets the tweet latitude.
+ * @method null         setLat(string $lat)                                Sets the tweet latitude.
+ * @method string|null  getLong()                                          Gets the tweet longitude.
+ * @method null         setLong(string $long)                              Sets the tweet longitude.
+ * @method string|null  getPlaceId()                                       Gets the tweet place ID.
+ * @method null         setPlaceId(string $placeId)                        Sets the tweet place ID.
+ * @method boolean|null getDisplayCoordinates()                            Checks if the coordinates is be displayed.
+ * @method null         setDisplayCoordinates(boolean $displayCoordinates) Sets if the coordinate shoudl be displayed.
+ * @method boolean|null getTrimUser()                                      Checks if the user should be trimmed.
+ * @method null         setTrimUser(boolean $trimUser)                     Sets if the user should be trimmed.
+ *
  * @author GeLo <geloen.eric@gmail.com>
  */
 class StatusesUpdateRequest extends AbstractRequest
 {
-    /** @var string */
-    private $status;
-
-    /** @var string */
-    private $inReplyToStatusId;
-
-    /** @var string */
-    private $latitude;
-
-    /** @var string */
-    private $longitude;
-
-    /** @var string */
-    private $placeId;
-
-    /** @var boolean */
-    private $displayCoordinates;
-
-    /** @var boolean */
-    private $trimUser;
-
     /**
      * Creates a statuses update request.
      *
@@ -52,183 +48,47 @@ class StatusesUpdateRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/statuses/update.json');
-        $this->setMethod('POST');
-
         $this->setStatus($status);
-    }
-
-    /**
-     * Gets the tweet status.
-     *
-     * @return string The tweet status.
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Sets the tweet status.
-     *
-     * @param string $status The tweet status.
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * Gets the in reply tweet identifier.
-     *
-     * @return string The in reply tweet identifier.
-     */
-    public function getInReplyToStatusId()
-    {
-        return $this->inReplyToStatusId;
-    }
-
-    /**
-     * Sets the in reply tweet identifier.
-     *
-     * @param string $inReplyToStatusId The in reply tweet identifier.
-     */
-    public function setInReplyToStatusId($inReplyToStatusId)
-    {
-        $this->inReplyToStatusId = $inReplyToStatusId;
-    }
-
-    /**
-     * Gets the tweet latitude.
-     *
-     * @return string The tweet latitude.
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * Sets the tweet latitude.
-     *
-     * @param string $latitude The tweet latitude.
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
-    }
-
-    /**
-     * Gets the tweet longitude.
-     *
-     * @return string The tweet longitude.
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-    /**
-     * Sets the tweet longitude.
-     *
-     * @param string $longitude The tweet longitude.
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
-    }
-
-    /**
-     * Gets the tweet place identifier.
-     *
-     * @return string The tweet place identifier.
-     */
-    public function getPlaceId()
-    {
-        return $this->placeId;
-    }
-
-    /**
-     * Sets the tweet place identifier.
-     *
-     * @param string $placeId The tweet place identifier.
-     */
-    public function setPlaceId($placeId)
-    {
-        $this->placeId = $placeId;
-    }
-
-    /**
-     * Checks if the tweet diplays coordinates.
-     *
-     * @return boolean TRUE if the tweet diplays coordinates else FALSE.
-     */
-    public function getDisplayCoordinates()
-    {
-        return $this->displayCoordinates;
-    }
-
-    /**
-     * Sets if the tweet displays coordinates.
-     *
-     * @param boolean $displayCoordinates TRUE if the tweet diplays coordinates else FALSE.
-     */
-    public function setDisplayCoordinates($displayCoordinates)
-    {
-        $this->displayCoordinates = $displayCoordinates;
-    }
-
-    /**
-     * Checks if the request trim user.
-     *
-     * @return boolean TRUE if the request trim user else FALSE.
-     */
-    public function getTrimUser()
-    {
-        return $this->trimUser;
-    }
-
-    /**
-     * Sets if the request trim user.
-     *
-     * @param boolean $trimUser TRUE if the request trim user else FALSE.
-     */
-    public function setTrimUser($trimUser)
-    {
-        $this->trimUser = $trimUser;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getPostParameters()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        $this->setPostParameter('status', $this->getStatus());
+        $optionBag
+            ->register('status', OptionInterface::TYPE_POST)
+            ->register('in_reply_to_status_id', OptionInterface::TYPE_POST)
+            ->register('lat', OptionInterface::TYPE_POST)
+            ->register('long', OptionInterface::TYPE_POST)
+            ->register('place_id', OptionInterface::TYPE_POST)
+            ->register('display_coordinates', OptionInterface::TYPE_POST)
+            ->register('trim_user', OptionInterface::TYPE_POST);
+    }
 
-        if ($this->getInReplyToStatusId() !== null) {
-            $this->setPostParameter('in_reply_to_status_id', $this->getInReplyToStatusId());
+    /**
+     * {@inheritdoc}
+     */
+    protected function validateOptionBag(OptionBag $optionBag)
+    {
+        if (!isset($optionBag['status'])) {
+            throw new \RuntimeException('You must specify a status.');
         }
+    }
 
-        if ($this->getLatitude() !== null) {
-            $this->setPostParameter('lat', $this->getLatitude());
-        }
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPath()
+    {
+        return '/statuses/update.json';
+    }
 
-        if ($this->getLongitude() !== null) {
-            $this->setPostParameter('long', $this->getLongitude());
-        }
-
-        if ($this->getPlaceId() !== null) {
-            $this->setPostParameter('place_id', $this->getPlaceId());
-        }
-
-        if ($this->getDisplayCoordinates() !== null) {
-            $this->setPostParameter('display_coordinates', $this->getDisplayCoordinates());
-        }
-
-        if ($this->getTrimUser() !== null) {
-            $this->setPostParameter('trim_user', $this->getTrimUser());
-        }
-
-        return parent::getPostParameters();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getMethod()
+    {
+        return 'POST';
     }
 }

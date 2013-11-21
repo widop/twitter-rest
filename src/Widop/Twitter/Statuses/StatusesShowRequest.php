@@ -12,28 +12,27 @@
 namespace Widop\Twitter\Statuses;
 
 use Widop\Twitter\AbstractRequest;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Statuses show request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/statuses/show/%3Aid
  *
+ * @method string       getId()                                        Gets the tweet ID to show.
+ * @method null         setId(string $id)                              Sets the tweet ID to show.
+ * @method boolean|null getTrimUser()                                  Checks if the user should be trimmed.
+ * @method null         setTrimUser(boolean $trimUser)                 Sets if the user should be trimmed.
+ * @method boolean|null getInclideMyRetweet()                          Checks if my retweet is included.
+ * @method null         setIncludeMyRetweet(boolean $includeMyRetweet) Sets if my retweet is included.
+ * @method boolean|null getIncludeEntities()                           Checks if the entities node should be included.
+ * @method null         setIncludeEntities(boolean $includeEntities)   Sets if the entities node should be included.
+ *
  * @author GeLo <geloen.eric@gmail.com>
  */
 class StatusesShowRequest extends AbstractRequest
 {
-    /** @var string */
-    private $id;
-
-    /** @var boolean */
-    private $trimUser;
-
-    /** @var boolean */
-    private $includeMyRetweet;
-
-    /** @var boolean */
-    private $includeEntities;
-
     /**
      * Creates a statuses show request.
      *
@@ -43,119 +42,36 @@ class StatusesShowRequest extends AbstractRequest
     {
         parent::__construct();
 
-        $this->setPath('/statuses/show/:id.json');
-        $this->setMethod('GET');
-
         $this->setId($id);
     }
 
     /**
-     * Gets the tweet identifier.
-     *
-     * @return string The tweet identifier.
+     * {@inheritdoc}
      */
-    public function getId()
+    protected function configureOptionBag(OptionBag $optionBag)
     {
-        return $this->id;
-    }
-
-    /**
-     * Sets the tweet identifier.
-     *
-     * @param string $id The tweet identifier.
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Checks if the request trim user.
-     *
-     * @return boolean TRUE if the request trim user else FALSE.
-     */
-    public function getTrimUser()
-    {
-        return $this->trimUser;
-    }
-
-    /**
-     * Sets if the request trim user.
-     *
-     * @param boolean $trimUser TRUE if the request trim user else FALSE.
-     */
-    public function setTrimUser($trimUser)
-    {
-        $this->trimUser = $trimUser;
-    }
-
-    /**
-     * Checks if the request includes retweets.
-     *
-     * @return boolean TRUE if the request includes retweets else FALSE.
-     */
-    public function getIncludeMyRetweet()
-    {
-        return $this->includeMyRetweet;
-    }
-
-    /**
-     * Sets if the request includes retweets.
-     *
-     * @param boolean $includeMyRetweet TRUE if the request includes retweets else FALSE.
-     */
-    public function setIncludeMyRetweet($includeMyRetweet)
-    {
-        $this->includeMyRetweet = $includeMyRetweet;
-    }
-
-    /**
-     * Checks if the request includes entities.
-     *
-     * @return boolean TRUE if the request includes entities else FALSE.
-     */
-    public function getIncludeEntities()
-    {
-        return $this->includeEntities;
-    }
-
-    /**
-     * Sets the if the request includes entities.
-     *
-     * @param boolean $includeEntities TRUE if the request includes entities else FALSE.
-     */
-    public function setIncludeEntities($includeEntities)
-    {
-        $this->includeEntities = $includeEntities;
+        $optionBag
+            ->register('id', OptionInterface::TYPE_PATH)
+            ->register('trim_user')
+            ->register('include_my_retweet')
+            ->register('include_entities');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getSignatureUrl()
+    protected function validateOptionBag(OptionBag $optionBag)
     {
-        $this->setPathParameter(':id', $this->getId());
-
-        return parent::getSignatureUrl();
+        if (!isset($optionBag['id'])) {
+            throw new \RuntimeException('You must specify an id.');
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function getPath()
     {
-        if ($this->getTrimUser() !== null) {
-            $this->setGetParameter('trim_user', $this->getTrimUser());
-        }
-
-        if ($this->getIncludeMyRetweet() !== null) {
-            $this->setGetParameter('include_my_retweet', $this->getIncludeMyRetweet());
-        }
-
-        if ($this->getIncludeEntities() !== null) {
-            $this->setGetParameter('include_entities', $this->getIncludeEntities());
-        }
-
-        return parent::getGetParameters();
+        return '/statuses/show/:id.json';
     }
 }

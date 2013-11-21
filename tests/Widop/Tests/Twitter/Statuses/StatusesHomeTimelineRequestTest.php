@@ -42,8 +42,6 @@ class StatusesHomeTimelineRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\Statuses\AbstractTimelineRequest', $this->request);
-        $this->assertSame('/statuses/home_timeline.json', $this->request->getPath());
-        $this->assertSame('GET', $this->request->getMethod());
 
         $this->assertNull($this->request->getCount());
         $this->assertNull($this->request->getSinceId());
@@ -103,14 +101,7 @@ class StatusesHomeTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testSignatureUrl()
-    {
-        $this->request->setBaseUrl('https://api.twitter.com/1.1');
-
-        $this->assertSame('https://api.twitter.com/1.1/statuses/home_timeline.json', $this->request->getSignatureUrl());
-    }
-
-    public function testGetGetParameters()
+    public function testOAuthRequest()
     {
         $this->request->setSinceId('0123456789');
         $this->request->setCount(50);
@@ -119,6 +110,9 @@ class StatusesHomeTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->setExcludeReplies(true);
         $this->request->setContributorDetails(true);
         $this->request->setIncludeEntities(true);
+
+        $oauthRequest = $this->request->createOAuthRequest();
+        $oauthRequest->setBaseUrl('https://api.twitter.com/1.1');
 
         $expected = array(
             'exclude_replies'     => '1',
@@ -130,6 +124,8 @@ class StatusesHomeTimelineRequestTest extends \PHPUnit_Framework_TestCase
             'trim_user'           => '1',
         );
 
-        $this->assertSame($expected, $this->request->getGetParameters());
+        $this->assertSame('/statuses/home_timeline.json', $oauthRequest->getPath());
+        $this->assertSame('GET', $oauthRequest->getMethod());
+        $this->assertEquals($expected, $oauthRequest->getGetParameters());
     }
 }

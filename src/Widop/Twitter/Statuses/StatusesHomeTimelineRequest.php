@@ -11,57 +11,35 @@
 
 namespace Widop\Twitter\Statuses;
 
+use Widop\Twitter\Options\OptionBag;
+
 /**
  * Statuses home timeline request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
  *
+ * @method boolean|null getExcludeReplies()                        Checks if the replies should be excluded.
+ * @method null         setExcludeReplies(boolean $excludeReplies) Sets if the replies should be excluded.
+ *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
 class StatusesHomeTimelineRequest extends StatusesMentionsTimelineRequest
 {
-    /** @var boolean */
-    private $excludeReplies;
-
     /**
-     * Creates a statuses user timeline request.
+     * {@inheritdoc}
      */
-    public function __construct()
+    public function configureOptionBag(OptionBag $optionBag)
     {
-        parent::__construct();
+        parent::configureOptionBag($optionBag);
 
-        $this->setPath('/statuses/home_timeline.json');
-    }
-
-    /**
-     * Checks if the request will prevent replies from appearing in the returned timeline.
-     *
-     * @return boolean TRUE if the request will prevent replies from appearing in the returned timeline else FALSE.
-     */
-    public function getExcludeReplies()
-    {
-        return $this->excludeReplies;
-    }
-
-    /**
-     * Sets if the request will prevent replies from appearing in the returned timeline.
-     *
-     * @param boolean $excludeReplies TRUE if the request will prevent replies from appearing in the returned timeline else FALSE.
-     */
-    public function setExcludeReplies($excludeReplies)
-    {
-        $this->excludeReplies = $excludeReplies;
+        $optionBag->register('exclude_replies');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getGetParameters()
+    protected function getPath()
     {
-        if ($this->getExcludeReplies() !== null) {
-            $this->setGetParameter('exclude_replies', $this->getExcludeReplies());
-        }
-
-        return parent::getGetParameters();
+        return '/statuses/home_timeline.json';
     }
 }
