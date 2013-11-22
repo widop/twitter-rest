@@ -16,7 +16,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "widop/http-adapter": "1.1.*@dev"
+        "widop/http-adapter": "1.1.*@dev",
+        "widop/twitter-oauth": "1.0.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
