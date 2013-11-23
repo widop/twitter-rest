@@ -92,4 +92,10 @@ For now, the build-in requests are:
   * [`/favorites/destroy`](favorites/destroy.md): Un-favorites the status specified in the ID parameter as the authenticating user.
   * [`/favorites/list`](favorites/list.md): Returns the 20 most recent Tweets favorited by the authenticating or specified user.
 
-Obviously, if you want to complete the list, your're welcome :)
+ * Saved Searches
+  * [`saved_searches/list`](saved-searches/.md): Returns the authenticated user's saved search queries.
+  * [`saved_searches/show/:id`](saved-searches/show.md): Retrieve the information for the saved search represented by the given id.
+  * [`saved_searches/create`](saved-searches/create.md): Create a new saved search for the authenticated user.
+  * [`saved_searches/destroy/:id`](saved-searches/destroy.md): Destroys a saved search for the authenticating user.
+
+Obviously, if you want to complete the list, you're welcome :)

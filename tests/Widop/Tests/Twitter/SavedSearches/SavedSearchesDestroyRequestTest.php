@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Widop\Tests\Twitter\DirectMessages;
+namespace Widop\Tests\Twitter\SavedSearches;
 
-use Widop\Twitter\DirectMessages\DirectMessagesDestroyRequest;
+use Widop\Twitter\SavedSearches\SavedSearchesDestroyRequest;
 
 /**
- * Direct messages destroy request test.
+ * Saved searches destroy request test.
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class DirectMessagesDestroyRequestTest extends \PHPUnit_Framework_TestCase
+class SavedSearchesDestroyRequestTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \Widop\Twitter\DirectMessages\DirectMessagesDestroyRequest */
+    /** @var \Widop\Twitter\SavedSearches\SavedSearchesDestroyRequest */
     private $request;
 
     /**
@@ -28,7 +28,7 @@ class DirectMessagesDestroyRequestTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->request = new DirectMessagesDestroyRequest('123');
+        $this->request = new SavedSearchesDestroyRequest('123');
     }
 
     /**
@@ -42,9 +42,7 @@ class DirectMessagesDestroyRequestTest extends \PHPUnit_Framework_TestCase
     public function testDefaultState()
     {
         $this->assertInstanceOf('Widop\Twitter\AbstractRequest', $this->request);
-
         $this->assertSame('123', $this->request->getId());
-        $this->assertNull($this->request->getIncludeEntities());
     }
 
     public function testId()
@@ -54,28 +52,19 @@ class DirectMessagesDestroyRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('0123456789', $this->request->getId());
     }
 
-    public function testIncludeEntities()
-    {
-        $this->request->setIncludeEntities(true);
-
-        $this->assertTrue($this->request->getIncludeEntities());
-    }
-
-    public function testOAuthRequest()
+    public function testOAuthRequestWithParameters()
     {
         $this->request->setId('123456789');
-        $this->request->setIncludeEntities(true);
-
         $oauthRequest = $this->request->createOAuthRequest();
+        $oauthRequest->setBaseUrl('https://api.twitter.com/1.1');
 
-        $expected = array(
-            'id'               => '123456789',
-            'include_entities' => '1'
+        $this->assertSame(
+            'https://api.twitter.com/1.1/saved_searches/destroy/123456789.json',
+            $oauthRequest->getSignatureUrl()
         );
-
-        $this->assertSame('/direct_messages/destroy.json', $oauthRequest->getPath());
+        $this->assertSame('/saved_searches/destroy/:id.json', $oauthRequest->getPath());
         $this->assertSame('POST', $oauthRequest->getMethod());
-        $this->assertEquals($expected, $oauthRequest->getPostParameters());
+        $this->assertEmpty($oauthRequest->getPostParameters());
     }
 
     /**
@@ -85,7 +74,6 @@ class DirectMessagesDestroyRequestTest extends \PHPUnit_Framework_TestCase
     public function testOAuthRequestWithoutId()
     {
         $this->request->setId(null);
-
         $this->request->createOAuthRequest();
     }
 }

@@ -105,7 +105,10 @@ abstract class AbstractRequest
      *
      * @param \Widop\Twitter\Options\OptionBag $optionBag The option bag.
      */
-    abstract protected function configureOptionBag(OptionBag $optionBag);
+    protected function configureOptionBag(OptionBag $optionBag)
+    {
+
+    }
 
     /**
      * Gets the request path.
