@@ -1,9 +1,9 @@
 # README
 
-[![Build Status](https://secure.travis-ci.org/widop/twitter.png)](http://travis-ci.org/widop/twitter)
+[![Build Status](https://secure.travis-ci.org/widop/twitter-rest.png)](http://travis-ci.org/widop/twitter-rest)
 
-The Wid'op Twitter library is a modern PHP 5.3+ API allowing you to easily interact with Twitter 1.1. In order to sign
-your request with the OAuth protocol, the library internally uses the
+The Wid'op Twitter REST library is a modern PHP 5.3+ API allowing you to easily interact with Twitter 1.1.
+In order to sign your request with the OAuth protocol, the library internally uses the
 [`widop/twitter-oauth`](https://github.com/widop/twitter-oauth).
 
 ``` php
