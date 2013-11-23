@@ -2,7 +2,9 @@
 
 [![Build Status](https://secure.travis-ci.org/widop/twitter.png)](http://travis-ci.org/widop/twitter)
 
-The Wid'op Twitter library is a modern PHP 5.3+ API allowing you to easily interact with Twitter 1.1.
+The Wid'op Twitter library is a modern PHP 5.3+ API allowing you to easily interact with Twitter 1.1. In order to sign
+your request with the OAuth protocol, the library internally uses the
+[`widop/twitter-oauth`](https://github.com/widop/twitter-oauth).
 
 ``` php
 use Widop\HttpAdapter\CurlHttpAdapter;
@@ -31,8 +33,7 @@ $tweet = $twitter->send($request);
 ## Documentation
 
  1. [Installation](doc/installation.md)
- 2. [OAuth](doc/oauth.md)
- 3. [Twitter](doc/twitter.md)
+ 2. [Twitter](doc/twitter.md)
 
 ## Testing
 
