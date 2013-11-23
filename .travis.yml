@@ -12,6 +12,9 @@ before_script:
 
 script: bin/phpunit
 
+branches:
+    only: master
+
 notifications:
     email:
       - timothee@widop.com
