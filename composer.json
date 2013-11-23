@@ -1,7 +1,7 @@
 {
-    "name": "widop/twitter",
-    "description": "Twitter API for PHP 5.3+",
-    "keywords": [ "twitter", "api" ],
+    "name": "widop/twitter-rest",
+    "description": "Twitter REST API for PHP 5.3+",
+    "keywords": [ "twitter", "rest", "api" ],
     "type": "library",
     "license": "MIT",
     "authors": [
