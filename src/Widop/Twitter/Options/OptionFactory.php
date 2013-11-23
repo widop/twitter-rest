@@ -36,6 +36,7 @@ class OptionFactory
             'cursor'                => 'Widop\Twitter\Options\CursorOption',
             'device'                => 'Widop\Twitter\Options\DeviceOption',
             'display_coordinates'   => 'Widop\Twitter\Options\DisplayCoordinatesOption',
+            'exclude'               => 'Widop\Twitter\Options\ExcludeOption',
             'exclude_replies'       => 'Widop\Twitter\Options\ExcludeRepliesOption',
             'follow'                => 'Widop\Twitter\Options\FollowOption',
             'geocode'               => 'Widop\Twitter\Options\GeocodeOption',

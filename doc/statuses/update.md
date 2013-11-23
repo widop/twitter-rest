@@ -13,11 +13,11 @@ $status = $request->getStatus();
 $request->setInReplyToStatusId('123');
 $inReplyToStatusId = $request->getInReplyToStatusId();
 
-$request->setLatitude('37.7821120598956');
-$latitude = $request->getLatitude();
+$request->setLat('37.7821120598956');
+$latitude = $request->getLat();
 
-$request->setLongitude('-122.400612831116');
-$longitude = $request->getLongitude();
+$request->setLong('-122.400612831116');
+$longitude = $request->getLong();
 
 $request->setPlaceId('df51dec6f4ee2b2c');
 $placeId = $request->getPlaceId();

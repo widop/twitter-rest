@@ -77,7 +77,7 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->request->getIncludeEntities());
     }
 
-    public function testGetGetParametersWithParameters()
+    public function testOAuthRequestWithParameters()
     {
         $this->request->setTrimUser(true);
         $this->request->setIncludeMyRetweet(true);

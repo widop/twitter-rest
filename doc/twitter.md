@@ -98,4 +98,9 @@ For now, the build-in requests are:
   * [`saved_searches/create`](saved-searches/create.md): Create a new saved search for the authenticated user.
   * [`saved_searches/destroy/:id`](saved-searches/destroy.md): Destroys a saved search for the authenticating user.
 
+ * Trends
+  * [`/trends/available`](trends/available.md): Returns the locations that Twitter has trending topic information for.
+  * [`/trends/closest`](trends/closest.md): Returns the locations that Twitter has trending topic information for, closest to a specified location.
+  * [`/trends/place`](trends/place.md): Returns the top 10 trending topics for a specific WOEID, if trending information is available for it.
+
 Obviously, if you want to complete the list, you're welcome :)
