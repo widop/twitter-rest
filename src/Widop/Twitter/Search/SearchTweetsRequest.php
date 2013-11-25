@@ -83,7 +83,7 @@ class SearchTweetsRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['q'])) {
-            throw new \RuntimeException('You must specify a query.');
+            throw new \RuntimeException('You must provide a query.');
         }
     }
 

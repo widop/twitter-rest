@@ -57,7 +57,7 @@ class StatusesUpdateWithMediaRequest extends StatusesUpdateRequest
         parent::validateOptionBag($optionBag);
 
         if (!isset($optionBag['media'])) {
-            throw new \RuntimeException('You must specify a media.');
+            throw new \RuntimeException('You must provide a media.');
         }
     }
 

@@ -31,4 +31,4 @@ $includeEntities = $request->getIncludeEntities();
 $favorites = $twitter->send($request);
 ```
 
-You can get more informations [here]https://dev.twitter.com/docs/api/1.1/get/favorites/list).
+You can get more informations [here](https://dev.twitter.com/docs/api/1.1/get/favorites/list)).

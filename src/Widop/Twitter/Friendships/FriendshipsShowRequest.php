@@ -50,11 +50,11 @@ class FriendshipsShowRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['source_id']) && !isset($optionBag['source_screen_name'])) {
-            throw new \RuntimeException('You must specify a source id or a source screen name.');
+            throw new \RuntimeException('You must provide a source id or a source screen name.');
         }
 
         if (!isset($optionBag['target_id']) && !isset($optionBag['target_screen_name'])) {
-            throw new \RuntimeException('You must specify a target id or a target screen name.');
+            throw new \RuntimeException('You must provide a target id or a target screen name.');
         }
 
         if (isset($optionBag['source_id'])) {

@@ -115,7 +115,7 @@ class DirectMessagesNewRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a user id or a screen name.
+     * @expectedExceptionMessage You must provide a user id or a screen name.
      */
     public function testOAuthRequestWithoutUserIdAndScreenName()
     {
@@ -127,7 +127,7 @@ class DirectMessagesNewRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a text.
+     * @expectedExceptionMessage You must provide a text.
      */
     public function testOAuthRequestWithoutText()
     {

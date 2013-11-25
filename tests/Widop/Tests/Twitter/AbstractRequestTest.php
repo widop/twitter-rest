@@ -50,7 +50,7 @@ class AbstractRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage You must specify an argument to the method "setId".
+     * @expectedExceptionMessage You must provide an argument to the method "setId".
      */
     public function testInvalidOption()
     {

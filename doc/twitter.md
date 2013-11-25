@@ -87,6 +87,18 @@ For now, the build-in requests are:
   * [`/friendships/show`](friendships/show.md): Returns detailed information about the relationship between two arbitrary users.
   * [`/friendships/update`](friendships/update.md): Allows one to enable or disable retweets and device notifications from the specified user.
 
+ * Users
+  * [`/account/get_settings`](account/get_settings.md): Returns settings (including current trend, geo and sleep time information) for the authenticating user.
+  * [`/account/post_settings`](account/post_settings.md): Updates the authenticating user's settings.
+  * [`/account/remove_profile_banner`](account/remove_profile_banner.md): Removes the uploaded profile banner for the authenticating user
+  * [`/account/update_delivery_device`](account/update_delivery_device.md): Sets which device Twitter delivers updates to for the authenticating user.
+  * [`/account/update_profile`](account/update_profile.md): Sets values that users are able to set under the "Account" tab of their settings page.
+  * [`/account/update_profile_background_image`](account/update_profile_background_image.md): Updates the authenticating user's profile background image.
+  * [`/account/update_profile_banner`](account/update_profile_banner.md): Uploads a profile banner on behalf of the authenticating user.
+  * [`/account/update_profile_colors`](account/update_profile_colors.md): Allows one to enable or disable retweets and device notifications from the specified user.
+  * [`/account/update_profile_image`](account/update_profile_image.md): Updates the authenticating user's profile image.
+  * [`/account/verify_credentials`](account/verify_credentials.md): Use this method to test if supplied user credentials are valid.
+
  * Favorites
   * [`/favorites/create`](favorites/create.md): Favorites the status specified in the ID parameter as the authenticating user.
   * [`/favorites/destroy`](favorites/destroy.md): Un-favorites the status specified in the ID parameter as the authenticating user.

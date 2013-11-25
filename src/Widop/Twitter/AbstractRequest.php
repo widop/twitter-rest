@@ -47,7 +47,7 @@ abstract class AbstractRequest
             case 'set':
                 if (!array_key_exists(0, $arguments)) {
                     throw new \InvalidArgumentException(sprintf(
-                        'You must specify an argument to the method "%s".',
+                        'You must provide an argument to the method "%s".',
                         $method
                     ));
                 }

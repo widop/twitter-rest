@@ -53,7 +53,7 @@ class SavedSearchesCreateRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['query'])) {
-            throw new \RuntimeException('You must specify a query.');
+            throw new \RuntimeException('You must provide a query.');
         }
     }
 

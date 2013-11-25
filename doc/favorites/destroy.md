@@ -1,9 +1,10 @@
 # Favorites Destroy Request
 
-Un-favorites the status specified in the ID parameter as the authenticating user. Returns the un-favorited status in the requested format when successful.
+Un-favorites the status specified in the ID parameter as the authenticating user. Returns the un-favorited status in
+the requested format when successful.
 
-The tweeter process invoked by this method is asynchronous so the returned status may not indicate the resultant favorited
-status of the tweet. A 200 OK response from this method will indicate whether the intended action was successful or not.
+The tweeter process invoked by this method is asynchronous so the returned status may not indicate the resultant
+favorited status of the tweet.
 
 ``` php
 use Widop\Twitter\Favorites\FavoritesDestroyRequest;

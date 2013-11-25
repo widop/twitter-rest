@@ -89,7 +89,7 @@ class StatusesRetweetersIdsRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify an id.
+     * @expectedExceptionMessage You must provide an id.
      */
     public function testOAuthRequestWithoutId()
     {

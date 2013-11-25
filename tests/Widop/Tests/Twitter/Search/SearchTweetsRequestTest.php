@@ -172,7 +172,7 @@ class SearchTweetsRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a query.
+     * @expectedExceptionMessage You must provide a query.
      */
     public function testOAuthRequestWithoutQuery()
     {

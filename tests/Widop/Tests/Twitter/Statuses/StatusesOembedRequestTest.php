@@ -148,7 +148,7 @@ class StatusesOembedRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify an id.
+     * @expectedExceptionMessage You must provide an id.
      */
     public function testOAuthRequestWithoutId()
     {
@@ -159,7 +159,7 @@ class StatusesOembedRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify an url.
+     * @expectedExceptionMessage You must provide an url.
      */
     public function testOAuthRequestWithoutUrl()
     {

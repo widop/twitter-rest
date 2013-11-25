@@ -63,7 +63,7 @@ class StatusesShowRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['id'])) {
-            throw new \RuntimeException('You must specify an id.');
+            throw new \RuntimeException('You must provide an id.');
         }
     }
 
