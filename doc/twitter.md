@@ -107,6 +107,12 @@ For now, the build-in requests are:
   * [`/users/search`](users/search.md): Provides a simple, relevance-based search interface to public user accounts on Twitter.
   * [`/users/show`](users/show.md): Returns a variety of information about the user specified by the required user_id or screen_name parameter.
 
+ * Blocks
+  * [`/blocks/create`](blocks/create.md): Blocks the specified user from following the authenticating user.
+  * [`/blocks/destroy`](blocks/destroy.md): Un-blocks the user specified in the ID parameter for the authenticating user.
+  * [`/blocks/ids`](blocks/ids.md): Returns an array of numeric user ids the authenticating user is blocking.
+  * [`/blocks/list`](blocks/list.md): Returns a collection of user objects that the authenticating user is blocking.
+
  * Favorites
   * [`/favorites/create`](favorites/create.md): Favorites the status specified in the ID parameter as the authenticating user.
   * [`/favorites/destroy`](favorites/destroy.md): Un-favorites the status specified in the ID parameter as the authenticating user.
