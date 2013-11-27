@@ -113,6 +113,11 @@ For now, the build-in requests are:
   * [`/blocks/ids`](blocks/ids.md): Returns an array of numeric user ids the authenticating user is blocking.
   * [`/blocks/list`](blocks/list.md): Returns a collection of user objects that the authenticating user is blocking.
 
+ * Suggested Users
+  * [`/users/suggestions`](suggestions/suggestions.md): Access to Twitter's suggested user list.
+  * [`/users/suggestions/:slug`](suggestions/suggestions_slug.md): Access the users in a given category of the Twitter suggested user list.
+  * [`/users/suggestions/:slug/members`](suggestions/suggestions_slug_members.md): Access the users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user.
+
  * Favorites
   * [`/favorites/create`](favorites/create.md): Favorites the status specified in the ID parameter as the authenticating user.
   * [`/favorites/destroy`](favorites/destroy.md): Un-favorites the status specified in the ID parameter as the authenticating user.

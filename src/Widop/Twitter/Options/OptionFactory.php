@@ -81,6 +81,7 @@ class OptionFactory
             'since_id'                     => 'Widop\Twitter\Options\SinceIdOption',
             'skip_status'                  => 'Widop\Twitter\Options\SkipStatusOption',
             'sleep_time_enabled'           => 'Widop\Twitter\Options\SleepTimeEnabledOption',
+            'slug'                         => 'Widop\Twitter\Options\SlugOption',
             'source_id'                    => 'Widop\Twitter\Options\SourceIdOption',
             'source_screen_name'           => 'Widop\Twitter\Options\SourceScreenNameOption',
             'start_sleep_time'             => 'Widop\Twitter\Options\StartSleepTimeOption',
