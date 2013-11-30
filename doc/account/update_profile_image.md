@@ -6,7 +6,7 @@ image.
 This method asynchronously processes the uploaded file before updating the user's profile image URL.
 
 ``` php
-use Widop\Twitter\Account\AccountUpdateProfileImageRequest;
+use Widop\Twitter\Rest\Account\AccountUpdateProfileImageRequest;
 
 $request = new AccountUpdateProfileImageRequest();
 

@@ -3,7 +3,7 @@
 Returns a cursored collection of user IDs for every user following the specified user.
 
 ``` php
-use Widop\Twitter\Followers\FollowersIdsRequest;
+use Widop\Twitter\Rest\Followers\FollowersIdsRequest;
 
 $request = new FollowersIdsRequest();
 

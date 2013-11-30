@@ -6,7 +6,7 @@ most recent Tweet will be returned inline when possible.
 NB: [`users/lookup`](lookup.md) is used to retrieve a bulk collection of user objects.
 
 ``` php
-use Widop\Twitter\Users\UsersShowRequest;
+use Widop\Twitter\Rest\Users\UsersShowRequest;
 
 $request = new UsersShowRequest();
 

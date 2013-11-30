@@ -3,7 +3,7 @@
 Returns a collection of users who can contribute to the specified account.
 
 ``` php
-use Widop\Twitter\Users\UsersContributorsRequest;
+use Widop\Twitter\Rest\Users\UsersContributorsRequest;
 
 $request = new UsersContributorsRequest();
 

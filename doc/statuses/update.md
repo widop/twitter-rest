@@ -3,7 +3,7 @@
 Updates the authenticating user's current status, also known as tweeting.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesUpdateRequest;
+use Widop\Twitter\Rest\Statuses\StatusesUpdateRequest;
 
 $request = new StatusesUpdateRequest('Yeah, I\'m currently updating my status!');
 

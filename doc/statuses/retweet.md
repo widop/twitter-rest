@@ -3,7 +3,7 @@
 Retweets a tweet. Returns the original tweet with retweet details embedded.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesRetweetRequest;
+use Widop\Twitter\Rest\Statuses\StatusesRetweetRequest;
 
 $request = new StatusesRetweetRequest('123');
 

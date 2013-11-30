@@ -3,7 +3,7 @@
 Removes the uploaded profile banner for the authenticating user.
 
 ``` php
-use Widop\Twitter\Account\AccountRemoveProfileBannerRequest;
+use Widop\Twitter\Rest\Account\AccountRemoveProfileBannerRequest;
 
 $twitter->send(new AccountRemoveProfileBannerRequest());
 ```

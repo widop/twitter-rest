@@ -7,7 +7,7 @@ You MUST also provide either a user id or a screen name. If both screen name and
 user id is prefered and used.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesUserTimelineRequest;
+use Widop\Twitter\Rest\Statuses\StatusesUserTimelineRequest;
 
 $request = new StatusesUserTimelineRequest();
 

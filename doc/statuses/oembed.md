@@ -3,7 +3,7 @@
 Returns information allowing the creation of an embedded representation of a Tweet on third party sites.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesOembedRequest;
+use Widop\Twitter\Rest\Statuses\StatusesOembedRequest;
 
 $request = new StatusesOembedRequest('123', 'http://foo.com');
 

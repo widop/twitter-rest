@@ -3,7 +3,7 @@
 Create a new saved search for the authenticated user. A user may only have 25 saved searches.
 
 ``` php
-use Widop\Twitter\SavedSearches\SavedSearchesCreateRequest;
+use Widop\Twitter\Rest\SavedSearches\SavedSearchesCreateRequest;
 
 $request = new SavedSearchesCreateRequest('123');
 

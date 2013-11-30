@@ -6,7 +6,7 @@ If you do not provide either a user_id or screen_name to this method, it will as
 Specify one or the other for best results.
 
 ``` php
-use Widop\Twitter\Favorites\FavoritesListRequest;
+use Widop\Twitter\Rest\Favorites\FavoritesListRequest;
 
 $request = new FavoritesListRequest();
 

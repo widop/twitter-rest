@@ -3,7 +3,7 @@
 Returns detailed information about the relationship between two arbitrary users.
 
 ``` php
-use Widop\Twitter\Friendships\FriendshipsShowRequest;
+use Widop\Twitter\Rest\Friendships\FriendshipsShowRequest;
 
 $request = new FriendshipsShowRequest();
 

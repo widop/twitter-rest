@@ -3,7 +3,7 @@
 Returns the relationships of the authenticating user to the comma-separated list of up to 100 screen_names or user_ids provided.
 
 ``` php
-use Widop\Twitter\Friendships\FriendshipsListRequest;
+use Widop\Twitter\Rest\Friendships\FriendshipsListRequest;
 
 $request = new FriendshipsListRequest();
 

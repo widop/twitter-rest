@@ -13,4 +13,4 @@
 $loader = require __DIR__.'/../vendor/autoload.php';
 
 // Autoloads tests.
-$loader->add('Widop\\Tests\\Twitter', __DIR__);
+$loader->add('Widop\\Tests\\Twitter\\Rest', __DIR__);

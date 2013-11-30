@@ -9,8 +9,8 @@ In order to sign your request with the OAuth protocol, the library internally us
 ``` php
 use Widop\HttpAdapter\CurlHttpAdapter;
 use Widop\Twitter\OAuth;
-use Widop\Twitter\Statuses\StatusesUpdateRequest;
-use Widop\Twitter\Twitter;
+use Widop\Twitter\Rest\Statuses\StatusesUpdateRequest;
+use Widop\Twitter\Rest\Twitter;
 
 // First, instantiate your OAuth client.
 $oauth = new OAuth\OAuth(

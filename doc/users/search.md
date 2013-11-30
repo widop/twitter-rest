@@ -6,7 +6,7 @@ interest, full name, company name, location, or other criteria. Exact match sear
 Only the first 1,000 matching results are available.
 
 ``` php
-use Widop\Twitter\Users\UsersSearchRequest;
+use Widop\Twitter\Rest\Users\UsersSearchRequest;
 
 $request = new UsersSearchRequest();
 

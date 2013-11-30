@@ -3,7 +3,7 @@
 Returns settings (including current trend, geo and sleep time information) for the authenticating user.
 
 ``` php
-use Widop\Twitter\Account\AccountSettingsGetRequest;
+use Widop\Twitter\Rest\Account\AccountSettingsGetRequest;
 
 $settings = $twitter->send(new AccountSettingsGetRequest());
 ```

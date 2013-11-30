@@ -3,7 +3,7 @@
 Returns a collection of the 100 most recent retweets of the tweet specified by the id parameter.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesRetweetsRequest;
+use Widop\Twitter\Rest\Statuses\StatusesRetweetsRequest;
 
 $request = new StatusesRetweetsRequest('123');
 

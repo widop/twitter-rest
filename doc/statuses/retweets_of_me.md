@@ -5,7 +5,7 @@ Returns the most recent tweets authored by the authenticating user that have bee
 If no count is provided, the request will return 20 tweets.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesRetweetsOfMeRequest;
+use Widop\Twitter\Rest\Statuses\StatusesRetweetsOfMeRequest;
 
 $request = new StatusesRetweetsOfMeRequest();
 

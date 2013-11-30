@@ -3,7 +3,7 @@
 Returns a cursored collection of user objects for users following the specified user.
 
 ``` php
-use Widop\Twitter\Followers\FollowersListRequest;
+use Widop\Twitter\Rest\Followers\FollowersListRequest;
 
 $request = new FollowersListRequest();
 

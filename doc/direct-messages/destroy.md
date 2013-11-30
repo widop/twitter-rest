@@ -3,7 +3,7 @@
 Destroys the direct message specified in the required ID parameter.
 
 ``` php
-use Widop\Twitter\DirectMessages\DirectMessagesDestroyRequest;
+use Widop\Twitter\Rest\DirectMessages\DirectMessagesDestroyRequest;
 
 $request = new DirectMessagesDestroyRequest('123456879');
 

@@ -4,7 +4,7 @@ Sets values that users are able to set under the "Account" tab of their settings
 will be updated.
 
 ``` php
-use Widop\Twitter\Account\AccountUpdateProfileRequest;
+use Widop\Twitter\Rest\Account\AccountUpdateProfileRequest;
 
 $request = new AccountUpdateProfileRequest();
 

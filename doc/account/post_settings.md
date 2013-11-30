@@ -3,7 +3,7 @@
 Updates the authenticating user's settings.
 
 ``` php
-use Widop\Twitter\Account\AccountSettingsPostRequest;
+use Widop\Twitter\Rest\Account\AccountSettingsPostRequest;
 
 $request = new AccountSettingsPostRequest();
 

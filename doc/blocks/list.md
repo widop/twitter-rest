@@ -3,7 +3,7 @@
 Returns a collection of user objects that the authenticating user is blocking.
 
 ``` php
-use Widop\Twitter\Blocks\BlocksListRequest;
+use Widop\Twitter\Rest\Blocks\BlocksListRequest;
 
 $request = new BlocksListRequest();
 

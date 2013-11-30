@@ -4,7 +4,7 @@ Sets which device Twitter delivers updates to for the authenticating user. Sendi
 disable SMS updates.
 
 ``` php
-use Widop\Twitter\Account\AccountUpdateDeliveryDeviceRequest;
+use Widop\Twitter\Rest\Account\AccountUpdateDeliveryDeviceRequest;
 
 $request = new AccountUpdateDeliveryDeviceRequest();
 

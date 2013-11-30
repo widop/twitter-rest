@@ -9,8 +9,8 @@ So, first, create your Twitter client:
 ``` php
 use Widop\HttpAdapter\CurlHttpAdapter;
 use Widop\Twitter\OAuth;
-use Widop\Twitter\Statuses\StatusesUpdateRequest;
-use Widop\Twitter\Twitter;
+use Widop\Twitter\Rest\Statuses\StatusesUpdateRequest;
+use Widop\Twitter\Rest\Twitter;
 
 $oauth = new OAuth\OAuth(
     new CurlHttpAdapter(),
@@ -27,7 +27,7 @@ Now, we got a twitter client, you can get/set the OAuth client, get/set the acce
 Twitter API.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesDestroyRequest;
+use Widop\Twitter\Rest\Statuses\StatusesDestroyRequest;
 
 $oauth = $twitter->getOAuth();
 $twitter->setOAuth($oauth);
@@ -39,7 +39,7 @@ $twitter->setOAuthToken($token);
 Here, we will destroy the tweet "123":
 
 ``` php
-use Widop\Twitter\Statuses\StatusesDestroyRequest;
+use Widop\Twitter\Rest\Statuses\StatusesDestroyRequest;
 
 $request = new StatusesDestroyRequest('123');
 $twitter->send($request);

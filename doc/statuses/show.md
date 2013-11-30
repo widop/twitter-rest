@@ -3,7 +3,7 @@
 Returns a single Tweet, specified by the id parameter.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesShowRequest;
+use Widop\Twitter\Rest\Statuses\StatusesShowRequest;
 
 $request = new StatusesShowRequest('123');
 

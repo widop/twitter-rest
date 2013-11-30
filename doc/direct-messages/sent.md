@@ -3,7 +3,7 @@
 Returns the 20 most recent direct messages sent to the authenticating user.
 
 ``` php
-use Widop\Twitter\DirectMessages\DirectMessagesSentRequest;
+use Widop\Twitter\Rest\DirectMessages\DirectMessagesSentRequest;
 
 $request = new DirectMessagesSentRequest();
 

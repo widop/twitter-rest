@@ -5,7 +5,7 @@ authenticating users mentions or timeline (unless retweeted by another user). If
 it is destroyed.
 
 ``` php
-use Widop\Twitter\Blocks\BlocksCreateRequest;
+use Widop\Twitter\Rest\Blocks\BlocksCreateRequest;
 
 $request = new BlocksCreateRequest();
 

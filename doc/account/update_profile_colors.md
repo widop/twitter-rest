@@ -5,7 +5,7 @@ Each parameter's value must be a valid hexidecimal value, and may be either thre
 (ex: #fff or #ffffff).
 
 ``` php
-use Widop\Twitter\Account\AccountUpdateProfileColorsRequest;
+use Widop\Twitter\Rest\Account\AccountUpdateProfileColorsRequest;
 
 $request = new AccountUpdateProfileColorsRequest();
 
