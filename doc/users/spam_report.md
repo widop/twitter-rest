@@ -4,7 +4,7 @@ Report the specified user as a spam account to Twitter.
 Additionally performs the equivalent of POST blocks/create on behalf of the authenticated user.
 
 ``` php
-use Widop\Twitter\Users\UsersSpamReportRequest;
+use Widop\Twitter\Rest\Users\UsersSpamReportRequest;
 
 $request = new UsersSpamReportRequest();
 

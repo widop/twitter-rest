@@ -3,7 +3,7 @@
 Returns an array of numeric user ids the authenticating user is blocking.
 
 ``` php
-use Widop\Twitter\Blocks\BlocksIdsRequest;
+use Widop\Twitter\Rest\Blocks\BlocksIdsRequest;
 
 $request = new BlocksIdsRequest();
 

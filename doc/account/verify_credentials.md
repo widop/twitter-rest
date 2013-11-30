@@ -4,7 +4,7 @@ Returns a representation of the requesting user if authentication was successful
 user credentials are valid.
 
 ``` php
-use Widop\Twitter\Account\AccountVerifyCredentialsRequest;
+use Widop\Twitter\Rest\Account\AccountVerifyCredentialsRequest;
 
 $request = new AccountVerifyCredentialsRequest();
 

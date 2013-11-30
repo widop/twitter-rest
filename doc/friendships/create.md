@@ -6,7 +6,7 @@ Returns the befriended user in the requested format when successful.
 May throw exceptions in case of failure.
 
 ``` php
-use Widop\Twitter\Friendships\FriendshipsCreateRequest;
+use Widop\Twitter\Rest\Friendships\FriendshipsCreateRequest;
 
 $request = new FriendshipsCreateRequest();
 

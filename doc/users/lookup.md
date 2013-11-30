@@ -11,7 +11,7 @@ NB: While the twitter REST API allows GET and POST request on this endpoint, onl
 twitter encourage it.
 
 ``` php
-use Widop\Twitter\Users\UsersLookupRequest;
+use Widop\Twitter\Rest\Users\UsersLookupRequest;
 
 $request = new UsersLookupRequest();
 

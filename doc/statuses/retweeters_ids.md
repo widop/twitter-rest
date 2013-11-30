@@ -3,7 +3,7 @@
 Returns a collection of up to 100 user IDs belonging to users who have retweeted the tweet specified by the id parameter.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesRetweetersIdsRequest;
+use Widop\Twitter\Rest\Statuses\StatusesRetweetersIdsRequest;
 
 $request = new StatusesRetweetersIdsRequest('123');
 

@@ -3,7 +3,7 @@
 Sends a new direct message to the specified user from the authenticating user.
 
 ``` php
-use Widop\Twitter\DirectMessages\DirectMessagesNewRequest;
+use Widop\Twitter\Rest\DirectMessages\DirectMessagesNewRequest;
 
 $request = new DirectMessagesNewRequest('My direct message');
 

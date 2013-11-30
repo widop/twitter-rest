@@ -23,7 +23,7 @@
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
-        "psr-0": { "Widop\\Twitter": "src/" }
+        "psr-0": { "Widop\\Twitter\\Rest": "src/" }
     },
     "config": {
         "bin-dir": "bin"

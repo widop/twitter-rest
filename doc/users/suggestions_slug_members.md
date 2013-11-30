@@ -4,7 +4,7 @@ Access the users in a given category of the Twitter suggested user list and retu
 not a protected user.
 
 ``` php
-use Widop\Twitter\Users\UsersSuggestionsSlugMembersRequest;
+use Widop\Twitter\Rest\Users\UsersSuggestionsSlugMembersRequest;
 
 $request = new UsersSuggestionsSlugMembersRequest('twitter');
 

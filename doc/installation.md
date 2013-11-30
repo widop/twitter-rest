@@ -45,7 +45,7 @@ So easy, you just have to require the generated autoload file and you are alread
 
 require __DIR__.'/vendor/autoload.php';
 
-use Widop\Twitter;
+use Widop\Twitter\Rest;
 
 // ...
 ```

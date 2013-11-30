@@ -3,7 +3,7 @@
 Updates the authenticating user's current status, also known as tweeting with a media.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesUpdateWithMediaRequest;
+use Widop\Twitter\Rest\Statuses\StatusesUpdateWithMediaRequest;
 
 $request = new StatusesUpdateWithMediaRequest('Yeah, I\'m currently updating my status!', '/path/to/my/media.jpg');
 

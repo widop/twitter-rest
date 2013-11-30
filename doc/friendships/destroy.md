@@ -6,7 +6,7 @@ Returns the unfollowed user in the requested format when successful.
 May throw exceptions in case of failure.
 
 ``` php
-use Widop\Twitter\Friendships\FriendshipsDestroyRequest;
+use Widop\Twitter\Rest\Friendships\FriendshipsDestroyRequest;
 
 $request = new FriendshipsDestroyRequest();
 

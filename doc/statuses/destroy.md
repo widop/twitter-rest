@@ -3,7 +3,7 @@
 Destroys the status specified by the required ID parameter.
 
 ``` php
-use Widop\Twitter\Statuses\StatusesDestroyRequest;
+use Widop\Twitter\Rest\Statuses\StatusesDestroyRequest;
 
 $request = new StatusesDestroyRequest('123');
 

@@ -5,7 +5,7 @@ Access the users in a given category of the Twitter suggested user list.
 It is recommended that applications cache this data for no more than one hour.
 
 ``` php
-use Widop\Twitter\Users\UsersSuggestionsSlugRequest;
+use Widop\Twitter\Rest\Users\UsersSuggestionsSlugRequest;
 
 $request = new UsersSuggestionsSlugRequest('twitter');
 

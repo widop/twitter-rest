@@ -3,7 +3,7 @@
 Returns a collection of user_ids that the currently authenticated user does not want to receive retweets from.
 
 ``` php
-use Widop\Twitter\Friendships\FriendshipsNoRetweetsIdsRequest;
+use Widop\Twitter\Rest\Friendships\FriendshipsNoRetweetsIdsRequest;
 
 $request = new FriendshipsNoRetweetsIdsRequest();
 

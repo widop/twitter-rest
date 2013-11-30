@@ -3,7 +3,7 @@
 Returns a collection of numeric IDs for every user who has a pending request to follow the authenticating user.
 
 ``` php
-use Widop\Twitter\Friendships\FriendshipsIncomingRequest;
+use Widop\Twitter\Rest\Friendships\FriendshipsIncomingRequest;
 
 $request = new FriendshipsIncomingRequest();
 

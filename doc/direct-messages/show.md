@@ -3,7 +3,7 @@
 Returns a single direct message, specified by an id parameter.
 
 ``` php
-use Widop\Twitter\DirectMessages\DirectMessagesShowRequest;
+use Widop\Twitter\Rest\DirectMessages\DirectMessagesShowRequest;
 
 $request = new DirectMessagesShowRequest('123456789');
 

@@ -4,7 +4,7 @@ Access to Twitter's suggested user list. This returns the list of suggested user
 [`users/suggestions/:slug`](suggestions_slug.md) to get the users in that category.
 
 ``` php
-use Widop\Twitter\Users\UsersSuggestionsRequest;
+use Widop\Twitter\Rest\Users\UsersSuggestionsRequest;
 
 $request = new UsersSuggestionsRequest();
 

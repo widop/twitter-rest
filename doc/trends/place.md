@@ -9,7 +9,7 @@ This information is cached for 5 minutes. Requesting more frequently than that w
 count against your rate limit usage.
 
 ``` php
-use Widop\Twitter\Trends\TrendsPlaceRequest;
+use Widop\Twitter\Rest\Trends\TrendsPlaceRequest;
 
 $request = new TrendsPlaceRequest('142');
 

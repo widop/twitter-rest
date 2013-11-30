@@ -7,7 +7,7 @@ Although each parameter is marked as optional, at least one of image, tile or us
 request.
 
 ``` php
-use Widop\Twitter\Account\AccountUpdateProfileBackgroundImageRequest;
+use Widop\Twitter\Rest\Account\AccountUpdateProfileBackgroundImageRequest;
 
 $request = new AccountUpdateProfileBackgroundImageRequest();
 

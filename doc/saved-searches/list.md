@@ -3,7 +3,7 @@
 Returns the authenticated user's saved search queries.
 
 ``` php
-use Widop\Twitter\SavedSearches\SavedSearchesListRequest;
+use Widop\Twitter\Rest\SavedSearches\SavedSearchesListRequest;
 
 $savedSearches = $twitter->send(new SavedSearchesListRequest());
 ```
