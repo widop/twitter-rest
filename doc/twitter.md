@@ -87,7 +87,7 @@ For now, the build-in requests are:
   * [`/friendships/show`](friendships/show.md): Returns detailed information about the relationship between two arbitrary users.
   * [`/friendships/update`](friendships/update.md): Allows one to enable or disable retweets and device notifications from the specified user.
 
- * Users
+ * Account
   * [`/account/get_settings`](account/get_settings.md): Returns settings (including current trend, geo and sleep time information) for the authenticating user.
   * [`/account/post_settings`](account/post_settings.md): Updates the authenticating user's settings.
   * [`/account/remove_profile_banner`](account/remove_profile_banner.md): Removes the uploaded profile banner for the authenticating user
@@ -98,6 +98,14 @@ For now, the build-in requests are:
   * [`/account/update_profile_colors`](account/update_profile_colors.md): Allows one to enable or disable retweets and device notifications from the specified user.
   * [`/account/update_profile_image`](account/update_profile_image.md): Updates the authenticating user's profile image.
   * [`/account/verify_credentials`](account/verify_credentials.md): Use this method to test if supplied user credentials are valid.
+
+ * Users
+  * [`/users/contributees`](users/contributees.md): Returns a collection of users that the specified user can "contribute" to.
+  * [`/users/contributors`](users/contributors.md): Returns a collection of users who can contribute to the specified account.
+  * [`/users/lookup`](users/lookup.md): Returns fully-hydrated user objects for up to 100 users per request, as specified by comma-separated values passed to the user_id and/or screen_name parameters.
+  * [`/users/profile_banner`](users/profile_banner.md): Returns a map of the available size variations of the specified user's profile banner.
+  * [`/users/search`](users/search.md): Provides a simple, relevance-based search interface to public user accounts on Twitter.
+  * [`/users/show`](users/show.md): Returns a variety of information about the user specified by the required user_id or screen_name parameter.
 
  * Favorites
   * [`/favorites/create`](favorites/create.md): Favorites the status specified in the ID parameter as the authenticating user.

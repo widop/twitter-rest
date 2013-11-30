@@ -15,7 +15,7 @@ use Widop\Twitter\AbstractRequest;
 use Widop\Twitter\Options\OptionBag;
 
 /**
- * Statuses show request.
+ * Search tweets request.
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/search/tweets
  *
