@@ -58,11 +58,11 @@ class TrendsClosestRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['lat'])) {
-            throw new \RuntimeException('You must specify a latitude.');
+            throw new \RuntimeException('You must provide a latitude.');
         }
 
         if (!isset($optionBag['long'])) {
-            throw new \RuntimeException('You must specify a longitude.');
+            throw new \RuntimeException('You must provide a longitude.');
         }
     }
 

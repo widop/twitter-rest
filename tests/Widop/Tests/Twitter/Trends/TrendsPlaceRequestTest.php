@@ -82,7 +82,7 @@ class TrendsPlaceRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a WOEID.
+     * @expectedExceptionMessage You must provide a WOEID.
      */
     public function testOAuthRequestWithoutId()
     {

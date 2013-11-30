@@ -108,7 +108,7 @@ class FriendshipsShowRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a source id or a source screen name.
+     * @expectedExceptionMessage You must provide a source id or a source screen name.
      */
     public function testOAuthRequestWithoutSource()
     {
@@ -117,7 +117,7 @@ class FriendshipsShowRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a target id or a target screen name.
+     * @expectedExceptionMessage You must provide a target id or a target screen name.
      */
     public function testOAuthRequestWithoutTarget()
     {

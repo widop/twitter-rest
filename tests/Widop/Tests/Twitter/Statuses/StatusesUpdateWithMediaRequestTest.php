@@ -130,7 +130,7 @@ class StatusesUpdateWithMediaRequestTest extends StatusesUpdateRequestTest
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a status.
+     * @expectedExceptionMessage You must provide a status.
      */
     public function testOAuthRequestWithoutStatus()
     {
@@ -141,7 +141,7 @@ class StatusesUpdateWithMediaRequestTest extends StatusesUpdateRequestTest
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a media.
+     * @expectedExceptionMessage You must provide a media.
      */
     public function testOAuthRequestWithoutMedia()
     {

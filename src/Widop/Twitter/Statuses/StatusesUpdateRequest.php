@@ -72,7 +72,7 @@ class StatusesUpdateRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['status'])) {
-            throw new \RuntimeException('You must specify a status.');
+            throw new \RuntimeException('You must provide a status.');
         }
     }
 

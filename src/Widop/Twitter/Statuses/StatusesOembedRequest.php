@@ -79,11 +79,11 @@ class StatusesOembedRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['id'])) {
-            throw new \RuntimeException('You must specify an id.');
+            throw new \RuntimeException('You must provide an id.');
         }
 
         if (!isset($optionBag['url'])) {
-            throw new \RuntimeException('You must specify an url.');
+            throw new \RuntimeException('You must provide an url.');
         }
     }
 

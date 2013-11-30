@@ -76,7 +76,7 @@ class TrendsClosestRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a latitude.
+     * @expectedExceptionMessage You must provide a latitude.
      */
     public function testOAuthRequestWithoutLatitude()
     {
@@ -86,7 +86,7 @@ class TrendsClosestRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a longitude.
+     * @expectedExceptionMessage You must provide a longitude.
      */
     public function testOAuthRequestWithoutLongitude()
     {

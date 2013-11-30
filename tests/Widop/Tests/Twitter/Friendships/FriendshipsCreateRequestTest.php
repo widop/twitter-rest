@@ -99,7 +99,7 @@ class FriendshipsCreateRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a user id or a screen name.
+     * @expectedExceptionMessage You must provide a user id or a screen name.
      */
     public function testOAuthRequestWithoutParameters()
     {

@@ -48,7 +48,7 @@ class FriendshipsCreateRequest extends AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
         if (!isset($optionBag['user_id']) && !isset($optionBag['screen_name'])) {
-            throw new \RuntimeException('You must specify a user id or a screen name.');
+            throw new \RuntimeException('You must provide a user id or a screen name.');
         }
 
         if (isset($optionBag['user_id'])) {

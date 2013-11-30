@@ -129,7 +129,7 @@ class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a status.
+     * @expectedExceptionMessage You must provide a status.
      */
     public function testOAuthRequestWithoutStatus()
     {
