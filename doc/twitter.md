@@ -88,8 +88,8 @@ For now, the build-in requests are:
   * [`/friendships/update`](friendships/update.md): Allows one to enable or disable retweets and device notifications from the specified user.
 
  * Account
-  * [`/account/get_settings`](account/get_settings.md): Returns settings (including current trend, geo and sleep time information) for the authenticating user.
-  * [`/account/post_settings`](account/post_settings.md): Updates the authenticating user's settings.
+  * [`GET /account/settings`](account/get_settings.md): Returns settings (including current trend, geo and sleep time information) for the authenticating user.
+  * [`POST /account/settings`](account/post_settings.md): Updates the authenticating user's settings.
   * [`/account/remove_profile_banner`](account/remove_profile_banner.md): Removes the uploaded profile banner for the authenticating user
   * [`/account/update_delivery_device`](account/update_delivery_device.md): Sets which device Twitter delivers updates to for the authenticating user.
   * [`/account/update_profile`](account/update_profile.md): Sets values that users are able to set under the "Account" tab of their settings page.
@@ -128,6 +128,12 @@ For now, the build-in requests are:
   * [`saved_searches/show/:id`](saved-searches/show.md): Retrieve the information for the saved search represented by the given id.
   * [`saved_searches/create`](saved-searches/create.md): Create a new saved search for the authenticated user.
   * [`saved_searches/destroy/:id`](saved-searches/destroy.md): Destroys a saved search for the authenticating user.
+
+ * Places & Geo
+  * [`geo/id/:place_id`](geo/id_place_id.md): Returns all the information about a known place.
+  * [`geo/reverse_geocode`](geo/reverse_geocode.md): Given a latitude and a longitude, searches for up to 20 places that can be used as a place_id when updating a status.
+  * [`geo/search`](geo/search.md): Search for places that can be attached to a statuses/update.
+  * [`geo/similar_places`](geo/similar_places.md): Locates places near the given coordinates which are similar in name.
 
  * Trends
   * [`/trends/available`](trends/available.md): Returns the locations that Twitter has trending topic information for.

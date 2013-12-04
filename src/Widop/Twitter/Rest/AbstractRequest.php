@@ -146,10 +146,12 @@ abstract class AbstractRequest
      */
     private function convertMethodToOption($method)
     {
-        return preg_replace_callback(
+        $option = preg_replace_callback(
             '/[A-Z]/',
             function($match) { return '_'.strtolower($match[0]); },
             lcfirst(substr($method, 3))
         );
+
+        return str_replace('__', ':', $option);
     }
 }
