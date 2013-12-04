@@ -13,7 +13,7 @@ namespace Widop\Twitter\Rest;
 
 use Widop\Twitter\OAuth\OAuth;
 use Widop\Twitter\OAuth\OAuthRequest;
-use Widop\Twitter\OAuth\OAuthToken;
+use Widop\Twitter\OAuth\Token\TokenInterface;
 
 /**
  * Twitter.
@@ -28,24 +28,21 @@ class Twitter
     /** @var \Widop\Twitter\OAuth\OAuth */
     private $oauth;
 
-    /** @var \Widop\Twitter\OAuth\OAuthToken */
-    private $oauthToken;
+    /** @var \Widop\Twitter\OAuth\Token\TokenInterface */
+    private $token;
 
     /**
      * Creates a twitter client.
      *
-     * @param \Widop\Twitter\OAuth\OAuth     $oauth      The OAuth.
-     * @param \Widop\Twitter\OAuthToken|null $oauthToken The OAuth token.
-     * @param string                         $url        The base url.
+     * @param \Widop\Twitter\OAuth\OAuth                $oauth The OAuth.
+     * @param \Widop\Twitter\OAuth\Token\TokenInterface $token The token.
+     * @param string                                    $url   The base url.
      */
-    public function __construct(OAuth $oauth, OAuthToken $oauthToken = null, $url = 'https://api.twitter.com/1.1')
+    public function __construct(OAuth $oauth, TokenInterface $token, $url = 'https://api.twitter.com/1.1')
     {
         $this->setUrl($url);
         $this->setOAuth($oauth);
-
-        if ($oauthToken !== null) {
-            $this->setOAuthToken($oauthToken);
-        }
+        $this->setToken($token);
     }
 
     /**
@@ -91,21 +88,21 @@ class Twitter
     /**
      * Gets the OAuth token.
      *
-     * @return \Widop\Twitter\OAuth\OAuthToken|null The OAuth token.
+     * @return \Widop\Twitter\OAuth\Token\TokenInterface The token.
      */
-    public function getOAuthToken()
+    public function getToken()
     {
-        return $this->oauthToken;
+        return $this->token;
     }
 
     /**
-     * Sets the OAuth token.
+     * Sets the token.
      *
-     * @param \Widop\Twitter\OAuthToken $oauthToken the OAuth token.
+     * @param \Widop\Twitter\Token\TokenInterface $token The token.
      */
-    public function setOAuthToken(OAuthToken $oauthToken)
+    public function setToken(TokenInterface $token)
     {
-        $this->oauthToken = $oauthToken;
+        $this->token = $token;
     }
 
     /**
@@ -121,8 +118,7 @@ class Twitter
     {
         $request = $request->createOAuthRequest();
         $request->setBaseUrl($this->getUrl());
-
-        $this->getOAuth()->signRequest($request, $this->getOAuthToken());
+        $this->getOAuth()->signRequest($request, $this->getToken());
 
         $response = $this->sendRequest($request)->getBody();
         $result = json_decode($response, true);
