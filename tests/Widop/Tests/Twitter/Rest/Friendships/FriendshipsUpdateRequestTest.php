@@ -86,8 +86,8 @@ class FriendshipsUpdateRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'user_id'  => '123456789',
-            'device'   => '1',
-            'retweets' => '1'
+            'device'   => 'true',
+            'retweets' => 'true'
         );
 
         $this->assertSame('/friendships/update.json', $oauthRequest->getPath());
@@ -103,8 +103,8 @@ class FriendshipsUpdateRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'screen_name' => 'noradio',
-            'device'      => '1',
-            'retweets'    => '1'
+            'device'      => 'true',
+            'retweets'    => 'true'
         );
 
         $this->assertSame($expected, $this->request->createOAuthRequest()->getPostParameters());

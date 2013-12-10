@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class ContributorDetailsOption extends AbstractOption
+class ContributorDetailsOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

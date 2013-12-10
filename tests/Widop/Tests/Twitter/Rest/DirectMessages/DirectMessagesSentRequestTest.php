@@ -102,7 +102,7 @@ class DirectMessagesSentRequestTest extends \PHPUnit_Framework_TestCase
             'max_id'           => '9876543210',
             'count'            => '50',
             'page'             => '1',
-            'include_entities' => '1',
+            'include_entities' => 'true',
         );
 
         $this->assertSame('/direct_messages/sent.json', $oauthRequest->getPath());

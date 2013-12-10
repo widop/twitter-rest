@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class SkipStatusOption extends AbstractOption
+class SkipStatusOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

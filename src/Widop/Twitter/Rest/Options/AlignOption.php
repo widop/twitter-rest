@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class AlignOption extends AbstractOption
+class AlignOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

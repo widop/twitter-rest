@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class ExcludeRepliesOption extends AbstractOption
+class ExcludeRepliesOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

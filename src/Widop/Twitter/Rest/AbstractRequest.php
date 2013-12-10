@@ -74,25 +74,25 @@ abstract class AbstractRequest
         $request->setMethod($this->getMethod());
 
         foreach ($this->optionBag as $option) {
-            if ($option->getValue() === null) {
+            if (!$option->hasValue()) {
                 continue;
             }
 
             switch ($option->getType()) {
                 case OptionInterface::TYPE_PATH:
-                    $request->setPathParameter(':'.$option->getName(), $option->getValue());
+                    $request->setPathParameter(':'.$option->getName(), $option->getNormalizedValue());
                     break;
 
                 case OptionInterface::TYPE_GET:
-                    $request->setGetParameter($option->getName(), $option->getValue());
+                    $request->setGetParameter($option->getName(), $option->getNormalizedValue());
                     break;
 
                 case OptionInterface::TYPE_POST:
-                    $request->setPostParameter($option->getName(), $option->getValue());
+                    $request->setPostParameter($option->getName(), $option->getNormalizedValue());
                     break;
 
                 case OptionInterface::TYPE_FILE:
-                    $request->setFileParameter($option->getName().'[]', $option->getValue());
+                    $request->setFileParameter($option->getName().'[]', $option->getNormalizedValue());
                     break;
             }
         }

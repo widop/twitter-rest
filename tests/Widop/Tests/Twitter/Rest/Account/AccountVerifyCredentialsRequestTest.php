@@ -66,8 +66,8 @@ class AccountVerifyCredentialsRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->setIncludeEntities(true);
         $this->request->setSkipStatus(true);
         $expected = array(
-            'include_entities' => '1',
-            'skip_status'      => '1',
+            'include_entities' => 'true',
+            'skip_status'      => 'true',
         );
         $oauthRequest = $this->request->createOAuthRequest();
 

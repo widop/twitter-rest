@@ -37,6 +37,7 @@ class OptionFactory
             'cursor'                       => 'Widop\Twitter\Rest\Options\CursorOption',
             'description'                  => 'Widop\Twitter\Rest\Options\DescriptionOption',
             'device'                       => 'Widop\Twitter\Rest\Options\DeviceOption',
+            'device_notification'          => 'Widop\Twitter\Rest\Options\DeviceNotificationOption',
             'display_coordinates'          => 'Widop\Twitter\Rest\Options\DisplayCoordinatesOption',
             'end_sleep_time'               => 'Widop\Twitter\Rest\Options\EndSleepTimeOption',
             'exclude'                      => 'Widop\Twitter\Rest\Options\ExcludeOption',

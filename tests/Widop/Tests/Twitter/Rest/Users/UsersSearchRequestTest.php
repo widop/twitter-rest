@@ -89,7 +89,7 @@ class UsersSearchRequestTest extends \PHPUnit_Framework_TestCase
             'q'                => '%40noradio',
             'page'             => '10',
             'count'            => '200',
-            'include_entities' => '1',
+            'include_entities' => 'true',
         );
 
         $this->assertSame('/users/search.json', $oauthRequest->getPath());

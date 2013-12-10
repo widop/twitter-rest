@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class ProfileSidebarBorderColorOption extends AbstractOption
+class ProfileSidebarBorderColorOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

@@ -161,7 +161,7 @@ class SearchTweetsRequestTest extends \PHPUnit_Framework_TestCase
             'until'            => '2013-11-09',
             'since_id'         => '123456789',
             'max_id'           => '123456789',
-            'include_entities' => '1',
+            'include_entities' => 'true',
             'callback'         => 'processTweets',
         );
 

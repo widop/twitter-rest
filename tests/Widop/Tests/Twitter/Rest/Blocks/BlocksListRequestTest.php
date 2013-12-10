@@ -78,8 +78,8 @@ class BlocksListRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
-            'include_entities' => '1',
-            'skip_status'      => '1',
+            'include_entities' => 'true',
+            'skip_status'      => 'true',
             'cursor'           => '123456789',
         );
 

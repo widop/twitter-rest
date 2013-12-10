@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class QOption extends AbstractOption
+class QOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

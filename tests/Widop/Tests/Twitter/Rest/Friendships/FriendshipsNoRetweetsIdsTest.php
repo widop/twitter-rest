@@ -65,6 +65,6 @@ class FriendshipsNoRetweetsIdsRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('/friendships/no_retweets/ids.json', $oauthRequest->getPath());
         $this->assertSame('GET', $oauthRequest->getMethod());
-        $this->assertSame(array('stringify_ids' => '1'), $oauthRequest->getGetParameters());
+        $this->assertSame(array('stringify_ids' => 'true'), $oauthRequest->getGetParameters());
     }
 }

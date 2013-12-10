@@ -106,12 +106,12 @@ class StatusesRetweetsOfMeRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
-            'include_entities'      => '1',
-            'include_user_entities' => '1',
+            'include_entities'      => 'true',
+            'include_user_entities' => 'true',
             'count'                 => '50',
             'since_id'              => '0123456789',
             'max_id'                => '9876543210',
-            'trim_user'             => '1',
+            'trim_user'             => 'true',
         );
 
         $this->assertSame('/statuses/retweets_of_me.json', $oauthRequest->getPath());

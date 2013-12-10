@@ -69,7 +69,7 @@ class BlocksIdsRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
-            'stringify_ids' => '1',
+            'stringify_ids' => 'true',
             'cursor'        => '123456789',
         );
 

@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class UrlOption extends AbstractOption
+class UrlOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

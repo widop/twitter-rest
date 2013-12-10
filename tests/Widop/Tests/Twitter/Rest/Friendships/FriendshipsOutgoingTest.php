@@ -74,7 +74,7 @@ class FriendshipsOutgoingRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'cursor'        => '123456789',
-            'stringify_ids' => '1'
+            'stringify_ids' => 'true'
         );
 
         $this->assertSame('/friendships/outgoing.json', $oauthRequest->getPath());

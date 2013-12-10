@@ -70,7 +70,7 @@ class DirectMessagesDestroyRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'id'               => '123456789',
-            'include_entities' => '1'
+            'include_entities' => 'true'
         );
 
         $this->assertSame('/direct_messages/destroy.json', $oauthRequest->getPath());

@@ -68,7 +68,7 @@ class StatusesRetweetRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest = $this->request->createOAuthRequest();
         $oauthRequest->setBaseUrl('https://api.twitter.com/oauth');
 
-        $expected = array('trim_user' => '1');
+        $expected = array('trim_user' => 'true');
 
         $this->assertSame('/statuses/retweet/:id.json', $oauthRequest->getPath());
         $this->assertSame('https://api.twitter.com/oauth/statuses/retweet/123.json', $oauthRequest->getSignatureUrl());

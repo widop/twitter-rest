@@ -12,17 +12,17 @@
 namespace Widop\Twitter\Rest\Options;
 
 /**
- * Offset top option.
+ * Abstract scalar option.
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class OffsetTopOption extends AbstractScalarOption
+abstract class AbstractScalarOption extends AbstractOption
 {
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getNormalizedValue()
     {
-        return 'offset_top';
+        return (string) $this->getValue();
     }
 }

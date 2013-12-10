@@ -87,9 +87,9 @@ class StatusesShowRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest->setBaseUrl('https://api.twitter.com/oauth');
 
         $expected = array(
-            'trim_user'          => '1',
-            'include_my_retweet' => '1',
-            'include_entities'   => '1',
+            'trim_user'          => 'true',
+            'include_my_retweet' => 'true',
+            'include_entities'   => 'true',
         );
 
         $this->assertSame('/statuses/show/:id.json', $oauthRequest->getPath());

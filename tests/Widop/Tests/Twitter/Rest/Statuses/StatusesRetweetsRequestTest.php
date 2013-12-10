@@ -79,7 +79,7 @@ class StatusesRetweetsRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'count'     => '50',
-            'trim_user' => '1'
+            'trim_user' => 'true'
         );
 
         $this->assertSame('/statuses/retweets/:id.json', $oauthRequest->getPath());

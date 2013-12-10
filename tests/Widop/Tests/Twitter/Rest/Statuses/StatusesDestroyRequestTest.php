@@ -68,7 +68,7 @@ class StatusesDestroyRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest = $this->request->createOAuthRequest();
         $oauthRequest->setBaseUrl('https://api.twitter.com/oauth');
 
-        $expected = array('trim_user' => '1');
+        $expected = array('trim_user' => 'true');
 
         $this->assertSame('/statuses/destroy/:id.json', $oauthRequest->getPath());
         $this->assertSame('POST', $oauthRequest->getMethod());

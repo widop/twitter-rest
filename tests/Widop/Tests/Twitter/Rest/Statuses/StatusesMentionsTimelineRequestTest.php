@@ -105,12 +105,12 @@ class StatusesMentionsTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest = $this->request->createOAuthRequest();
 
         $expected = array(
-            'contributor_details' => '1',
-            'include_entities'    => '1',
+            'contributor_details' => 'true',
+            'include_entities'    => 'true',
             'count'               => '50',
             'since_id'            => '0123456789',
             'max_id'              => '9876543210',
-            'trim_user'           => '1',
+            'trim_user'           => 'true',
         );
 
         $this->assertSame('/statuses/mentions_timeline.json', $oauthRequest->getPath());

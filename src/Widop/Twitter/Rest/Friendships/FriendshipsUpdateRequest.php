@@ -41,7 +41,7 @@ class FriendshipsUpdateRequest extends AbstractRequest
         $optionBag
             ->register('user_id', OptionInterface::TYPE_POST)
             ->register('screen_name', OptionInterface::TYPE_POST)
-            ->register('device', OptionInterface::TYPE_POST)
+            ->register('device_notification', OptionInterface::TYPE_POST)
             ->register('retweets', OptionInterface::TYPE_POST);
     }
 

@@ -118,8 +118,8 @@ class StatusesUpdateRequestTest extends \PHPUnit_Framework_TestCase
             'lat'                   => '37.7821120598956',
             'long'                  => '-122.400612831116',
             'place_id'              => 'df51dec6f4ee2b2c',
-            'display_coordinates'   => '1',
-            'trim_user'             => '1',
+            'display_coordinates'   => 'true',
+            'trim_user'             => 'true',
         );
 
         $this->assertSame('/statuses/update.json', $oauthRequest->getPath());

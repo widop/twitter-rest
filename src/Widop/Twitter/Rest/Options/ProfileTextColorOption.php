@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class ProfileTextColorOption extends AbstractOption
+class ProfileTextColorOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

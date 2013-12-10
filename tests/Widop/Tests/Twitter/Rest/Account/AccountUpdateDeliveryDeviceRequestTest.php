@@ -80,7 +80,7 @@ class AccountUpdateDeliveryDeviceRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->setIncludeEntities(true);
         $expected = array(
             'device'           => 'sms',
-            'include_entities' => '1'
+            'include_entities' => 'true'
         );
         $oauthRequest = $this->request->createOAuthRequest();
 

@@ -88,8 +88,8 @@ class AccountUpdateProfileImageRequestTest extends \PHPUnit_Framework_TestCase
         $this->request->setSkipStatus(true);
         $expected = array(
             'image'            => 'foo',
-            'include_entities' => '1',
-            'skip_status'      => '1',
+            'include_entities' => 'true',
+            'skip_status'      => 'true',
         );
         $oauthRequest = $this->request->createOAuthRequest();
 

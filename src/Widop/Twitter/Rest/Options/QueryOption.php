@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class QueryOption extends AbstractOption
+class QueryOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

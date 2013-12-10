@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class StringifyIdsOption extends AbstractOption
+class StringifyIdsOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

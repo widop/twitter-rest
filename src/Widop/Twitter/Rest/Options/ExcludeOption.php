@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class ExcludeOption extends AbstractOption
+class ExcludeOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

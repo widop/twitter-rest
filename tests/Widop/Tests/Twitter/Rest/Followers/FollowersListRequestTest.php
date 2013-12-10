@@ -113,8 +113,8 @@ class FollowersListRequestTest extends \PHPUnit_Framework_TestCase
             'screen_name'           => 'noradio',
             'cursor'                => '9876543210',
             'count'                 => '50',
-            'skip_status'           => '1',
-            'include_user_entities' => '1',
+            'skip_status'           => 'true',
+            'include_user_entities' => 'true',
         );
 
         $this->assertSame('/followers/list.json', $oauthRequest->getPath());

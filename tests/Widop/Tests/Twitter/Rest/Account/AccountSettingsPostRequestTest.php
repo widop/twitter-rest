@@ -106,7 +106,7 @@ class AccountSettingsPostRequestTest extends \PHPUnit_Framework_TestCase
     {
         $expected = array(
             'trend_location_woeid' => '123456',
-            'sleep_time_enabled'   => '1',
+            'sleep_time_enabled'   => 'true',
             'start_sleep_time'     => '00',
             'end_sleep_time'       => '23',
             'time_zone'            => 'Europe%2FParis',

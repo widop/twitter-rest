@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class CallbackOption extends AbstractOption
+class CallbackOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}
