@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class MaxwidthOption extends AbstractOption
+class MaxwidthOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

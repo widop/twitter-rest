@@ -104,7 +104,7 @@ class FriendsIdsRequestTest extends \PHPUnit_Framework_TestCase
         $expected = array(
             'screen_name'   => 'noradio',
             'cursor'        => '9876543210',
-            'stringify_ids' => '1',
+            'stringify_ids' => 'true',
             'count'         => '50',
         );
 

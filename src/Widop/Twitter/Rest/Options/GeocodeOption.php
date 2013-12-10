@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class GeocodeOption extends AbstractOption
+class GeocodeOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

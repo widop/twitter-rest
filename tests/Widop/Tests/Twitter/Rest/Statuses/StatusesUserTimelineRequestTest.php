@@ -132,13 +132,13 @@ class StatusesUserTimelineRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'user_id'             => '123',
-            'exclude_replies'     => '1',
-            'contributor_details' => '1',
-            'include_rts'         => '1',
+            'exclude_replies'     => 'true',
+            'contributor_details' => 'true',
+            'include_rts'         => 'true',
             'count'               => '50',
             'since_id'            => '0123456789',
             'max_id'              => '9876543210',
-            'trim_user'           => '1',
+            'trim_user'           => 'true',
         );
 
         $this->assertSame('/statuses/user_timeline.json', $oauthRequest->getPath());

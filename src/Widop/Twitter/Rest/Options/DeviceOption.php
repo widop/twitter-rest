@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class DeviceOption extends AbstractOption
+class DeviceOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

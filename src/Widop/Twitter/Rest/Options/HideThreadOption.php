@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class HideThreadOption extends AbstractOption
+class HideThreadOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

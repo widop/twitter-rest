@@ -37,6 +37,14 @@ abstract class AbstractOption implements OptionInterface
     /**
      * {@inheritdoc}
      */
+    public function hasValue()
+    {
+        return $this->value !== null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getValue()
     {
         return $this->value;

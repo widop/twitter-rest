@@ -115,13 +115,13 @@ class StatusesHomeTimelineRequestTest extends \PHPUnit_Framework_TestCase
         $oauthRequest->setBaseUrl('https://api.twitter.com/1.1');
 
         $expected = array(
-            'exclude_replies'     => '1',
-            'contributor_details' => '1',
-            'include_entities'    => '1',
+            'exclude_replies'     => 'true',
+            'contributor_details' => 'true',
+            'include_entities'    => 'true',
             'count'               => '50',
             'since_id'            => '0123456789',
             'max_id'              => '9876543210',
-            'trim_user'           => '1',
+            'trim_user'           => 'true',
         );
 
         $this->assertSame('/statuses/home_timeline.json', $oauthRequest->getPath());

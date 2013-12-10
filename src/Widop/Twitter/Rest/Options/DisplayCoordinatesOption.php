@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class DisplayCoordinatesOption extends AbstractOption
+class DisplayCoordinatesOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

@@ -88,7 +88,7 @@ class AbstractTimelineRequestTest extends \PHPUnit_Framework_TestCase
             'count'     => '50',
             'since_id'  => '0123456789',
             'max_id'    => '9876543210',
-            'trim_user' => '1',
+            'trim_user' => 'true',
         );
 
         $this->assertSame('GET', $oauthRequest->getMethod());

@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class OmitScriptOption extends AbstractOption
+class OmitScriptOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

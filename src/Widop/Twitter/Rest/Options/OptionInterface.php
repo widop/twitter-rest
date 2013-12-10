@@ -31,6 +31,13 @@ interface OptionInterface
     const TYPE_POST = 'post';
 
     /**
+     * Checks if the option has a value.
+     *
+     * @return boolean TRUE if option has a value else FALSE.
+     */
+    public function hasValue();
+
+    /**
      * Gets the option value.
      *
      * @return mixed The option value.
@@ -43,6 +50,13 @@ interface OptionInterface
      * @param mixed $value The option value.
      */
     public function setValue($value);
+
+    /**
+     * Gets the option normalized value.
+     *
+     * @return string The normalized value.
+     */
+    public function getNormalizedValue();
 
     /**
      * Gets the option type.

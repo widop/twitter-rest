@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class LocaleOption extends AbstractOption
+class LocaleOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

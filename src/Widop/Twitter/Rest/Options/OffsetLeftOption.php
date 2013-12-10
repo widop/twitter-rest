@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class OffsetLeftOption extends AbstractOption
+class OffsetLeftOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

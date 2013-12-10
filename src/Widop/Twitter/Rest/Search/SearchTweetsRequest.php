@@ -19,28 +19,28 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @link https://dev.twitter.com/docs/api/1.1/get/search/tweets
  *
- * @method string       getQ()                                       Gets the search query.
- * @method null         setQ(string $query)                          Sets the search query.
- * @method string|null  getGeocode()                                 Gets the geocode area.
- * @method null         setGeocode(string $geocode)                  Sets the geocode area.
- * @method string|null  getLang()                                    Gets the language.
- * @method null         setLang(string $lang)                        Sets the language.
- * @method string|null  getLocale()                                  Gets the locale.
- * @method null         setLocale(string $locale)                    Sets the locale.
- * @method string|null  getResultType()                              Gets the result type.
- * @method null         setResultType(string $resultType)            Sets the result type.
- * @method integer|null getCount()                                   Gets the number of tweets to return.
- * @method null         setCount(integer $count)                     Sets the number of tweets to return.
- * @method string|null  getUntil()                                   Gets the lower tweet date.
- * @method null         setUntil(string $until)                      Sets the lower tweet date.
- * @method string|null  getSinceId()                                 Gets the lower tweet ID.
- * @method null         setSinceId(string $sinceId)                  Sets the lower tweet ID.
- * @method string|null  getMaxId()                                   Gets the higher tweet ID.
- * @method null         setMaxId(string $maxId)                      Sets the higher tweet ID.
- * @method boolean|null getIncludeEntities()                         Checks if the entities node should be included.
- * @method null         setIncludeEntities(boolean $includeEntities) Sets if the entities node should be included.
- * @method string|null  getCallback()                                Gets the JSONP callback name.
- * @method null         setCallback(string $callback)                Sets the JSONP callback name.
+ * @method string         getQ()                                       Gets the search query.
+ * @method null           setQ(string $query)                          Sets the search query.
+ * @method string|null    getGeocode()                                 Gets the geocode area.
+ * @method null           setGeocode(string $geocode)                  Sets the geocode area.
+ * @method string|null    getLang()                                    Gets the language.
+ * @method null           setLang(string $lang)                        Sets the language.
+ * @method string|null    getLocale()                                  Gets the locale.
+ * @method null           setLocale(string $locale)                    Sets the locale.
+ * @method string|null    getResultType()                              Gets the result type.
+ * @method null           setResultType(string $resultType)            Sets the result type.
+ * @method integer|null   getCount()                                   Gets the number of tweets to return.
+ * @method null           setCount(integer $count)                     Sets the number of tweets to return.
+ * @method \DateTime|null getUntil()                                   Gets the lower tweet date.
+ * @method null           setUntil(string|\DateTime $until)            Sets the lower tweet date.
+ * @method string|null    getSinceId()                                 Gets the lower tweet ID.
+ * @method null           setSinceId(string $sinceId)                  Sets the lower tweet ID.
+ * @method string|null    getMaxId()                                   Gets the higher tweet ID.
+ * @method null           setMaxId(string $maxId)                      Sets the higher tweet ID.
+ * @method boolean|null   getIncludeEntities()                         Checks if the entities node should be included.
+ * @method null           setIncludeEntities(boolean $includeEntities) Sets if the entities node should be included.
+ * @method string|null    getCallback()                                Gets the JSONP callback name.
+ * @method null           setCallback(string $callback)                Sets the JSONP callback name.
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */

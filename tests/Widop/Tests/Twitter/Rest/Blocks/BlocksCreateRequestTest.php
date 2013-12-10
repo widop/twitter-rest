@@ -87,8 +87,8 @@ class BlocksCreateRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'screen_name'      => 'noradio',
-            'include_entities' => '1',
-            'skip_status'      => '1',
+            'include_entities' => 'true',
+            'skip_status'      => 'true',
         );
 
         $this->assertSame('/blocks/create.json', $oauthRequest->getPath());
@@ -106,8 +106,8 @@ class BlocksCreateRequestTest extends \PHPUnit_Framework_TestCase
 
         $expected = array(
             'user_id'          => '123456789',
-            'include_entities' => '1',
-            'skip_status'      => '1',
+            'include_entities' => 'true',
+            'skip_status'      => 'true',
         );
 
         $this->assertSame('/blocks/create.json', $oauthRequest->getPath());

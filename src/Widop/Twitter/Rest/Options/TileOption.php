@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class TileOption extends AbstractOption
+class TileOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

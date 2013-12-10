@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class MediaOption extends AbstractOption
+class MediaOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

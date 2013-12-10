@@ -12,17 +12,17 @@
 namespace Widop\Twitter\Rest\Options;
 
 /**
- * Offset top option.
+ * Device notification option.
  *
- * @author Geoffrey Brier <geoffrey.brier@gmail.com>
+ * @author GeLo <geloen.eric@gmail.com>
  */
-class OffsetTopOption extends AbstractScalarOption
+class DeviceNotificationOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'offset_top';
+        return 'device';
     }
 }

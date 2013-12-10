@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class CountOption extends AbstractOption
+class CountOption extends AbstractScalarOption
 {
     /**
      * {@inheritdoc}

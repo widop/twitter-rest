@@ -56,9 +56,9 @@ class TrendsPlaceRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testExclude()
     {
-        $this->request->setExclude(true);
+        $this->request->setExclude('hashtag');
 
-        $this->assertTrue($this->request->getExclude());
+        $this->assertSame('hashtag', $this->request->getExclude());
     }
 
     public function testOAuthRequestWithoutParameters()
@@ -69,11 +69,11 @@ class TrendsPlaceRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testOAuthRequestWithParameters()
     {
-        $this->request->setExclude(true);
+        $this->request->setExclude('hashtag');
 
         $expected = array(
             'id'      => '123',
-            'exclude' => '1'
+            'exclude' => 'hashtag'
         );
         $oauthRequest = $this->request->createOAuthRequest();
 

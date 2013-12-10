@@ -108,7 +108,7 @@ class FavoritesListRequestTest extends \PHPUnit_Framework_TestCase
             'count'            => '50',
             'since_id'         => '0123456789',
             'max_id'           => '9876543210',
-            'include_entities' => '1',
+            'include_entities' => 'true',
         );
 
         $this->assertSame('/favorites/list.json', $oauthRequest->getPath());

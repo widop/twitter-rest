@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class IncludeRtsOption extends AbstractOption
+class IncludeRtsOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

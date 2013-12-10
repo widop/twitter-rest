@@ -16,7 +16,7 @@ namespace Widop\Twitter\Rest\Options;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class TrimUserOption extends AbstractOption
+class TrimUserOption extends AbstractBooleanOption
 {
     /**
      * {@inheritdoc}

@@ -106,9 +106,9 @@ class AccountUpdateProfileBackgroundImageRequestTest extends \PHPUnit_Framework_
         $this->request->setUse(true);
         $expected = array(
             'image'            => 'foo',
-            'include_entities' => '1',
-            'skip_status'      => '1',
-            'use'              => '1'
+            'include_entities' => 'true',
+            'skip_status'      => 'true',
+            'use'              => 'true'
         );
         $oauthRequest = $this->request->createOAuthRequest();
 
