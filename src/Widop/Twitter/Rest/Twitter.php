@@ -124,7 +124,7 @@ class Twitter
 
         $this->getOAuth()->signRequest($request, $this->getOAuthToken());
 
-        $response = $this->sendRequest($request);
+        $response = $this->sendRequest($request)->getBody();
         $result = json_decode($response, true);
 
         if (($result === null) || (isset($result['errors']))) {
