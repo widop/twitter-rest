@@ -143,11 +143,16 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo($this->oauthToken)
             );
 
+        $response = $this->getMock('Widop\HttpAdapter\Response');
+        $response->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue('{"json":"valid"}'));
+
         $this->httpAdapter
             ->expects($this->once())
             ->method('getContent')
             ->with($this->equalTo('url'), $this->equalTo(array('headers')))
-            ->will($this->returnValue('{"json":"valid"}'));
+            ->will($this->returnValue($response));
 
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
             ->setMethods(array('createOAuthRequest'))
@@ -204,6 +209,11 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo($this->oauthToken)
             );
 
+        $response = $this->getMock('Widop\HttpAdapter\Response');
+        $response->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue('{"json":"valid"}'));
+
         $this->httpAdapter
             ->expects($this->once())
             ->method('postContent')
@@ -212,7 +222,7 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(array('headers')),
                 $this->equalTo(array('post_parameters'))
             )
-            ->will($this->returnValue('{"json":"valid"}'));
+            ->will($this->returnValue($response));
 
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
             ->setMethods(array('createOAuthRequest'))
@@ -269,12 +279,17 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
             ->method('getHeaders')
             ->will($this->returnValue(array()));
 
-        $response = <<<EOF
+        $body = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <errors>
   <error code="34">Sorry, that page does not exist</error>
 </errors>
 EOF;
+
+        $response = $this->getMock('Widop\HttpAdapter\Response');
+        $response->expects($this->any())
+            ->method('getBody')
+            ->will($this->returnValue($body));
 
         $this->httpAdapter
             ->expects($this->once())
@@ -319,10 +334,15 @@ EOF;
             ->method('createOAuthRequest')
             ->will($this->returnValue($oauthRequest));
 
+        $response = $this->getMock('Widop\HttpAdapter\Response');
+        $response->expects($this->any())
+            ->method('getBody')
+            ->will($this->returnValue('{"errors":[{"message":"Sorry, that page does not exist","code":34}]}'));
+
         $this->httpAdapter
             ->expects($this->once())
             ->method('getContent')
-            ->will($this->returnValue('{"errors":[{"message":"Sorry, that page does not exist","code":34}]}'));
+            ->will($this->returnValue($response));
 
         $this->twitter->send($request);
     }
