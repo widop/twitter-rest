@@ -123,6 +123,27 @@ For now, the build-in requests are:
   * [`/favorites/destroy`](favorites/destroy.md): Un-favorites the status specified in the ID parameter as the authenticating user.
   * [`/favorites/list`](favorites/list.md): Returns the 20 most recent Tweets favorited by the authenticating or specified user.
 
+ * Lists
+  * [`/lists/create`](lists/create.md): Creates a new list for the authenticated user.
+  * [`/lists/destroy`](lists/destroy.md): Deletes the specified list.
+  * [`/lists/list`](lists/list.md): Returns all lists the authenticating or specified user subscribes to, including their own.
+  * [`/lists/members`](lists/members.md): Returns the members of the specified list.
+  * [`/lists/members/create`](lists/members_create.md): Add a member to a list.
+  * [`/lists/members/create_all`](lists/members_create_all.md): Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names.
+  * [`/lists/members/destroy`](lists/members_destroy.md): Removes the specified member from the list.
+  * [`/lists/members/destroy_all`](lists/members_destroy_all.md): Removes multiple members from a list, by specifying a comma-separated list of member ids or screen names.
+  * [`/lists/members/show`](lists/members_show.md): Check if the specified user is a member of the specified list.
+  * [`/lists/memberships`](lists/memberships.md): Returns the lists the specified user has been added to.
+  * [`/lists/ownerships`](lists/ownerships.md): Returns the lists owned by the specified Twitter user.
+  * [`/lists/show`](lists/show.md): Returns the specified list.
+  * [`/lists/statuses`](lists/statuses.md): Returns a timeline of tweets authored by members of the specified list.
+  * [`/lists/subscribers`](lists/subscribers.md): Returns the subscribers of the specified list.
+  * [`/lists/subscribers/create`](lists/subscribers_create.md): Subscribes the authenticated user to the specified list.
+  * [`/lists/subscribers/destroy`](lists/subscribers_destroy.md): Unsubscribes the authenticated user from the specified list.
+  * [`/lists/subscribers/show`](lists/subscribers_show.md): Check if the specified user is a subscriber of the specified list.
+  * [`/lists/subscriptions`](lists/subscriptions.md): Obtain a collection of the lists the specified user is subscribed to.
+  * [`/lists/update`](lists/update.md): Updates the specified list.
+
  * Saved Searches
   * [`saved_searches/list`](saved-searches/.md): Returns the authenticated user's saved search queries.
   * [`saved_searches/show/:id`](saved-searches/show.md): Retrieve the information for the saved search represented by the given id.
