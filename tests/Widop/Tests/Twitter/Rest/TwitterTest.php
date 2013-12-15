@@ -29,8 +29,8 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
     /** @var \Widop\Twitter\OAuth\OAuth */
     private $oauth;
 
-    /** @var \Widop\Twitter\OAuth\OAuthToken */
-    private $oauthToken;
+    /** @var \Widop\Twitter\OAuth\Token\TokenInterface */
+    private $token;
 
     /**
      * {@inheritdoc}
@@ -48,11 +48,9 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
             ->method('getHttpAdapter')
             ->will($this->returnValue($this->httpAdapter));
 
-        $this->oauthToken = $this->getMockBuilder('Widop\Twitter\OAuth\OAuthToken')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->token = $this->getMock('Widop\Twitter\OAuth\Token\TokenInterface');
 
-        $this->twitter = new Twitter($this->oauth, $this->oauthToken);
+        $this->twitter = new Twitter($this->oauth, $this->token);
     }
 
     /**
@@ -60,26 +58,26 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        unset($this->oauthToken);
+        unset($this->token);
         unset($this->oauth);
         unset($this->twitter);
     }
 
     public function testDefaultState()
     {
-        $this->twitter = new Twitter($this->oauth);
+        $this->twitter = new Twitter($this->oauth, $this->token);
 
         $this->assertSame($this->oauth, $this->twitter->getOAuth());
-        $this->assertNull($this->twitter->getOAuthToken());
+        $this->assertSame($this->token, $this->twitter->getToken());
         $this->assertSame('https://api.twitter.com/1.1', $this->twitter->getUrl());
     }
 
     public function testInitialState()
     {
-        $this->twitter = new Twitter($this->oauth, $this->oauthToken, 'https://my-url.com');
+        $this->twitter = new Twitter($this->oauth, $this->token, 'https://my-url.com');
 
         $this->assertSame($this->oauth, $this->twitter->getOAuth());
-        $this->assertSame($this->oauthToken, $this->twitter->getOAuthToken());
+        $this->assertSame($this->token, $this->twitter->getToken());
         $this->assertSame('https://my-url.com', $this->twitter->getUrl());
     }
 
@@ -101,15 +99,13 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($oauth, $this->twitter->getOAuth());
     }
 
-    public function testOAuthToken()
+    public function testToken()
     {
-        $oauthToken = $this->getMockBuilder('Widop\Twitter\OAuth\OAuthToken')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $token = $this->getMock('Widop\Twitter\OAuth\Token\TokenInterface');
 
-        $this->twitter->setOAuthToken($oauthToken);
+        $this->twitter->setToken($token);
 
-        $this->assertSame($oauthToken, $this->twitter->getOAuthToken());
+        $this->assertSame($token, $this->twitter->getToken());
     }
 
     public function testSendWithGetRequest()
@@ -140,7 +136,7 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
             ->method('signRequest')
             ->with(
                 $this->equalTo($oauthRequest),
-                $this->equalTo($this->oauthToken)
+                $this->equalTo($this->token)
             );
 
         $response = $this->getMock('Widop\HttpAdapter\Response');
@@ -206,7 +202,7 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
             ->method('signRequest')
             ->with(
                 $this->equalTo($oauthRequest),
-                $this->equalTo($this->oauthToken)
+                $this->equalTo($this->token)
             );
 
         $response = $this->getMock('Widop\HttpAdapter\Response');

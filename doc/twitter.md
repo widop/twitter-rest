@@ -18,9 +18,23 @@ $oauth = new OAuth\OAuth(
     new OAuth\Signature\OAuthHmacSha1Signature()
 );
 
-$token = new OAuth\OAuthToken('oauth_key', 'oauth_secret');
+$token = new OAuth\Token\OAuthToken('oauth_key', 'oauth_secret');
 
 $twitter = new Twitter($oauth, $token);
+```
+
+Note that is also possible to pass a "bearer" token (eg: application access token):
+
+``` php
+use Widop\Twitter\OAuth\Token\BearerToken;
+
+$bearerToken = new BearerToken('foo');
+
+$twitter = new Twitter($oauth, $token);
+
+// or
+
+$twitter->setToken($bearerToken);
 ```
 
 Now, we got a twitter client, you can get/set the OAuth client, get/set the access token or send a request to the
@@ -32,8 +46,8 @@ use Widop\Twitter\Rest\Statuses\StatusesDestroyRequest;
 $oauth = $twitter->getOAuth();
 $twitter->setOAuth($oauth);
 
-$token = $twitter->getOAuthToken();
-$twitter->setOAuthToken($token);
+$token = $twitter->getToken();
+$twitter->setToken($token);
 ```
 
 Here, we will destroy the tweet "123":
