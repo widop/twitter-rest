@@ -143,4 +143,11 @@ For now, the build-in requests are:
  * Spam Reporting
   * [`/users/spam_report`](users/spam_report.md): Report the specified user as a spam account to Twitter.
 
+ * Application & Help
+  * [`application/rate_limit_status`](application/rate_limit_status.md):
+  * [`help/configuration`](help/configuration.md):
+  * [`help/languages`](help/languages.md):
+  * [`help/privacy`](help/privacy.md):
+  * [`help/tos`](help/tos.md):
+
 Obviously, if you want to complete the list, you're welcome :)
