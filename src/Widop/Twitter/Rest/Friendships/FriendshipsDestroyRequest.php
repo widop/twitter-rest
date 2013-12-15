@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Friendships;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -27,7 +27,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class FriendshipsDestroyRequest extends AbstractRequest
+class FriendshipsDestroyRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -59,13 +59,5 @@ class FriendshipsDestroyRequest extends AbstractRequest
     protected function getPath()
     {
         return '/friendships/destroy.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

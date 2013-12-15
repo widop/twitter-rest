@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Friends;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -32,7 +32,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class FriendsIdsRequest extends AbstractRequest
+class FriendsIdsRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

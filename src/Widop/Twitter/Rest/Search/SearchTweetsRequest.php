@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Search;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -44,7 +44,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class SearchTweetsRequest extends AbstractRequest
+class SearchTweetsRequest extends AbstractGetRequest
 {
     /**
      * Creates a search tweets request.

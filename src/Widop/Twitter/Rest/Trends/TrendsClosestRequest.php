@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Trends;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -26,7 +26,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class TrendsClosestRequest extends AbstractRequest
+class TrendsClosestRequest extends AbstractGetRequest
 {
     /**
      * Creates a trends closest request.

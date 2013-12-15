@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\DirectMessages;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -29,7 +29,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class DirectMessagesNewRequest extends AbstractRequest
+class DirectMessagesNewRequest extends AbstractPostRequest
 {
     /**
      * Creates a direct messages new request.
@@ -78,13 +78,5 @@ class DirectMessagesNewRequest extends AbstractRequest
     protected function getPath()
     {
         return '/direct_messages/new.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

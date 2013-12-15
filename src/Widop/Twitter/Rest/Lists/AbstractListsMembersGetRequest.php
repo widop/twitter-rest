@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Lists;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -32,7 +32,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-abstract class AbstractListsMembersGetRequest extends AbstractRequest
+abstract class AbstractListsMembersGetRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

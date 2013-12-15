@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Lists;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -29,7 +29,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class ListsCreateRequest extends AbstractRequest
+class ListsCreateRequest extends AbstractPostRequest
 {
     /**
      * Creates a lists create request.
@@ -62,14 +62,6 @@ class ListsCreateRequest extends AbstractRequest
         if (!isset($optionBag['name'])) {
             throw new \RuntimeException('You must provide a name.');
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 
     /**

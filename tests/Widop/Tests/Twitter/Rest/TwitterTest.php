@@ -108,28 +108,9 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($token, $this->twitter->getToken());
     }
 
-    public function testSendWithGetRequest()
+    public function testSend()
     {
         $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-        $oauthRequest
-            ->expects($this->once())
-            ->method('setBaseUrl')
-            ->with($this->equalTo('https://api.twitter.com/1.1'));
-
-        $oauthRequest
-            ->expects($this->any())
-            ->method('getMethod')
-            ->will($this->returnValue('GET'));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getUrl')
-            ->will($this->returnValue('url'));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getHeaders')
-            ->will($this->returnValue(array('headers')));
 
         $this->oauth
             ->expects($this->once())
@@ -139,16 +120,11 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo($this->token)
             );
 
-        $response = $this->getMock('Widop\HttpAdapter\Response');
-        $response->expects($this->once())
-            ->method('getBody')
-            ->will($this->returnValue('{"json":"valid"}'));
-
-        $this->httpAdapter
+        $this->oauth
             ->expects($this->once())
-            ->method('getContent')
-            ->with($this->equalTo('url'), $this->equalTo(array('headers')))
-            ->will($this->returnValue($response));
+            ->method('sendRequest')
+            ->with($this->identicalTo($oauthRequest))
+            ->will($this->returnValue('{"json":"valid"}'));
 
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
             ->setMethods(array('createOAuthRequest'))
@@ -162,100 +138,6 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
         $result = $this->twitter->send($request);
 
         $this->assertSame(array('json' => 'valid'), $result);
-    }
-
-    public function testSendWithPostRequest()
-    {
-        $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-        $oauthRequest
-            ->expects($this->once())
-            ->method('setBaseUrl')
-            ->with($this->equalTo('https://api.twitter.com/1.1'));
-
-        $oauthRequest
-            ->expects($this->any())
-            ->method('getMethod')
-            ->will($this->returnValue('POST'));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getUrl')
-            ->will($this->returnValue('url'));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getPostParameters')
-            ->will($this->returnValue(array('post_parameters')));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getFileParameters')
-            ->will($this->returnValue(array()));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getHeaders')
-            ->will($this->returnValue(array('headers')));
-
-        $this->oauth
-            ->expects($this->once())
-            ->method('signRequest')
-            ->with(
-                $this->equalTo($oauthRequest),
-                $this->equalTo($this->token)
-            );
-
-        $response = $this->getMock('Widop\HttpAdapter\Response');
-        $response->expects($this->once())
-            ->method('getBody')
-            ->will($this->returnValue('{"json":"valid"}'));
-
-        $this->httpAdapter
-            ->expects($this->once())
-            ->method('postContent')
-            ->with(
-                $this->equalTo('url'),
-                $this->equalTo(array('headers')),
-                $this->equalTo(array('post_parameters'))
-            )
-            ->will($this->returnValue($response));
-
-        $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
-            ->setMethods(array('createOAuthRequest'))
-            ->getMockForAbstractClass();
-
-        $request
-            ->expects($this->once())
-            ->method('createOAuthRequest')
-            ->will($this->returnValue($oauthRequest));
-
-        $result = $this->twitter->send($request);
-
-        $this->assertSame(array('json' => 'valid'), $result);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The request method "DELETE" is not supported.
-     */
-    public function testSendWithUnsupportedRequest()
-    {
-        $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-        $oauthRequest
-            ->expects($this->any())
-            ->method('getMethod')
-            ->will($this->returnValue('DELETE'));
-
-        $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
-            ->setMethods(array('createOAuthRequest'))
-            ->getMockForAbstractClass();
-
-        $request
-            ->expects($this->once())
-            ->method('createOAuthRequest')
-            ->will($this->returnValue($oauthRequest));
-
-        $this->twitter->send($request);
     }
 
     /**
@@ -265,15 +147,6 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
     public function testSendWithInvalidXmlResponse()
     {
         $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-        $oauthRequest
-            ->expects($this->any())
-            ->method('getMethod')
-            ->will($this->returnValue('GET'));
-
-        $oauthRequest
-            ->expects($this->once())
-            ->method('getHeaders')
-            ->will($this->returnValue(array()));
 
         $body = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -282,15 +155,11 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
 </errors>
 EOF;
 
-        $response = $this->getMock('Widop\HttpAdapter\Response');
-        $response->expects($this->any())
-            ->method('getBody')
-            ->will($this->returnValue($body));
-
-        $this->httpAdapter
+        $this->oauth
             ->expects($this->once())
-            ->method('getContent')
-            ->will($this->returnValue($response));
+            ->method('sendRequest')
+            ->with($this->identicalTo($oauthRequest))
+            ->will($this->returnValue($body));
 
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
             ->setMethods(array('createOAuthRequest'))
@@ -311,15 +180,12 @@ EOF;
     public function testSendWithInvalidJsonResponse()
     {
         $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-        $oauthRequest
-            ->expects($this->any())
-            ->method('getMethod')
-            ->will($this->returnValue('GET'));
 
-        $oauthRequest
+        $this->oauth
             ->expects($this->once())
-            ->method('getHeaders')
-            ->will($this->returnValue(array()));
+            ->method('sendRequest')
+            ->with($this->identicalTo($oauthRequest))
+            ->will($this->returnValue('{"errors":[{"message":"Sorry, that page does not exist","code":34}]}'));
 
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
             ->setMethods(array('createOAuthRequest'))
@@ -329,16 +195,6 @@ EOF;
             ->expects($this->once())
             ->method('createOAuthRequest')
             ->will($this->returnValue($oauthRequest));
-
-        $response = $this->getMock('Widop\HttpAdapter\Response');
-        $response->expects($this->any())
-            ->method('getBody')
-            ->will($this->returnValue('{"errors":[{"message":"Sorry, that page does not exist","code":34}]}'));
-
-        $this->httpAdapter
-            ->expects($this->once())
-            ->method('getContent')
-            ->will($this->returnValue($response));
 
         $this->twitter->send($request);
     }

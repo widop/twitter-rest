@@ -12,7 +12,6 @@
 namespace Widop\Twitter\Rest;
 
 use Widop\Twitter\OAuth\OAuth;
-use Widop\Twitter\OAuth\OAuthRequest;
 use Widop\Twitter\OAuth\Token\TokenInterface;
 
 /**
@@ -120,7 +119,7 @@ class Twitter
         $request->setBaseUrl($this->getUrl());
         $this->getOAuth()->signRequest($request, $this->getToken());
 
-        $response = $this->sendRequest($request)->getBody();
+        $response = $this->getOAuth()->sendRequest($request);
         $result = json_decode($response, true);
 
         if (($result === null) || (isset($result['errors']))) {
@@ -131,41 +130,5 @@ class Twitter
         }
 
         return $result;
-    }
-
-    /**
-     * Sends the request over http.
-     *
-     * @param \Widop\Twitter\OAuth\OAuthRequest $request The OAuth request.
-     *
-     * @throws \RuntimException If the http method is not supported.
-     *
-     * @return string The http response.
-     */
-    private function sendRequest(OAuthRequest $request)
-    {
-        if ($request->getMethod() === 'GET') {
-            return $this->getOAuth()->getHttpAdapter()->getContent(
-                $request->getUrl(),
-                $request->getHeaders()
-            );
-        }
-
-        if ($request->getMethod() === 'POST') {
-            // The http adapter encodes POST datas itself.
-            $postParameters = array();
-            foreach ($request->getPostParameters() as $name => $value) {
-                $postParameters[rawurldecode($name)] = rawurldecode($value);
-            }
-
-            return $this->getOAuth()->getHttpAdapter()->postContent(
-                $request->getUrl(),
-                $request->getHeaders(),
-                $postParameters,
-                $request->getFileParameters()
-            );
-        }
-
-        throw new \RuntimeException(sprintf('The request method "%s" is not supported.', $request->getMethod()));
     }
 }
