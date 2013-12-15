@@ -82,6 +82,7 @@ class OptionFactory
             'q'                            => 'Widop\Twitter\Rest\Options\QOption',
             'query'                        => 'Widop\Twitter\Rest\Options\QueryOption',
             'related'                      => 'Widop\Twitter\Rest\Options\RelatedOption',
+            'resources'                    => 'Widop\Twitter\Rest\Options\ResourcesOption',
             'result_type'                  => 'Widop\Twitter\Rest\Options\ResultTypeOption',
             'retweets'                     => 'Widop\Twitter\Rest\Options\RetweetsOption',
             'screen_name'                  => 'Widop\Twitter\Rest\Options\ScreenNameOption',
