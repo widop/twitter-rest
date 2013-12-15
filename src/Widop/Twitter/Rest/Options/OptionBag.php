@@ -65,7 +65,7 @@ class OptionBag implements \ArrayAccess, \IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        return $this->offsetGet($offset) !== null;
+        return $this->getOption($offset)->hasValue();
     }
 
     /**
