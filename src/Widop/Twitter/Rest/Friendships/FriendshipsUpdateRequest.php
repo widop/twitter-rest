@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Friendships;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -31,7 +31,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class FriendshipsUpdateRequest extends AbstractRequest
+class FriendshipsUpdateRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -65,13 +65,5 @@ class FriendshipsUpdateRequest extends AbstractRequest
     protected function getPath()
     {
         return '/friendships/update.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\DirectMessages;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -24,7 +24,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class DirectMessagesShowRequest extends AbstractRequest
+class DirectMessagesShowRequest extends AbstractGetRequest
 {
     /**
      * Creates a direct messages show request.

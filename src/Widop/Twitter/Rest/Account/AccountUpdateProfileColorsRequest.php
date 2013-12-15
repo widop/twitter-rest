@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Account;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -37,7 +37,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class AccountUpdateProfileColorsRequest extends AbstractRequest
+class AccountUpdateProfileColorsRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -74,13 +74,5 @@ class AccountUpdateProfileColorsRequest extends AbstractRequest
     protected function getPath()
     {
         return '/account/update_profile_colors.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

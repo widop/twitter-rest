@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Application;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -24,7 +24,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class ApplicationRateLimitStatusRequest extends AbstractRequest
+class ApplicationRateLimitStatusRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Users;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -29,7 +29,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
   *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class UsersLookupRequest extends AbstractRequest
+class UsersLookupRequest extends AbstractPostRequest
 {
 /**
      * {@inheritdoc}
@@ -58,13 +58,5 @@ class UsersLookupRequest extends AbstractRequest
     protected function getPath()
     {
         return '/users/lookup.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

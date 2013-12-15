@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Favorites;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -27,7 +27,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class FavoritesCreateRequest extends AbstractRequest
+class FavoritesCreateRequest extends AbstractPostRequest
 {
     /**
      * Creates a favorites create request.
@@ -67,13 +67,5 @@ class FavoritesCreateRequest extends AbstractRequest
     protected function getPath()
     {
         return '/favorites/create.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

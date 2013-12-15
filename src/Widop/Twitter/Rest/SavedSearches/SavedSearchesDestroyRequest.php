@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\SavedSearches;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -25,7 +25,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class SavedSearchesDestroyRequest extends AbstractRequest
+class SavedSearchesDestroyRequest extends AbstractPostRequest
 {
     /**
      * Creates a saved searches destroy request.
@@ -63,13 +63,5 @@ class SavedSearchesDestroyRequest extends AbstractRequest
     protected function getPath()
     {
         return '/saved_searches/destroy/:id.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

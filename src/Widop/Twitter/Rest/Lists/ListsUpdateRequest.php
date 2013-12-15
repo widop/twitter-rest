@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Lists;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -37,7 +37,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class ListsUpdateRequest extends AbstractRequest
+class ListsUpdateRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -76,14 +76,6 @@ class ListsUpdateRequest extends AbstractRequest
         if (!isset($optionBag['name']) && !isset($optionBag['mode']) && !isset($optionBag['description'])) {
             throw new \RuntimeException('You must provide at least one parameter to update (name, mode, descrition).');
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 
     /**

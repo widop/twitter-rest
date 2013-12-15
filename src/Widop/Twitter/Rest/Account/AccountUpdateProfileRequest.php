@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Account;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -35,7 +35,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class AccountUpdateProfileRequest extends AbstractRequest
+class AccountUpdateProfileRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -58,7 +58,7 @@ class AccountUpdateProfileRequest extends AbstractRequest
     {
         if (!isset($optionBag['name'])
             && !isset($optionBag['description'])
-            && !isset($optionBag['url']) 
+            && !isset($optionBag['url'])
             && !isset($optionBag['location'])) {
             throw new \RuntimeException('You must provide a either a name, description, url or a location.');
         }
@@ -70,13 +70,5 @@ class AccountUpdateProfileRequest extends AbstractRequest
     protected function getPath()
     {
         return '/account/update_profile.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

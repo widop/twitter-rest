@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Account;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 
 /**
  * Account remove profile banner request.
@@ -20,7 +20,7 @@ use Widop\Twitter\Rest\AbstractRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class AccountRemoveProfileBannerRequest extends AbstractRequest
+class AccountRemoveProfileBannerRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -28,13 +28,5 @@ class AccountRemoveProfileBannerRequest extends AbstractRequest
     protected function getPath()
     {
         return '/account/remove_profile_banner.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

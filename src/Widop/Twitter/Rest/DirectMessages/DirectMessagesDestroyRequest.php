@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\DirectMessages;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -27,7 +27,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class DirectMessagesDestroyRequest extends AbstractRequest
+class DirectMessagesDestroyRequest extends AbstractPostRequest
 {
     /**
      * Creates a direct messages destroy request.
@@ -67,13 +67,5 @@ class DirectMessagesDestroyRequest extends AbstractRequest
     protected function getPath()
     {
         return '/direct_messages/destroy.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Favorites;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
@@ -34,7 +34,7 @@ use Widop\Twitter\Rest\Options\OptionBag;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class FavoritesListRequest extends AbstractRequest
+class FavoritesListRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

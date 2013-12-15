@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Help;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 
 /**
  * Help tos request.
@@ -20,7 +20,7 @@ use Widop\Twitter\Rest\AbstractRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class HelpTosRequest extends AbstractRequest
+class HelpTosRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

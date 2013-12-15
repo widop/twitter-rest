@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Statuses;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -31,7 +31,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class StatusesShowRequest extends AbstractRequest
+class StatusesShowRequest extends AbstractGetRequest
 {
     /**
      * Creates a statuses show request.

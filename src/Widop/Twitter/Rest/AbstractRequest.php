@@ -101,6 +101,20 @@ abstract class AbstractRequest
     }
 
     /**
+     * Gets the request path.
+     *
+     * @return string The request path.
+     */
+    abstract protected function getPath();
+
+    /**
+     * Gets the request method.
+     *
+     * @return string The request method.
+     */
+    abstract protected function getMethod();
+
+    /**
      * Configures the option bag.
      *
      * @param \Widop\Twitter\Rest\Options\OptionBag $optionBag The option bag.
@@ -111,13 +125,6 @@ abstract class AbstractRequest
     }
 
     /**
-     * Gets the request path.
-     *
-     * @return string The request path.
-     */
-    abstract protected function getPath();
-
-    /**
      * Validates the option bag.
      *
      * @param \Widop\Twitter\Rest\Options\OptionBag $optionBag The option bag.
@@ -125,16 +132,6 @@ abstract class AbstractRequest
     protected function validateOptionBag(OptionBag $optionBag)
     {
 
-    }
-
-    /**
-     * Gets the request method.
-     *
-     * @return string The request method.
-     */
-    protected function getMethod()
-    {
-        return 'GET';
     }
 
     /**

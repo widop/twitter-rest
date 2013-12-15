@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Lists;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -29,7 +29,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-abstract class AbstractListsSubscribersPostRequest extends AbstractRequest
+abstract class AbstractListsSubscribersPostRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -61,13 +61,5 @@ abstract class AbstractListsSubscribersPostRequest extends AbstractRequest
                 'You must provide the owner screen name or id in conjuction with the slug parameter.'
             );
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

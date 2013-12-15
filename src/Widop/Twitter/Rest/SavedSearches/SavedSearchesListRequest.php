@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\SavedSearches;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 
 /**
  * Saved searches list request.
@@ -20,7 +20,7 @@ use Widop\Twitter\Rest\AbstractRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class SavedSearchesListRequest extends AbstractRequest
+class SavedSearchesListRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

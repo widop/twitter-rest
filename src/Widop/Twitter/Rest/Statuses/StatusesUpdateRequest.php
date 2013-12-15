@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Statuses;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -37,7 +37,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class StatusesUpdateRequest extends AbstractRequest
+class StatusesUpdateRequest extends AbstractPostRequest
 {
     /**
      * Creates a statuses update request.
@@ -82,13 +82,5 @@ class StatusesUpdateRequest extends AbstractRequest
     protected function getPath()
     {
         return '/statuses/update.json';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

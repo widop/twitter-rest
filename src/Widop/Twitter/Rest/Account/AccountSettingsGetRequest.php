@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Account;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 
 /**
  * Account settings GET request.
@@ -20,7 +20,7 @@ use Widop\Twitter\Rest\AbstractRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class AccountSettingsGetRequest extends AbstractRequest
+class AccountSettingsGetRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

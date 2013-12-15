@@ -144,14 +144,14 @@ class Twitter
      */
     private function sendRequest(OAuthRequest $request)
     {
-        if ($request->getMethod() === 'GET') {
+        if ($request->getMethod() === OAuthRequest::METHOD_GET) {
             return $this->getOAuth()->getHttpAdapter()->getContent(
                 $request->getUrl(),
                 $request->getHeaders()
             );
         }
 
-        if ($request->getMethod() === 'POST') {
+        if ($request->getMethod() === OAuthRequest::METHOD_POST) {
             // The http adapter encodes POST datas itself.
             $postParameters = array();
             foreach ($request->getPostParameters() as $name => $value) {

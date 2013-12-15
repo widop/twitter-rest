@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Lists;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractPostRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -33,7 +33,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-abstract class AbstractListsMembersPostRequest extends AbstractRequest
+abstract class AbstractListsMembersPostRequest extends AbstractPostRequest
 {
     /**
      * {@inheritdoc}
@@ -75,13 +75,5 @@ abstract class AbstractListsMembersPostRequest extends AbstractRequest
         if (isset($optionBag['user_id'])) {
             unset ($optionBag['screen_name']);
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getMethod()
-    {
-        return 'POST';
     }
 }

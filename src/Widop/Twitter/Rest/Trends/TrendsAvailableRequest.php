@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Trends;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 
 /**
  * Trends available request.
@@ -20,7 +20,7 @@ use Widop\Twitter\Rest\AbstractRequest;
  *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class TrendsAvailableRequest extends AbstractRequest
+class TrendsAvailableRequest extends AbstractGetRequest
 {
     /**
      * {@inheritdoc}

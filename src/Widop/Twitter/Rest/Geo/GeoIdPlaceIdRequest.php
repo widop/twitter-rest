@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Geo;
 
-use Widop\Twitter\Rest\AbstractRequest;
+use Widop\Twitter\Rest\AbstractGetRequest;
 use Widop\Twitter\Rest\Options\OptionBag;
 use Widop\Twitter\Rest\Options\OptionInterface;
 
@@ -25,7 +25,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
   *
  * @author Geoffrey Brier <geoffrey.brier@gmail.com>
  */
-class GeoIdPlaceIdRequest extends AbstractRequest
+class GeoIdPlaceIdRequest extends AbstractGetRequest
 {
     /**
      * Creates a geo id place id request.
