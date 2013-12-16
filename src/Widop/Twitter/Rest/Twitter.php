@@ -33,15 +33,18 @@ class Twitter
     /**
      * Creates a twitter client.
      *
-     * @param \Widop\Twitter\OAuth\OAuth                $oauth The OAuth.
-     * @param \Widop\Twitter\OAuth\Token\TokenInterface $token The token.
-     * @param string                                    $url   The base url.
+     * @param \Widop\Twitter\OAuth\OAuth                     $oauth The OAuth.
+     * @param \Widop\Twitter\OAuth\Token\TokenInterface|null $token The token.
+     * @param string                                         $url   The base url.
      */
-    public function __construct(OAuth $oauth, TokenInterface $token, $url = 'https://api.twitter.com/1.1')
+    public function __construct(OAuth $oauth, TokenInterface $token = null, $url = 'https://api.twitter.com/1.1')
     {
         $this->setUrl($url);
         $this->setOAuth($oauth);
-        $this->setToken($token);
+
+        if ($token !== null) {
+            $this->setToken($token);
+        }
     }
 
     /**
@@ -87,7 +90,7 @@ class Twitter
     /**
      * Gets the OAuth token.
      *
-     * @return \Widop\Twitter\OAuth\Token\TokenInterface The token.
+     * @return \Widop\Twitter\OAuth\Token\TokenInterface|null The token.
      */
     public function getToken()
     {
@@ -109,12 +112,17 @@ class Twitter
      *
      * @param \Widop\Twitter\Rest\AbstractRequest $request The Twitter request.
      *
+     * @throws \RuntimeException If there is no token.
      * @throws \RuntimeException If the response is not valid JSON.
      *
      * @return array The response.
      */
     public function send(AbstractRequest $request)
     {
+        if ($this->getToken() === null) {
+            throw new \RuntimeException('You must provide a token in order to send a request.');
+        }
+
         $request = $request->createOAuthRequest();
         $request->setBaseUrl($this->getUrl());
         $this->getOAuth()->signRequest($request, $this->getToken());
