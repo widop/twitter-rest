@@ -50,7 +50,7 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
 
         $this->token = $this->getMock('Widop\Twitter\OAuth\Token\TokenInterface');
 
-        $this->twitter = new Twitter($this->oauth, $this->token);
+        $this->twitter = new Twitter($this->oauth);
     }
 
     /**
@@ -65,10 +65,10 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultState()
     {
-        $this->twitter = new Twitter($this->oauth, $this->token);
+        $this->twitter = new Twitter($this->oauth);
 
         $this->assertSame($this->oauth, $this->twitter->getOAuth());
-        $this->assertSame($this->token, $this->twitter->getToken());
+        $this->assertNull($this->twitter->getToken());
         $this->assertSame('https://api.twitter.com/1.1', $this->twitter->getUrl());
     }
 
@@ -135,9 +135,21 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
             ->method('createOAuthRequest')
             ->will($this->returnValue($oauthRequest));
 
+        $this->twitter->setToken($this->token);
         $result = $this->twitter->send($request);
 
         $this->assertSame(array('json' => 'valid'), $result);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage You must provide a token in order to send a request.
+     */
+    public function testSendWithoutToken()
+    {
+        $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')->getMockForAbstractClass();
+
+        $this->twitter->send($request);
     }
 
     /**
@@ -170,6 +182,7 @@ EOF;
             ->method('createOAuthRequest')
             ->will($this->returnValue($oauthRequest));
 
+        $this->twitter->setToken($this->token);
         $this->twitter->send($request);
     }
 
@@ -196,6 +209,7 @@ EOF;
             ->method('createOAuthRequest')
             ->will($this->returnValue($oauthRequest));
 
+        $this->twitter->setToken($this->token);
         $this->twitter->send($request);
     }
 }
