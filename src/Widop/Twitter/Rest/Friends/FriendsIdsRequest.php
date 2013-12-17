@@ -11,8 +11,8 @@
 
 namespace Widop\Twitter\Rest\Friends;
 
+use Widop\Twitter\Options\OptionBag;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
  * Friends ids request.

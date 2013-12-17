@@ -11,8 +11,8 @@
 
 namespace Widop\Twitter\Rest\Followers;
 
+use Widop\Twitter\Options\OptionBag;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
  * Followers list request.

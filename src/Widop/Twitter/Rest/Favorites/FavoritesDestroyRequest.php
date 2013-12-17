@@ -11,9 +11,9 @@
 
 namespace Widop\Twitter\Rest\Favorites;
 
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 use Widop\Twitter\Rest\AbstractPostRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
-use Widop\Twitter\Rest\Options\OptionInterface;
 
 /**
  * Favorites destroy request.

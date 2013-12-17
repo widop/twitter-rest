@@ -11,8 +11,8 @@
 
 namespace Widop\Twitter\Rest\Users;
 
+use Widop\Twitter\Options\OptionBag;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
  * Users contributees request.

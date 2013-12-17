@@ -11,9 +11,9 @@
 
 namespace Widop\Twitter\Rest\Geo;
 
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
-use Widop\Twitter\Rest\Options\OptionInterface;
 
 /**
  * Geo id place id request.
