@@ -11,8 +11,8 @@
 
 namespace Widop\Twitter\Rest\Friendships;
 
+use Widop\Twitter\Options\OptionBag;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
  * Friendships no retweets ids request.

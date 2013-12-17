@@ -12,8 +12,8 @@
 namespace Widop\Twitter\Rest;
 
 use Widop\Twitter\OAuth\OAuthRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
-use Widop\Twitter\Rest\Options\OptionInterface;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Twitter request.
@@ -22,7 +22,7 @@ use Widop\Twitter\Rest\Options\OptionInterface;
  */
 abstract class AbstractRequest
 {
-    /** @var \Widop\Twitter\Rest\Options\OptionBag */
+    /** @var \Widop\Twitter\Options\OptionBag */
     private $optionBag;
 
     /**
@@ -117,7 +117,7 @@ abstract class AbstractRequest
     /**
      * Configures the option bag.
      *
-     * @param \Widop\Twitter\Rest\Options\OptionBag $optionBag The option bag.
+     * @param \Widop\Twitter\Options\OptionBag $optionBag The option bag.
      */
     protected function configureOptionBag(OptionBag $optionBag)
     {
@@ -127,7 +127,7 @@ abstract class AbstractRequest
     /**
      * Validates the option bag.
      *
-     * @param \Widop\Twitter\Rest\Options\OptionBag $optionBag The option bag.
+     * @param \Widop\Twitter\Options\OptionBag $optionBag The option bag.
      */
     protected function validateOptionBag(OptionBag $optionBag)
     {

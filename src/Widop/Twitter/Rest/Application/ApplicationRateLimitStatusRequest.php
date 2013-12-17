@@ -11,8 +11,8 @@
 
 namespace Widop\Twitter\Rest\Application;
 
+use Widop\Twitter\Options\OptionBag;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
 
 /**
  * Application rate limit status request.

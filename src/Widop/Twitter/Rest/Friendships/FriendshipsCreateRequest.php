@@ -11,9 +11,9 @@
 
 namespace Widop\Twitter\Rest\Friendships;
 
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 use Widop\Twitter\Rest\AbstractPostRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
-use Widop\Twitter\Rest\Options\OptionInterface;
 
 /**
  * Friendships create request.

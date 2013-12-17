@@ -11,9 +11,9 @@
 
 namespace Widop\Twitter\Rest\Users;
 
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 use Widop\Twitter\Rest\AbstractGetRequest;
-use Widop\Twitter\Rest\Options\OptionBag;
-use Widop\Twitter\Rest\Options\OptionInterface;
 
 /**
  * Users suggestions slug request.

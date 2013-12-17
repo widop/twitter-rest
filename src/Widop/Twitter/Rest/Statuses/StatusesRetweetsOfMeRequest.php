@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Statuses;
 
-use Widop\Twitter\Rest\Options\OptionBag;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Statuses retweets of me request.

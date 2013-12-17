@@ -46,5 +46,5 @@ We love contributors! The library is open source, if you'd like to contribute, f
 
 ## License
 
-The Wid'op Twitter library is under the MIT license. For the full copyright and license information, please read the
-[LICENSE](LICENSE) file that was distributed with this source code.
+The Wid'op Twitter REST library is under the MIT license. For the full copyright and license information, please read
+the [LICENSE](LICENSE) file that was distributed with this source code.

@@ -11,7 +11,7 @@
 
 namespace Widop\Twitter\Rest\Lists;
 
-use Widop\Twitter\Rest\Options\OptionBag;
+use Widop\Twitter\Options\OptionBag;
 
 /**
  * Lists subscribers request.

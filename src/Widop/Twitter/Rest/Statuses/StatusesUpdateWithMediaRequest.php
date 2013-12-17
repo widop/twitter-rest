@@ -11,8 +11,8 @@
 
 namespace Widop\Twitter\Rest\Statuses;
 
-use Widop\Twitter\Rest\Options\OptionBag;
-use Widop\Twitter\Rest\Options\OptionInterface;
+use Widop\Twitter\Options\OptionBag;
+use Widop\Twitter\Options\OptionInterface;
 
 /**
  * Statuses update with media request.
