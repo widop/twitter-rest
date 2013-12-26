@@ -16,15 +16,20 @@ $ sudo mv composer.phar /usr/local/bin/composer
 ## Define dependencies
 
 Create a ``composer.json`` file at the root directory of your project and simply require the
-``widop/twitter`` package:
+``widop/twitter-rest`` package:
 
 ```
 {
     "require": {
-        "widop/twitter": "*@dev"
-    }
+        "widop/twitter-rest": "~1.0@dev"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
 ```
+
+For now, you need to set the `minimum-stability` option to dev and the `prefer-stable` flag to true as the library is
+in a early stage (not yet stable).
 
 ## Install dependencies
 
