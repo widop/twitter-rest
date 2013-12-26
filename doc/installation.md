@@ -19,9 +19,11 @@ Create a ``composer.json`` file at the root directory of your project and simply
 ``widop/twitter`` package:
 
 ```
+"minimum-stability": "dev",
+    "prefer-stable": true,
 {
     "require": {
-        "widop/twitter": "*@dev"
+        "widop/twitter-rest": "*@dev"
     }
 }
 ```
