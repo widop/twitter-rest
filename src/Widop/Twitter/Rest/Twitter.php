@@ -127,16 +127,6 @@ class Twitter
         $request->setBaseUrl($this->getUrl());
         $this->getOAuth()->signRequest($request, $this->getToken());
 
-        $response = $this->getOAuth()->sendRequest($request);
-        $result = json_decode($response, true);
-
-        if (($result === null) || (isset($result['errors']))) {
-            throw new \RuntimeException(sprintf(
-                'The http response is not valid JSON. (%s)',
-                str_replace("\n", '', $response)
-            ));
-        }
-
-        return $result;
+        return $this->getOAuth()->sendRequest($request);
     }
 }
