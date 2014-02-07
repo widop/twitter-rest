@@ -28,38 +28,43 @@ Note that is also possible to pass a "bearer" token (eg: application access toke
 ``` php
 use Widop\Twitter\OAuth\Token\BearerToken;
 
-$bearerToken = new BearerToken('foo');
-
-$twitter = new Twitter($oauth, $token);
-
-// or
-
-$twitter->setToken($bearerToken);
+$twitter->setToken(new BearerToken('foo'));
 ```
 
-Now, we got a twitter client, you can get/set the OAuth client, get/set the access token or send a request to the
-Twitter API.
+Here, a simple example where we will destroy the tweet "123":
 
 ``` php
-use Widop\Twitter\Rest\Statuses\StatusesDestroyRequest;
-
-$oauth = $twitter->getOAuth();
-$twitter->setOAuth($oauth);
-
-$token = $twitter->getToken();
-$twitter->setToken($token);
-```
-
-Here, we will destroy the tweet "123":
-
-``` php
+use Widop\Twitter\OAuth\OAuthException,
 use Widop\Twitter\Rest\Statuses\StatusesDestroyRequest;
 
 $request = new StatusesDestroyRequest('123');
-$twitter->send($request);
+
+try {
+    $response = $twitter->send($request);
+} catch (OAuthException $e) {
+    // Something goes wrong.
+} catch (\Exception $e) {
+    // Something goes very wrong.
+}
 ```
 
-For now, the build-in requests are:
+The `send` method returns a `Widop\Twitter\OAuth\OAuthResponse` which gives you access to the decoded response data,
+the underlying http response, the current rate limits and more:
+
+``` php
+$httpResponse = $response->getHttpResponse();
+
+$data = $response->getData();
+$id = $response->getData('id');
+
+$limit = $response->getRateLimitLimit();
+$remaining = $response->getRateLimitRemaining();
+$reset = $response->getRateLimitReset();
+
+$format = $response->getFormat();
+```
+
+Additionally, it allows you to send all the available requests which are listed here:
 
  * Timeline
   * [`/statuses/home_timeline`](statuses/home_timeline.md): Returns the authenticated user's tweets and retweets.

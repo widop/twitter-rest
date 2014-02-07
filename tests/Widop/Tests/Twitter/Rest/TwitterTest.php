@@ -120,11 +120,15 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo($this->token)
             );
 
+        $response = $this->getMockBuilder('Widop\Twitter\OAuth\OAuthResponse')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->oauth
             ->expects($this->once())
             ->method('sendRequest')
             ->with($this->identicalTo($oauthRequest))
-            ->will($this->returnValue('{"json":"valid"}'));
+            ->will($this->returnValue($response));
 
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
             ->setMethods(array('createOAuthRequest'))
@@ -136,9 +140,8 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($oauthRequest));
 
         $this->twitter->setToken($this->token);
-        $result = $this->twitter->send($request);
 
-        $this->assertSame(array('json' => 'valid'), $result);
+        $this->assertSame($response, $this->twitter->send($request));
     }
 
     /**
@@ -149,67 +152,6 @@ class TwitterTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')->getMockForAbstractClass();
 
-        $this->twitter->send($request);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The http response is not valid JSON.
-     */
-    public function testSendWithInvalidXmlResponse()
-    {
-        $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-
-        $body = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<errors>
-  <error code="34">Sorry, that page does not exist</error>
-</errors>
-EOF;
-
-        $this->oauth
-            ->expects($this->once())
-            ->method('sendRequest')
-            ->with($this->identicalTo($oauthRequest))
-            ->will($this->returnValue($body));
-
-        $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
-            ->setMethods(array('createOAuthRequest'))
-            ->getMockForAbstractClass();
-
-        $request
-            ->expects($this->once())
-            ->method('createOAuthRequest')
-            ->will($this->returnValue($oauthRequest));
-
-        $this->twitter->setToken($this->token);
-        $this->twitter->send($request);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The http response is not valid JSON.
-     */
-    public function testSendWithInvalidJsonResponse()
-    {
-        $oauthRequest = $this->getMock('Widop\Twitter\OAuth\OAuthRequest');
-
-        $this->oauth
-            ->expects($this->once())
-            ->method('sendRequest')
-            ->with($this->identicalTo($oauthRequest))
-            ->will($this->returnValue('{"errors":[{"message":"Sorry, that page does not exist","code":34}]}'));
-
-        $request = $this->getMockBuilder('Widop\Twitter\Rest\AbstractRequest')
-            ->setMethods(array('createOAuthRequest'))
-            ->getMockForAbstractClass();
-
-        $request
-            ->expects($this->once())
-            ->method('createOAuthRequest')
-            ->will($this->returnValue($oauthRequest));
-
-        $this->twitter->setToken($this->token);
         $this->twitter->send($request);
     }
 }

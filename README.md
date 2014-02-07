@@ -27,7 +27,7 @@ $twitter = new Twitter($oauth, $token);
 
 // Then, send a request to the Twitter API!
 $request = new StatusesUpdateRequest('Yeah, I\'m currently updating my status!')
-$tweet = $twitter->send($request);
+$tweet = $twitter->send($request)->getData();
 ```
 
 ## Documentation
